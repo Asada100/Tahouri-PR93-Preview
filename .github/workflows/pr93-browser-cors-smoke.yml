@@ -1,0 +1,51 @@
+name: PR93 live Pages-to-Worker CORS smoke test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/pr93-browser-cors-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cors-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify browser preflight and live health API
+        env:
+          API_BASE: https://tahouri-license-api-pr93-e2e.asadtahouri1986.workers.dev
+          PAGE_ORIGIN: https://asada100.github.io
+        run: |
+          node --input-type=module <<'NODE'
+          const api = process.env.API_BASE;
+          const origin = process.env.PAGE_ORIGIN;
+          const preflight = await fetch(api + "/api/activate", {
+            method: "OPTIONS",
+            headers: {
+              Origin: origin,
+              "Access-Control-Request-Method": "POST",
+              "Access-Control-Request-Headers": "content-type"
+            }
+          });
+          const preflightOrigin = preflight.headers.get("access-control-allow-origin");
+          console.log("Preflight:", preflight.status, "allow-origin:", preflightOrigin);
+          if (preflight.status !== 204 || preflightOrigin !== origin) {
+            throw new Error("CORS preflight failed");
+          }
+
+          const health = await fetch(api + "/api/health", {
+            method: "GET",
+            headers: { Origin: origin }
+          });
+          const healthOrigin = health.headers.get("access-control-allow-origin");
+          const body = await health.json();
+          console.log("Health:", health.status, "allow-origin:", healthOrigin);
+          console.log("Service:", body.status, "database:", body.database, "schema:", body.schemaVersion);
+          if (!health.ok || healthOrigin !== origin || body.ok !== true || body.database !== "connected") {
+            throw new Error("Live API health/CORS check failed");
+          }
+          console.log("PASS: GitHub Pages origin can complete preflight and read the live Worker health endpoint.");
+          NODE
