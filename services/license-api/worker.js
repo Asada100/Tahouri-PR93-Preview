@@ -32,7 +32,7 @@ function json(data, status = 200, extraHeaders = {}) {
 function error(message, status = 400, headers = {}) { return json({ ok: false, message }, status, headers); }
 function nowIso() { return new Date().toISOString(); }
 function cookieHeader(value, maxAge) {
-  return `${COOKIE_NAME}=${value}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${maxAge}`;
+  return `${COOKIE_NAME}=${value}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${maxAge}`;
 }
 function allowedOrigin(request, env) {
   const origin = request.headers.get("Origin");
