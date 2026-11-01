@@ -1,0 +1,1 @@
+window.WordPuzzleHint={letter(data,index=0){return data?.word?.[index]||null},revealCell(data){return data?.path?.[0]||null}};

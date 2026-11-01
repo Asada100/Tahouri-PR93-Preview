@@ -1,0 +1,22 @@
+{
+  "id": "mathShapePatternGrade2",
+  "title": "🧩 کارگاه الگوها",
+  "description": "الگوهای تکراری و الگوهای رو به رشد را کشف کن.",
+  "grade": "grade2",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.0",
+  "puzzle": {
+    "type": "pattern",
+    "source": "generated",
+    "dataType": "text",
+    "mode": "shapes",
+    "instruction": "به ترتیب شکل‌ها و تعداد آن‌ها توجه کن و گزینهٔ درست را پیدا کن."
+  },
+  "settings": {
+    "questionSource": "generated",
+    "questions": 10,
+    "randomQuestionOrder": true
+  }
+}

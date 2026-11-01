@@ -1,0 +1,7 @@
+/* Tahouri Edu Platform — CSS architecture contract */
+/*
+   Layer order is reserved for future migrations. Existing approved styles
+   remain unchanged until their complete ownership stylesheet is available.
+*/
+
+@layer tahouri-reset, tahouri-shell, tahouri-page, tahouri-engine, tahouri-overrides;

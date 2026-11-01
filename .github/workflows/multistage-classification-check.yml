@@ -1,0 +1,37 @@
+name: Multi-stage Classification Engine Checks
+
+on:
+  pull_request:
+    branches: ["master"]
+    paths:
+      - "engine/question/classificationProvider.js"
+      - "engine/activity/classificationEngine.js"
+      - "engine/activity/classificationTypes/classificationTypeRegistry.js"
+      - "engine/activity/classificationTypes/choiceClassification.js"
+      - "engine/activity/classificationTypes/multiStageClassification.js"
+      - "engine/activity/activityResult.js"
+      - "tests/multistage-classification-engine.test.js"
+      - ".github/workflows/multistage-classification-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  classification-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        run: |
+          node --check engine/question/classificationProvider.js
+          node --check engine/activity/classificationEngine.js
+          node --check engine/activity/classificationTypes/multiStageClassification.js
+          node --check tests/multistage-classification-engine.test.js
+      - name: Test multi-stage progression, scoring, resume, and completion
+        run: node tests/multistage-classification-engine.test.js

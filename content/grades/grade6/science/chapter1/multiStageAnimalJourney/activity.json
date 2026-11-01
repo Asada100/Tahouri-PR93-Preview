@@ -1,0 +1,70 @@
+{
+  "id": "multiStageAnimalJourney",
+  "title": "سفر در دنیای جانوران",
+  "description": "سه مرحله دسته‌بندی؛ از تشخیص مهره‌دارها تا کشیدن و رها کردن جانوران",
+  "grade": "grade6",
+  "subject": "science",
+  "chapter": "chapter1",
+  "engine": "classification",
+  "settings": {
+    "scorePerCorrect": 10,
+    "allowRetry": true,
+    "shuffleItems": false
+  },
+  "classification": {
+    "mode": "multiStage",
+    "instruction": "هر مرحله را کامل کن تا مرحله بعدی باز شود.",
+    "stages": [
+      {
+        "id": "vertebrate-check",
+        "title": "مهره‌دار یا بی‌مهره؟",
+        "mode": "choice",
+        "instruction": "هر جانور را انتخاب کن و سپس دسته درست را بزن.",
+        "categories": [
+          { "id": "vertebrate", "title": "مهره‌دار" },
+          { "id": "invertebrate", "title": "بی‌مهره" }
+        ],
+        "items": [
+          { "id": "journey-fish", "content": "ماهی", "type": "text", "categoryId": "vertebrate" },
+          { "id": "journey-butterfly", "content": "پروانه", "type": "text", "categoryId": "invertebrate" },
+          { "id": "journey-cat", "content": "گربه", "type": "text", "categoryId": "vertebrate" },
+          { "id": "journey-worm", "content": "کرم خاکی", "type": "text", "categoryId": "invertebrate" }
+        ]
+      },
+      {
+        "id": "vertebrate-groups",
+        "title": "گروه مهره‌داران",
+        "mode": "choice",
+        "instruction": "این بار گروه درست هر مهره‌دار را انتخاب کن.",
+        "categories": [
+          { "id": "mammal", "title": "پستاندار" },
+          { "id": "bird", "title": "پرنده" },
+          { "id": "fish", "title": "ماهی" },
+          { "id": "reptile", "title": "خزنده" }
+        ],
+        "items": [
+          { "id": "journey-dolphin", "content": "دلفین", "type": "text", "categoryId": "mammal" },
+          { "id": "journey-eagle", "content": "عقاب", "type": "text", "categoryId": "bird" },
+          { "id": "journey-trout", "content": "قزل‌آلا", "type": "text", "categoryId": "fish" },
+          { "id": "journey-turtle", "content": "لاک‌پشت", "type": "text", "categoryId": "reptile" }
+        ]
+      },
+      {
+        "id": "final-drag",
+        "title": "چالش پایانی",
+        "mode": "dragDrop",
+        "instruction": "جانوران را با ماوس یا انگشت بگیر و در دسته مناسب رها کن.",
+        "categories": [
+          { "id": "final-vertebrate", "title": "مهره‌دار" },
+          { "id": "final-invertebrate", "title": "بی‌مهره" }
+        ],
+        "items": [
+          { "id": "journey-frog", "content": "قورباغه", "type": "text", "categoryId": "final-vertebrate" },
+          { "id": "journey-spider", "content": "عنکبوت", "type": "text", "categoryId": "final-invertebrate" },
+          { "id": "journey-snake", "content": "مار", "type": "text", "categoryId": "final-vertebrate" },
+          { "id": "journey-snail", "content": "حلزون", "type": "text", "categoryId": "final-invertebrate" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+[
+    {
+        "number": 12,
+        "answer": true
+    },
+    {
+        "number": 14,
+        "answer": false
+    },
+    {
+        "number": 18,
+        "answer": true
+    },
+    {
+        "number": 25,
+        "answer": false
+    },
+    {
+        "number": 27,
+        "answer": true
+    },
+    {
+        "number": 31,
+        "answer": false
+    },
+    {
+        "number": 36,
+        "answer": true
+    },
+    {
+        "number": 40,
+        "answer": false
+    },
+    {
+        "number": 45,
+        "answer": true
+    },
+    {
+        "number": 50,
+        "answer": false
+    }
+]

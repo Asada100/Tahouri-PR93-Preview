@@ -1,0 +1,22 @@
+{
+    "id": "sequenceGeneratedDemo",
+    "title": "دنباله تصادفی",
+    "description": "عضو بعدی الگو را پیدا کن",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "engine": "puzzle",
+    "settings": {
+        "scorePerCorrect": 10
+    },
+    "puzzle": {
+        "type": "sequence",
+        "source": "generated",
+        "pattern": "add",
+        "length": 5,
+        "start": 7,
+        "stepMin": 2,
+        "stepMax": 6,
+        "instruction": "عدد بعدی الگو را پیدا کن"
+    }
+}

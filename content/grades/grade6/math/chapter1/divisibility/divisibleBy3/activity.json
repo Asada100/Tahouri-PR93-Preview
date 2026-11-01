@@ -1,0 +1,23 @@
+{
+    "id": "divisibleBy3",
+    "title": "بخش‌پذیری بر ۳",
+    "description": "تشخیص بخش‌پذیری اعداد بر ۳",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "type": "quiz",
+    "engine": "quiz",
+    "version": "1.0",
+    "settings": {
+        "questions": 10,
+        "minNumber": 1,
+        "maxNumber": 10000,
+        "scorePerCorrect": 10,
+        "allowRetry": true,
+        "mode": "divisibility",
+        "divisor": 3,
+        "questionSource": "mixed",
+        "bankQuestions": 5,
+        "generatedQuestions": 5
+    }
+}

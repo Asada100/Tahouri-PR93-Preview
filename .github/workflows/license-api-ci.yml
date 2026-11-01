@@ -1,0 +1,47 @@
+name: License API CI
+
+on:
+  push:
+    paths:
+      - "services/license-api/**"
+      - "engine/core/licenseManager.js"
+      - "engine/core/activationGate.js"
+      - "engine/core/tahouriEntitlementStore.js"
+      - "engine/core/tahouriEntitlementVerifier.js"
+      - ".github/workflows/license-api-ci.yml"
+  pull_request:
+    paths:
+      - "services/license-api/**"
+      - ".github/workflows/license-api-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/license-api
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Release artifact check
+        run: npm run release-check
+
+      - name: Security test
+        run: npm run security-test
+
+      - name: Client license safety test
+        run: node client-license-safety-test.js
+
+      - name: Integration test
+        run: npm run integration-test
+      - name: Migration verification
+        run: npm run migration-test
+      - name: Backup and recovery verification
+        run: npm run backup-recovery-test

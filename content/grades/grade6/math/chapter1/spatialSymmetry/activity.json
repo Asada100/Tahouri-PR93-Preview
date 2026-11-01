@@ -1,0 +1,21 @@
+{
+  "id": "mathSpatialSymmetry",
+  "title": "تقارن شکل‌ها",
+  "description": "شکل‌ها را نسبت به خط تقارن کامل کن.",
+  "grade": "grade6",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "2.0",
+  "puzzle": {
+    "type": "spatial",
+    "mode": "symmetry",
+    "source": "generated",
+    "difficulty": "medium",
+    "generator": {
+      "difficulty": "medium",
+      "axis": "random",
+      "randomPlacement": true
+    }
+  }
+}

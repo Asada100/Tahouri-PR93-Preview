@@ -1,0 +1,225 @@
+{
+  "mode": "error-hunt",
+  "instruction": "در شش بیت، دقیقاً ۱۰ واژهٔ نادرست را پیدا کن و شکل درست هرکدام را بنویس. در هر بار اجرا، واژه‌های هدف به‌صورت تصادفی انتخاب می‌شوند.",
+  "lesson": "setayesh",
+  "settings": {
+    "keyboardMode": "guided",
+    "allowRetry": true,
+    "scorePerCorrect": 1,
+    "questionCount": 6,
+    "randomizeQuestions": true,
+    "randomizeErrors": true,
+    "dynamicErrorCount": 10
+  },
+  "questions": [
+    {
+      "id": "setayesh-verse-01",
+      "mode": "error-hunt",
+      "verseText": "به نام آن که جان را فکرت آموخت\nچراغ دل به نور جان برافروخت",
+      "errors": [],
+      "explanation": "بیت درست: به نام آن که جان را فکرت آموخت / چراغ دل به نور جان برافروخت",
+      "dynamicErrorPool": [
+        {
+          "wordIndex": 6,
+          "correctWord": "فکرت",
+          "wrongVariants": [
+            "فرتک"
+          ],
+          "spellingRule": "جابه‌جایی ترتیب حروف"
+        },
+        {
+          "wordIndex": 7,
+          "correctWord": "آموخت",
+          "wrongVariants": [
+            "اموخت"
+          ],
+          "spellingRule": "آ/ا"
+        },
+        {
+          "wordIndex": 8,
+          "correctWord": "چراغ",
+          "wrongVariants": [
+            "چراق"
+          ],
+          "spellingRule": "غ/ق"
+        }
+      ]
+    },
+    {
+      "id": "setayesh-verse-02",
+      "mode": "error-hunt",
+      "verseText": "ز فضلش هر دو عالم گشت روشن\nز فیضش خاک آدم گشت گلشن",
+      "errors": [],
+      "explanation": "بیت درست: ز فضلش هر دو عالم گشت روشن / ز فیضش خاک آدم گشت گلشن",
+      "dynamicErrorPool": [
+        {
+          "wordIndex": 1,
+          "correctWord": "فضلش",
+          "wrongVariants": [
+            "فزلش",
+            "فظلش"
+          ],
+          "spellingRule": "ض/ز/ظ"
+        },
+        {
+          "wordIndex": 4,
+          "correctWord": "عالم",
+          "wrongVariants": [
+            "علم"
+          ],
+          "spellingRule": "حذف حرف"
+        },
+        {
+          "wordIndex": 8,
+          "correctWord": "فیضش",
+          "wrongVariants": [
+            "فیظش",
+            "فیذش"
+          ],
+          "spellingRule": "ض/ذ/ظ"
+        }
+      ]
+    },
+    {
+      "id": "setayesh-verse-03",
+      "mode": "error-hunt",
+      "verseText": "جهان جمله فروغ نور حق دان\nحق اندر وی ز پیدایی است پنهان",
+      "errors": [],
+      "explanation": "بیت درست: جهان جمله فروغ نور حق دان / حق اندر وی ز پیدایی است پنهان",
+      "dynamicErrorPool": [
+        {
+          "wordIndex": 1,
+          "correctWord": "جمله",
+          "wrongVariants": [
+            "جملا"
+          ],
+          "spellingRule": "ه/ا در پایان واژه"
+        },
+        {
+          "wordIndex": 2,
+          "correctWord": "فروغ",
+          "wrongVariants": [
+            "فروق"
+          ],
+          "spellingRule": "غ/ق"
+        },
+        {
+          "wordIndex": 10,
+          "correctWord": "پیدایی",
+          "wrongVariants": [
+            "پیدای"
+          ],
+          "spellingRule": "حذف حرف"
+        },
+        {
+          "wordIndex": 12,
+          "correctWord": "پنهان",
+          "wrongVariants": [
+            "پهنان"
+          ],
+          "spellingRule": "جابه‌جایی ترتیب حروف"
+        }
+      ]
+    },
+    {
+      "id": "setayesh-verse-04",
+      "mode": "error-hunt",
+      "verseText": "خرد را نیست تاب نور آن روی\nبرو از بهر او چشم دگر جوی",
+      "errors": [],
+      "explanation": "بیت درست: خرد را نیست تاب نور آن روی / برو از بهر او چشم دگر جوی",
+      "dynamicErrorPool": [
+        {
+          "wordIndex": 0,
+          "correctWord": "خرد",
+          "wrongVariants": [
+            "خورد"
+          ],
+          "spellingRule": "افزودن حرف"
+        },
+        {
+          "wordIndex": 3,
+          "correctWord": "تاب",
+          "wrongVariants": [
+            "طاب"
+          ],
+          "spellingRule": "ت/ط"
+        },
+        {
+          "wordIndex": 9,
+          "correctWord": "بهر",
+          "wrongVariants": [
+            "بحر"
+          ],
+          "spellingRule": "انتخاب واژه بر اساس بافت جمله"
+        }
+      ]
+    },
+    {
+      "id": "setayesh-verse-05",
+      "mode": "error-hunt",
+      "verseText": "در او هر چه بگفتند از کم و بیش\nنشانی داده‌اند از دیده خویش",
+      "errors": [],
+      "explanation": "بیت درست: در او هر چه بگفتند از کم و بیش / نشانی داده‌اند از دیدهٔ خویش",
+      "dynamicErrorPool": [
+        {
+          "wordIndex": 4,
+          "correctWord": "بگفتند",
+          "wrongVariants": [
+            "بگفنتد"
+          ],
+          "spellingRule": "جابه‌جایی ترتیب حروف"
+        },
+        {
+          "wordIndex": 6,
+          "correctWord": "کم",
+          "wrongVariants": [
+            "کمم"
+          ],
+          "spellingRule": "افزودن حرف تکراری"
+        },
+        {
+          "wordIndex": 8,
+          "correctWord": "بیش",
+          "wrongVariants": [
+            "بیشش"
+          ],
+          "spellingRule": "افزودن حرف"
+        }
+      ]
+    },
+    {
+      "id": "setayesh-verse-06",
+      "mode": "error-hunt",
+      "verseText": "به نزد آن که جانش در تجلی است\nهمه عالم کتاب حق تعالی است",
+      "errors": [],
+      "explanation": "بیت درست: به نزد آن که جانش در تجلی است / همه عالم کتاب حق تعالی است",
+      "dynamicErrorPool": [
+        {
+          "wordIndex": 6,
+          "correctWord": "تجلی",
+          "wrongVariants": [
+            "تجلیی"
+          ],
+          "spellingRule": "افزودن حرف"
+        },
+        {
+          "wordIndex": 9,
+          "correctWord": "عالم",
+          "wrongVariants": [
+            "علم"
+          ],
+          "spellingRule": "حذف حرف"
+        },
+        {
+          "wordIndex": 12,
+          "correctWord": "تعالی",
+          "wrongVariants": [
+            "تعالای",
+            "تعالیی"
+          ],
+          "spellingRule": "افزودن حرف"
+        }
+      ]
+    }
+  ]
+}

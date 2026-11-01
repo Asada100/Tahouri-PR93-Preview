@@ -1,0 +1,132 @@
+{
+  "mode": "missing-letter",
+  "instruction": "پسر دلبندم، املای کلمات را با توجه به متن درس کامل کنید.",
+  "settings": {
+    "keyboardMode": "guided",
+    "allowRetry": true,
+    "scorePerCorrect": 10
+  },
+  "questions": [
+    {
+      "id": "lesson1-01",
+      "mode": "missing-letter",
+      "answer": "نهراسیم",
+      "masked": "نـ....ـراسیم",
+      "missing": [
+        {
+          "start": 1,
+          "length": 1
+        }
+      ],
+      "spellingRule": "h",
+      "lesson": "lesson1",
+      "allowedLetters": [
+        "ه",
+        "ح"
+      ]
+    },
+    {
+      "id": "lesson1-02",
+      "mode": "missing-letter",
+      "answer": "محبت",
+      "masked": "مـ....ـبت",
+      "missing": [
+        {
+          "start": 1,
+          "length": 1
+        }
+      ],
+      "spellingRule": "h",
+      "lesson": "lesson1",
+      "allowedLetters": [
+        "ه",
+        "ح"
+      ]
+    },
+    {
+      "id": "lesson1-03",
+      "mode": "missing-letter",
+      "answer": "شخصیت",
+      "masked": "شخـ....ـیت",
+      "missing": [
+        {
+          "start": 2,
+          "length": 1
+        }
+      ],
+      "spellingRule": "s-sad-se",
+      "lesson": "lesson1",
+      "allowedLetters": [
+        "س",
+        "ص",
+        "ث"
+      ]
+    },
+    {
+      "id": "lesson1-04",
+      "mode": "missing-letter",
+      "answer": "خواست",
+      "masked": "خـ....ـاست",
+      "missing": [
+        {
+          "start": 1,
+          "length": 1
+        }
+      ],
+      "spellingRule": null,
+      "lesson": "lesson1"
+    },
+    {
+      "id": "lesson1-05",
+      "mode": "missing-letter",
+      "answer": "برخاست",
+      "masked": "برخـ....ـست",
+      "missing": [
+        {
+          "start": 3,
+          "length": 1
+        }
+      ],
+      "spellingRule": null,
+      "lesson": "lesson1"
+    },
+    {
+      "id": "lesson1-06",
+      "mode": "missing-letter",
+      "answer": "خالقی",
+      "masked": "خالـ....ـی",
+      "missing": [
+        {
+          "start": 3,
+          "length": 1
+        }
+      ],
+      "spellingRule": "gh",
+      "lesson": "lesson1",
+      "allowedLetters": [
+        "ق",
+        "غ"
+      ]
+    },
+    {
+      "id": "lesson1-07",
+      "mode": "missing-letter",
+      "answer": "موزون",
+      "masked": "مو....ون",
+      "missing": [
+        {
+          "start": 2,
+          "length": 1
+        }
+      ],
+      "allowedLetters": [
+        "ز",
+        "ذ",
+        "ض",
+        "ظ"
+      ],
+      "spellingRule": "z",
+      "lesson": "lesson1"
+    }
+  ]
+}

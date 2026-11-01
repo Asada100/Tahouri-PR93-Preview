@@ -1,0 +1,249 @@
+﻿TAHOURI EDU PLATFORM
+PUZZLE MODULE STATUS
+Version: 2.0
+Date: 2026-08-21
+
+========================================
+PUZZLE ARCHITECTURE
+========================================
+
+Puzzle Engine:
+engine/activity/puzzleEngine.js
+Version 2.3
+
+Puzzle Provider:
+engine/question/puzzleProvider.js
+Version 2.0
+
+Puzzle Screen:
+engine/ui/puzzleScreen.js
+Version 2.0
+
+Puzzle Type Registry:
+engine/activity/puzzleTypes/puzzleTypeRegistry.js
+Version 1.0
+
+
+========================================
+PUZZLE TYPES
+========================================
+
+1. sequence
+   Handler:
+   engine/activity/puzzleTypes/sequencePuzzle.js
+   Status: READY
+
+2. ordering
+   Handler:
+   engine/activity/puzzleTypes/orderingPuzzle.js
+   Status: READY
+
+3. visualMath
+   Handler:
+   engine/activity/puzzleTypes/visualMathPuzzle.js
+   Status: READY
+
+4. inputOutput
+   Handler:
+   engine/activity/puzzleTypes/inputOutputPuzzle.js
+   Status: READY
+
+5. sentence
+   Handler:
+   engine/activity/puzzleTypes/sentencePuzzle.js
+   Status: READY
+
+   Modes:
+   - sentenceOrder
+   - sentenceGrammar
+
+5. grid
+   Handler:
+   engine/activity/puzzleTypes/gridPuzzle.js
+   Version: 2.0
+   Status: READY
+
+6. wordGrid
+   Handler:
+   engine/activity/puzzleTypes/wordGridPuzzle.js
+   Version: 2.0
+   Status: READY
+
+7. crossGrid
+   Handler:
+   engine/activity/puzzleTypes/crossGridPuzzle.js
+   Version: 2.0
+   Internal concept:
+   Cross Math
+   Status: TECHNICALLY READY
+
+
+========================================
+TEST STATUS
+========================================
+
+Sequence:
+PASS
+
+Ordering:
+PASS
+
+Visual Math:
+PASS
+
+Input / Output:
+PASS
+
+Sentence Order:
+PASS
+
+Sentence Grammar:
+PASS
+
+Grid:
+PASS
+Note:
+Final UX validation still recommended.
+
+Word Grid:
+PASS
+
+Cross Math:
+PASS technically
+UX/design requires future refinement.
+
+
+========================================
+IMPORTANT DESIGN NOTE
+========================================
+
+The Puzzle architecture is technically operational.
+
+However, some puzzle types are not yet sufficiently clear
+from a student's educational/UX perspective.
+
+Especially:
+
+- Grid
+- Word Grid
+- Cross Math
+
+Cross Math requires a later dedicated UX/design pass.
+
+Current Cross Math concept:
+
+- Horizontal paths
+- Vertical paths
+- Operations
+- Multiple cells
+- Missing cells
+- Mathematical relationships
+
+The final Cross Math design should be based on a clearer
+educational model and later visual examples.
+
+Do NOT redesign the Puzzle architecture in the next stage
+unless a real technical problem is found.
+
+
+========================================
+CURRENT PROJECT DECISION
+========================================
+
+Puzzle module is considered CLOSED FOR NOW.
+
+Do not add new Puzzle types.
+Do not restructure Puzzle folders.
+Do not replace Puzzle Engine.
+Do not replace Puzzle Provider.
+Do not replace Puzzle Screen.
+
+Future work:
+UX refinement only, especially Cross Math.
+
+
+========================================
+NEXT PROJECT STAGE
+========================================
+
+Open a new conversation for the next engine.
+
+When continuing:
+
+1. Preserve existing architecture.
+2. Do not redesign project structure.
+3. Follow existing:
+   Engine
+   Provider
+   Handler
+   Screen
+   ActivityManager
+   EventManager
+   Result/Lifecycle
+
+4. Build the next engine incrementally.
+5. First create handlers/files.
+6. Then integrate Engine.
+7. Then Provider.
+8. Then Screen.
+9. Then test.
+10. Finally update project status.
+
+Existing architecture remains authoritative.
+
+
+========================================
+END OF PUZZLE STATUS
+========================================
+
+
+========================================
+SUPPLEMENT — CURRENT STATUS 2026-10-19
+========================================
+
+این بخش وضعیت قبلی را برای Pattern و Spatial تکمیل می‌کند؛
+نسخه‌های قدیمی‌تر بالا به‌تنهایی مرجع وضعیت فعلی این دو Handler نیستند.
+
+Pattern:
+- Handler: engine/activity/puzzleTypes/patternPuzzle.js
+- Version in code: 1.0
+- Registered in PuzzleTypeRegistry: YES
+- Current grade-6 activity: pattern/activity.json
+- Automated regression coverage: tests/pattern-spatial-regression.test.js
+
+Spatial:
+- Handler: engine/activity/puzzleTypes/spatialPuzzle.js
+- Version in code: 2.0
+- Registered in PuzzleTypeRegistry: YES
+- Modes confirmed in code: legacy, place, symmetry
+- Current grade-6 activities: spatial/activity.json, spatialSymmetry/activity.json
+- Coordinate Plane numeric mode: NOT VERIFIED AS IMPLEMENTED
+- Point Symmetry mode: NOT VERIFIED AS IMPLEMENTED
+- Automated regression coverage: tests/pattern-spatial-regression.test.js
+
+CI:
+- Workflow: .github/workflows/pattern-spatial-regression.yml
+- Latest verified run:
+  https://github.com/Asada100/Tahouri-Edu-Platform/actions/runs/39303450322
+- Result: PASS
+- Additional validation: duplicate piece IDs, duplicate targets, invalid grids, placement swaps and numeric/text Pattern answers are covered by regression tests.
+
+Audit report:
+docs/PATTERN_SPATIAL_AUDIT_v1.0.md
+
+Architecture decision:
+- Do not replace PuzzleEngine or restructure Puzzle folders.
+- Keep Spatial as a Puzzle Type.
+- Expand test coverage before adding coordinate-plane or point-symmetry behavior.
+- Real mobile/browser interaction still needs practical testing.
+
+========================================
+END SUPPLEMENT
+========================================
+
+
+SUPPLEMENT — SPATIAL UI CLEANUP 2026-10-19
+- Spatial drag now cleans up temporary listeners and the drag ghost on pointercancel.
+- Removed the shadowed duplicate showSpatialSymmetry renderer; one active implementation remains.
+- CI passed: https://github.com/Asada100/Tahouri-Edu-Platform/actions/runs/39312358315
+- Actual mobile/browser interaction still needs practical verification.

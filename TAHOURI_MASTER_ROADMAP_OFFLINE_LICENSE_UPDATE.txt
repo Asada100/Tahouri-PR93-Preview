@@ -1,0 +1,785 @@
+TAHOURI EDU PLATFORM
+MASTER ROADMAP — OFFLINE-FIRST / LICENSE / DISTRIBUTION / UPDATE
+Version: 1.0
+Date: 2026-09-24
+Status: PLANNING APPROVED — IMPLEMENTATION NOT STARTED
+
+PURPOSE
+This file is the persistent working roadmap for the next major Tahouri stage.
+Use it as the primary continuity/reference document when continuing this work in a new conversation.
+The goal is to implement the approved requirements without repeatedly asking the user to restate them.
+
+IMPORTANT WORK RULES
+1. Preserve the existing Tahouri architecture.
+2. Do not redesign the project structure unless a real technical requirement proves it necessary.
+3. Do not break or rewrite working Activity, Puzzle, Quiz, Memory, Profile, Lock, or Activation systems unnecessarily.
+4. Before code changes, inspect the current project/Git state.
+5. One change = one clear goal; test it; then commit.
+6. Do not rollback/restore working history unless explicitly requested.
+7. Prefer complete replacement files when a code file must be replaced.
+8. Do not ask the user to paste large project files when the files can be read from the project/Git.
+9. Do not start implementation of the new licensing/distribution architecture until the architecture has been checked against the current platform.
+10. Test environment and production environment must remain separate.
+11. No production secret, private signing key, gateway secret, admin credential, or database credential may be placed in APK/EXE or browser/client code.
+
+========================================
+1. FINAL PRODUCT / DISTRIBUTION MODEL
+========================================
+
+Tahouri final users should receive packaged applications:
+- Android APK
+- Windows EXE
+- Optional distribution through Iranian/local app stores and direct download
+- Optional future Google Play distribution
+
+GitHub is for:
+- source control
+- development
+- version history
+- backup
+- release/build workflow
+
+GitHub is NOT the normal end-user distribution channel.
+
+Distribution channels must be replaceable and must not be coupled to the core application architecture.
+
+Target architecture:
+
+Git / Development
+        |
+        v
+     Build
+        |
+        v
+   Release files
+        |
+   +----+---------+----------------+
+   |              |                |
+ Direct/local     Bazaar           Myket
+ download         (future)         (future)
+   |
+ Google Play (future/optional)
+
+The application core remains the same.
+
+========================================
+2. OFFLINE-FIRST PRINCIPLE
+========================================
+
+Normal educational use must work without Internet.
+
+The installed application contains:
+- educational content
+- games
+- images/assets
+- engines
+- local progress
+- local profile data
+- local settings
+- locally cached license entitlement
+
+Internet is optional for normal learning.
+
+Internet is required/used only when available for online control-plane functions such as:
+- first license activation/verification
+- optional license refresh/revocation check
+- update availability check
+- downloading an update
+- future online Interaction features
+- future optional synchronization
+
+If Internet is unavailable:
+- the application must continue working according to the locally valid license
+- no ordinary game/content screen should fail because of missing Internet
+- update checks should fail silently/non-disruptively
+
+========================================
+3. LICENSE ARCHITECTURE
+========================================
+
+Separate these concepts:
+
+License != Code != Payment != Profile
+
+License:
+- annual educational entitlement
+- tied to product/academic year
+- server-issued
+- locally verifiable after activation
+
+Code:
+- activation/gift mechanism
+- random/unpredictable
+- not hardcoded into the application
+- stored server-side as a secure representation where appropriate
+
+Payment:
+- verified server-side through a payment gateway
+- never trusted solely from a client redirect/result
+
+Profile:
+- existing Tahouri profile system remains separate
+- no requirement to collect student names/personal identity for the licensing service
+
+License should support:
+- activation
+- expiry
+- renewal
+- revocation
+- extension
+- status
+- audit trail
+
+========================================
+4. ACADEMIC-YEAR EXPIRY
+========================================
+
+License validity is based on academic year, NOT 365 days from purchase.
+
+Required business rule:
+- license for academic year XXXX-XXXX+1 expires on 31 Shahrivar of the next academic year boundary
+- exact server-side timezone must be defined as Iran Standard Time
+- exact end timestamp must be server-controlled and documented
+- the app must display the exact expiry date to the user
+
+Example concept:
+Academic year 1405-1406
+=> valid through 1406/06/31
+=> exact expiry timestamp defined centrally by the server.
+
+The user should be informed:
+- current license year
+- exact expiry date
+- whether renewal/next year's activation is available
+
+========================================
+5. OFFLINE LICENSE SECURITY
+========================================
+
+Preferred design:
+- server creates a signed license/entitlement
+- private signing key exists ONLY on server
+- application contains only the public verification key
+- application verifies signature locally
+- license claims include at minimum:
+  - licenseId
+  - product/application identifier
+  - academicYear
+  - validUntil
+  - optional device/install binding data if that policy is approved
+  - version/schema information as needed
+
+Never:
+- embed private signing keys
+- embed admin secrets
+- embed gateway secrets
+- trust a client-generated expiry date
+- treat a plain editable JSON/license file as sufficient security
+
+Need later design carefully for:
+- local clock manipulation
+- device changes
+- reinstall behavior
+- license transfer
+- revocation when offline
+- maximum offline grace/refresh policy, if any
+
+Do not choose these policies until the product decision is made.
+
+========================================
+6. DEVICE BINDING — DECISION REQUIRED
+========================================
+
+Not finalized yet.
+
+Possible models to evaluate:
+A) no device binding
+B) one device
+C) limited number of devices
+D) device binding with controlled transfer/reset
+
+Requirements for evaluation:
+- usability for families
+- reinstall/replacement device handling
+- offline operation
+- fraud resistance
+- support burden
+- privacy
+
+Do not implement a final device-binding policy before user approval.
+
+========================================
+7. ACTIVATION
+========================================
+
+Existing Tahouri activation architecture is the starting point.
+
+Known existing components include:
+- activationGate.js
+- licenseManager.js
+- licenseScreen.js
+- licenseHistoryManager.js
+
+Do not replace them blindly.
+
+Required final behavior:
+- production activation uses the License Server
+- test/development activation exists from the beginning
+- production and test data are separate
+- no real license is currently available, so a safe development/test flow is mandatory
+- activation must not require student personal identity
+- grade/academic-year constraints already defined by the platform must remain compatible with the new license model
+
+========================================
+8. GIFT SYSTEM
+========================================
+
+No fixed hardcoded gift code.
+
+Admin panel must allow:
+- create gift campaign/code
+- securely generate random unique codes
+- set product/grade if applicable
+- set academic year
+- set expiry
+- set usage count
+- activate/deactivate
+- revoke
+- inspect usage
+- audit actions
+
+Potential future extension:
+- claim links/tokens
+But this is not required for the first implementation.
+
+Gift codes must not be stored as readable secrets in the client application.
+
+========================================
+9. PAYMENT SYSTEM
+========================================
+
+Required model:
+Customer
+ -> payment gateway
+ -> server-side verification
+ -> successful verified payment
+ -> license issuance
+ -> app activation
+
+Rules:
+- payment success must be verified server-side
+- do not trust browser/client success messages
+- gateway credentials stay on server
+- do not expose a personal bank account number inside the app as a substitute for a payment system
+- payment provider must be replaceable through an abstraction layer
+
+Need later decide:
+- automatic activation after verified payment
+- code delivery inside the app
+- both options
+
+Preferred architecture should support both without changing the core app.
+
+========================================
+10. ADMIN PANEL
+========================================
+
+Admin panel is required so the owner can operate the service without developer intervention.
+
+Minimum features:
+- secure admin login
+- preferably MFA
+- license list/search
+- create license where appropriate
+- activate/deactivate/revoke
+- extend/renew
+- gift creation
+- random gift code generation
+- gift usage tracking
+- payment records/status
+- expiry display
+- audit log
+- environment separation
+- basic reporting
+
+Future:
+- role-based access
+- multiple administrators
+- more detailed reporting
+
+Every sensitive admin action should be auditable.
+
+========================================
+11. UPDATE SYSTEM
+========================================
+
+Home screen must support update notification.
+
+When a new version is available:
+- show a moving/animated text message on Home
+- visual style should match the existing Dashboard message style
+- message is informational, not aggressive advertising
+- include:
+  - "به‌روزرسانی"
+  - "بعداً"
+
+Example intent:
+"نسخه جدید طهوری آماده است؛ برای دریافت امکانات و محتوای جدید، برنامه را به‌روزرسانی کنید."
+
+If user selects "بعداً":
+- close/dismiss the current update prompt
+- application continues normally
+- a future reminder may appear according to a non-annoying policy
+
+If update succeeds:
+- show a short thank-you/success message
+- e.g. "به‌روزرسانی با موفقیت انجام شد؛ ممنون که همراه طهوری هستید."
+- after a short delay return Home to its normal previous state
+
+If update cannot be performed:
+- do not block normal learning
+- do not damage the current installation
+- user can continue using the existing valid version
+
+Update checks:
+- only when Internet is available
+- must fail safely when offline
+- must not make the core application dependent on the update server
+
+Update system must support:
+- version manifest
+- release metadata
+- optional download
+- version compatibility
+- rollback-safe installation strategy where technically appropriate
+- migration handling if data schema changes
+- optional updates, not mandatory unless a critical/security reason is later approved
+
+========================================
+12. DISTRIBUTION INFRASTRUCTURE
+========================================
+
+Need to evaluate Iranian/local hosting/CDN/object-storage options.
+
+Goals:
+- lower download cost
+- better access for Iranian users
+- reliable APK/EXE downloads
+- independent from GitHub
+- support multiple release versions
+- support update manifests/files
+
+Important:
+Distribution hosting and License Server should be separate services.
+
+Changing download hosting must NOT require redesigning:
+- License
+- Payment
+- Admin
+- Application architecture
+
+Current provider choice is NOT finalized.
+
+========================================
+13. APP STORES
+========================================
+
+Potential channels:
+- بازار
+- مایکت
+- Google Play
+- direct/local distribution
+- future additional stores
+
+Principle:
+Store = distribution channel, not application architecture.
+
+Before publication, investigate current official requirements for each store, especially:
+- developer account requirements
+- package/signing requirements
+- target audience
+- child safety
+- privacy/data safety
+- content rating
+- payment rules
+- update rules
+- store-specific SDK requirements
+- current fees/commission where relevant
+
+Do not hardcode store-specific logic into the educational engine.
+
+========================================
+14. CHILD-SAFE COMMERCIAL MODEL
+========================================
+
+Tahouri is primarily cultural/educational.
+Approximate product principle:
+- 95% cultural/educational
+- not an advertising platform
+
+Do NOT make generic third-party advertising the core revenue model.
+
+Reasons:
+- target audience includes children
+- uncontrolled ad networks can display inappropriate content
+- ad content can be inconsistent with educational goals
+- store policies for children add additional restrictions
+
+Preferred alternatives:
+1. annual educational license
+2. Tahouri's own educational content/products
+3. educational sponsorship
+4. carefully controlled internal announcements
+
+Internal announcements should be:
+- educational
+- product-related
+- clearly distinguishable from lesson/game content
+- non-invasive
+
+========================================
+15. FUTURE INTERACTION / ONLINE FEATURES
+========================================
+
+A future Interaction section may require Internet.
+
+It does not exist as a completed feature yet.
+
+Architecture requirement:
+- Interaction must be isolated from the offline educational core
+- no dependency on it for normal games
+- server-side moderation/safety must be considered
+- child-focused privacy/safety requirements must be considered before implementation
+- if social features are introduced, review store rules and child-safety requirements first
+
+========================================
+16. SECURITY BASELINE
+========================================
+
+Required:
+- HTTPS
+- server-side authorization
+- rate limiting
+- brute-force protection
+- secure code storage/hash strategy
+- signed licenses
+- private signing key server-only
+- server-only gateway secrets
+- secure admin authentication
+- audit logs
+- test/production separation
+- database backups
+- revocation mechanism
+- input validation
+- abuse monitoring
+
+Later:
+- key rotation strategy
+- disaster recovery
+- incident response
+- monitoring/alerts
+
+========================================
+17. CURRENT TAHOURI ARCHITECTURE COMPATIBILITY
+========================================
+
+Existing architecture is authoritative.
+
+Known structure includes:
+- index.html
+- style.css
+- app.js
+- assets/
+- content/
+- data/
+- engine/
+- future/
+
+Activity architecture:
+ActivityScreen
+ -> App.startActivity()
+ -> ActivityManager.load()
+ -> EngineManager
+ -> Engine
+ -> activityReady
+ -> UI
+
+Correct ActivityManager path:
+engine/activity/activityManager.js
+
+Do not move it to engine/core/.
+
+Existing working systems must remain protected:
+- Quiz
+- Memory
+- Puzzle
+- Jigsaw
+- Profile Manager
+- Content Locks
+- Activation
+- Result/Lifecycle behavior
+
+The new License/Update/Distribution architecture should integrate around the current system rather than replace working engines.
+
+========================================
+18. DEVELOPMENT / TEST ENVIRONMENT
+========================================
+
+Because no real production activation code exists yet:
+
+Create from the beginning:
+- development environment
+- test License Server/database
+- test gift generation
+- test payment simulation/mock
+- test license issuance
+- test expiry scenarios
+- test revocation
+- test update manifest
+- test update flow
+
+Rules:
+- test credentials must never work in production
+- production credentials must never be committed to Git
+- test licenses must be visibly distinguishable internally
+- no accidental production purchase or activation during development
+
+========================================
+19. TEST MATRIX
+========================================
+
+Before considering the system complete, test at minimum:
+
+Offline:
+- app starts without Internet
+- valid cached license works
+- games work
+- progress works
+- no update server does not block use
+
+Activation:
+- valid code
+- invalid code
+- expired code
+- wrong product
+- wrong academic year
+- repeated use
+- revoked license
+- network interruption
+
+Gift:
+- generated code
+- valid use
+- exhausted usage
+- expired gift
+- revoked gift
+
+Payment:
+- successful payment
+- failed payment
+- interrupted payment
+- fake client success
+- server verification failure
+
+Update:
+- no update
+- update available
+- user chooses later
+- successful update
+- failed download
+- interrupted download
+- offline update check
+- successful update thank-you message
+- return to normal Home state
+
+Distribution:
+- APK installation
+- EXE installation
+- direct download
+- store builds
+- version upgrade
+- data preservation across upgrade
+
+========================================
+20. IMPLEMENTATION ORDER
+========================================
+
+Do NOT implement everything at once.
+
+Stage 0 — Architecture audit
+- inspect current Git/project
+- map existing activation/license files
+- identify exact integration points
+- identify files that must remain untouched
+- finalize unresolved product decisions
+
+Stage 1 — License domain model
+- License entities
+- academic-year rules
+- signed entitlement model
+- test environment
+
+Stage 2 — License API
+- activation
+- validation
+- renewal/extension
+- revocation
+- test endpoints
+
+Stage 3 — Admin panel
+- authentication
+- license management
+- gifts
+- audit log
+- test controls
+
+Stage 4 — Payment
+- provider abstraction
+- gateway integration
+- server verification
+- automatic license issuance
+
+Stage 5 — Client activation integration
+- connect existing activation UI/manager to server
+- cache signed license
+- offline verification
+- expiry display
+
+Stage 6 — Update infrastructure
+- release manifest
+- version checking
+- safe download/install strategy
+- offline behavior
+
+Stage 7 — Home update UI
+- moving message
+- update button
+- later button
+- success/thank-you message
+- return to normal Home
+
+Stage 8 — Distribution
+- local/Iranian hosting evaluation
+- APK/EXE release pipeline
+- direct distribution
+
+Stage 9 — Store readiness
+- Bazaar
+- Myket
+- Google Play
+- child/privacy/compliance preparation
+
+Stage 10 — Security hardening
+- rate limiting
+- abuse protection
+- key rotation
+- monitoring
+- backups
+- disaster recovery
+
+Stage 11 — Full test
+- run complete test matrix
+- verify offline-first behavior
+- verify no regression in existing educational systems
+
+Stage 12 — Release
+- production credentials/configuration
+- production build
+- release package
+- documentation
+- publish through selected channels
+
+========================================
+21. UNRESOLVED PRODUCT DECISIONS
+========================================
+
+Must be explicitly decided before implementation of the affected area:
+
+1. Device binding:
+   no binding / 1 device / multiple devices / transfer policy
+
+2. Purchase flow:
+   automatic activation / code / both
+
+3. Offline license refresh policy:
+   completely offline until fixed expiry / periodic online refresh with grace policy
+
+4. Update policy:
+   optional only / mandatory for critical versions
+
+5. Distribution provider:
+   Iranian/local hosting/CDN provider not finalized
+
+6. Store priority:
+   direct distribution / Bazaar / Myket / Google Play order
+
+========================================
+22. COMPLETION CRITERIA
+========================================
+
+This roadmap is complete only when:
+- APK works offline
+- EXE works offline
+- valid license works offline
+- activation is securely server-backed
+- license is cryptographically verifiable
+- payment is server-verified
+- gifts are dynamically manageable
+- admin panel is operational
+- update system is optional/non-blocking
+- Home update message behaves as specified
+- direct distribution works
+- selected stores can receive compliant builds
+- child-focused commercial model is safe and controlled
+- existing Tahouri educational architecture remains intact
+- complete test matrix passes
+- production secrets are not exposed in client code
+
+========================================
+23. CONTINUITY RULE
+========================================
+
+When a new conversation starts about this stage:
+1. Read this file first.
+2. Read the current Tahouri project status files.
+3. Inspect the current Git state.
+4. Continue from the last completed roadmap stage.
+5. Do not ask the user to repeat this roadmap unless a decision explicitly marked "UNRESOLVED PRODUCT DECISIONS" must be made.
+6. Update this file as milestones are completed.
+7. Keep the roadmap as a living technical/product record.
+
+END OF MASTER ROADMAP
+
+
+========================================
+PROGRESS UPDATE — 2026-09-24
+========================================
+
+Phase 0 — Architecture audit: COMPLETED
+- Architecture baseline committed separately.
+
+Phase 1 — License domain foundation: COMPLETED
+- Signed entitlement envelope defined.
+- Client-side public-key verification added.
+- Local entitlement store added.
+- Anonymous installation identifier added.
+
+Phase 2 — Development license service: COMPLETED
+- Test License API added under services/license-api.
+- LicenseManager now has an isolated remote activation bridge.
+- ActivationGate uses remote signed activation when the service layer is available.
+- Existing synchronous/local activation path remains as compatibility fallback.
+- Existing educational engines were not modified.
+
+Security note:
+- The included License API is TEST/DEVELOPMENT ONLY.
+- No private signing key is stored in Git.
+- Production backend, payment verification, admin authentication, rate limiting, database, key management and deployment are still required before commercial release.
+- The fixed test codes are development fixtures and must never be used in production.
+
+Next implementation boundary:
+- Test activation end-to-end.
+- Then Admin/Gift backend modules.
+- Then Payment adapter.
+- Then Update client/Home update notice.
+- Then production hardening and distribution.

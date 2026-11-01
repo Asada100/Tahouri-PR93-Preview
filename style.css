@@ -1,0 +1,366 @@
+/* =====================================
+   Tahouri Edu Platform
+   UI Foundation v2.3
+
+   This file contains only global foundation rules.
+   Page / shell / engine styles live in their owned stylesheets.
+   ===================================== */
+
+:root {
+    --ui-bg: #f4f7fb;
+    --ui-surface: #ffffff;
+    --ui-surface-soft: #f8fbff;
+    --ui-text: #172033;
+    --ui-text-body: #1f2937;
+    --ui-muted: #667085;
+    --ui-border: #dbe4ef;
+    --ui-border-soft: #e4e9f0;
+    --ui-focus: rgba(37, 99, 235, .20);
+    --ui-radius-card: 20px;
+    --ui-radius-card-large: 22px;
+    --ui-shadow-card: 0 7px 20px rgba(31, 41, 55, .06);
+    --ui-shadow-card-hover: 0 11px 26px rgba(31, 41, 55, .09);
+    --ui-shell-bottom-space: 76px;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "B Yekan", "Tahoma", sans-serif;
+    background: var(--ui-bg);
+    color: var(--ui-text-body);
+    padding-bottom: var(--ui-shell-bottom-space);
+}
+
+#app,
+#app * {
+    box-sizing: border-box;
+}
+
+#app {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#app > .screen {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#app > .screen:has(> .tahouri-app-header) {
+    width: min(920px, 100%);
+    min-height: calc(100vh - var(--ui-shell-bottom-space));
+    margin: 0 auto;
+    padding: 0 18px 40px;
+    direction: rtl;
+}
+
+#app > .screen:has(> .tahouri-app-header) > h1 {
+    margin: 22px auto 8px;
+    text-align: center;
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.35;
+    font-weight: 800;
+    color: var(--ui-text);
+}
+
+#app > .screen:has(> .tahouri-app-header) > p {
+    margin: 8px auto;
+    max-width: 760px;
+    line-height: 1.9;
+    text-align: center;
+    color: var(--ui-muted);
+}
+
+#app > .screen:has(> .tahouri-app-header) > hr {
+    width: min(760px, 100%);
+    margin: 20px auto;
+    border: 0;
+    border-top: 1px solid var(--ui-border-soft);
+}
+
+#app > .screen:has(> .tahouri-app-header) > .home-buttons,
+#app > .screen:has(> .tahouri-app-header) > .daily-message-home,
+#app > .screen:has(> .tahouri-app-header) > .tahouri-home-banner {
+    width: min(760px, 100%);
+}
+
+@media (max-width: 700px) {
+    #app > .screen:has(> .tahouri-app-header) {
+        padding: 0 12px 28px;
+    }
+
+    #app > .screen:has(> .tahouri-app-header) > h1 {
+        margin-top: 24px;
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --ui-shell-bottom-space: 72px;
+    }
+
+    body {
+        padding-bottom: var(--ui-shell-bottom-space);
+    }
+
+    #app > .screen:has(> .tahouri-app-header) {
+        min-height: calc(100vh - var(--ui-shell-bottom-space));
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+
+/* =====================================
+   Jigsaw Puzzle UI
+   ===================================== */
+.jigsawScreen {
+    width: min(920px, 100%);
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+    text-align: center;
+}
+.jigsawHeader { margin-bottom: 18px; }
+.jigsawHeader h1 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 34px); }
+.jigsawObjective, .jigsawInstruction { margin: 6px 0; color: var(--ui-muted); line-height: 1.8; }
+.jigsawBoard {
+    width: min(720px, calc(100vw - 32px));
+    aspect-ratio: 1 / 1;
+    margin: 20px auto;
+    display: grid;
+    gap: 2px;
+    background: #222;
+    border: 3px solid #222;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.jigsawPiece {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background-repeat: no-repeat;
+    background-size: var(--jigsaw-image-size);
+    background-color: #eee;
+    cursor: grab;
+    touch-action: none;
+}
+.jigsawPiece:active { cursor: grabbing; }
+.jigsawPiece:focus-visible { outline: 3px solid var(--ui-focus); outline-offset: -3px; }
+.jigsawControls { margin: 16px 0 8px; }
+.jigsawControls button { padding: 10px 22px; border: 1px solid var(--ui-border); border-radius: 10px; background: var(--ui-surface); cursor: pointer; }
+.jigsawMoves { margin-top: 8px; color: var(--ui-muted); }
+@media (max-width: 600px) {
+    .jigsawScreen { padding: 18px 10px 30px; }
+    .jigsawBoard { width: calc(100vw - 20px); }
+}
+
+
+/* =====================================
+   Persian Web Fonts
+   ===================================== */
+@font-face {
+    font-family: "Tahouri Yekan";
+    src: url("assets/fonts/BYekan.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tahouri Nazanin";
+    src: url("assets/fonts/BNazanin.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tahouri Faraz";
+    src: url("assets/fonts/Mj_Faraz.TTF") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tahouri Nastaliq";
+    src: url("assets/fonts/IranNastaliq.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+
+/* =====================================
+   Spatial Placement Puzzle
+   ===================================== */
+
+.spatialPlaceScreen {
+    user-select: none;
+}
+
+.spatialPlacementLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+    width: min(100%, 760px);
+    margin: 0 auto;
+}
+
+.spatialBoardWrap {
+    width: min(100%, 560px);
+}
+
+.spatialBoard {
+    display: grid;
+    grid-template-columns: repeat(var(--spatial-cols), minmax(70px, 1fr));
+    gap: 10px;
+    width: 100%;
+    aspect-ratio: 1;
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background: rgba(255,255,255,.72);
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.spatialDropCell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 70px;
+    border: 2px dashed rgba(90,90,90,.28);
+    border-radius: 16px;
+    background: rgba(245,245,245,.65);
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.spatialDropCell:hover {
+    border-color: rgba(70,110,180,.55);
+    background: rgba(235,242,255,.8);
+}
+
+.spatialDropCell.filled {
+    border-style: solid;
+    background: rgba(255,255,255,.95);
+}
+
+.spatialSlotHint {
+    font-size: 28px;
+    opacity: .18;
+}
+
+.spatialPlacedPiece,
+.spatialDragPiece,
+.spatialDragGhost {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    font-size: 34px;
+    line-height: 1;
+    background: rgba(255,255,255,.98);
+    box-shadow: 0 5px 14px rgba(0,0,0,.12);
+}
+
+.spatialDragPiece {
+    cursor: grab;
+    touch-action: none;
+}
+
+.spatialDragPiece:active,
+.spatialPlacedPiece:active {
+    cursor: grabbing;
+}
+
+.spatialPlacedPiece {
+    cursor: grab;
+    touch-action: none;
+}
+
+.spatialTray {
+    width: min(100%, 560px);
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 18px;
+    background: rgba(255,255,255,.58);
+}
+
+.spatialTrayTitle {
+    margin-bottom: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.spatialTrayPieces {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    min-height: 76px;
+}
+
+.spatialProgress {
+    margin: 8px auto 16px;
+    text-align: center;
+    opacity: .75;
+}
+
+.spatialCheckButton {
+    margin-top: 18px;
+}
+
+.spatialDragGhost {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+    transform: scale(1.08);
+    opacity: .92;
+}
+
+@media (max-width: 600px) {
+    .spatialBoard {
+        gap: 7px;
+        padding: 8px;
+    }
+
+    .spatialDropCell {
+        min-height: 58px;
+        border-radius: 12px;
+    }
+
+    .spatialPlacedPiece,
+    .spatialDragPiece,
+    .spatialDragGhost {
+        width: 52px;
+        height: 52px;
+        font-size: 29px;
+        border-radius: 13px;
+    }
+}

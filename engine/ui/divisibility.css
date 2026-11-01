@@ -1,0 +1,74 @@
+/* Divisibility activity-group screen */
+.divisibilityScreen {
+    width: min(680px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 24px 0 32px;
+    text-align: center;
+}
+
+.divisibilityScreen h1 { margin: 0 0 12px; }
+.divisibilityScreen > p { color: #667085; margin-bottom: 20px; }
+
+#divisibilityActivitiesContainer {
+    display: grid;
+    gap: 12px;
+    width: min(560px, 100%);
+    margin: 0 auto;
+}
+
+.divisibilityChildBtn {
+    min-height: 58px;
+    padding: 13px 20px;
+    border: 2px solid #dbe4ef;
+    border-radius: 16px;
+    background: #fff;
+    color: #172033;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 14px rgba(15,23,42,.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
+}
+
+.divisibilityChildBtn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: #93b4e8;
+    background: #f7faff;
+    box-shadow: 0 8px 18px rgba(15,23,42,.08);
+}
+
+.divisibilityChildBtn:disabled { cursor: not-allowed; opacity: .65; }
+
+.divisibilityChildIcon {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 7px;
+    box-sizing: border-box;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #eef4ff;
+    color: #2563eb;
+    font-weight: 800;
+    direction: ltr;
+}
+
+.divisibilityChildBtn:disabled .divisibilityChildIcon {
+    background: #f1f5f9;
+    color: #667085;
+}
+
+.legacyDivisibilityBack {
+    display: none !important;
+}
+
+@media (max-width: 480px) {
+    .divisibilityScreen {
+        width: min(100% - 20px, 680px);
+        padding-top: 16px;
+    }
+}

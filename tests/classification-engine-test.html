@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Engine Test</title>
+    <style>
+        body { font-family: sans-serif; max-width: 760px; margin: 30px auto; padding: 20px; line-height: 1.8; }
+        #result { white-space: pre-wrap; background: #f5f5f5; padding: 16px; border-radius: 8px; }
+        .ok { color: green; } .fail { color: #b00020; }
+    </style>
+</head>
+<body>
+    <h1>Classification Engine Runtime Test</h1>
+    <div id="result">در حال اجرای تست...</div>
+
+    <script src="../engine/activity/activityResult.js"></script>
+    <script src="../engine/question/classificationProvider.js"></script>
+    <script src="../engine/activity/classificationTypes/classificationTypeRegistry.js"></script>
+    <script src="../engine/activity/classificationTypes/choiceClassification.js"></script>
+    <script src="../engine/activity/classificationEngine.js"></script>
+
+    <script>
+    (async function () {
+        const output = document.getElementById('result');
+
+        try {
+            const response = await fetch('../content/grades/grade6/science/chapter1/animalClassification/activity.json');
+            if (!response.ok) throw new Error('activity.json HTTP ' + response.status);
+
+            const activityData = await response.json();
+            const content = window.ClassificationProvider.getContent(activityData);
+
+            if (!content || content.items.length !== 6) {
+                throw new Error('Expected 6 items, got ' + (content?.items?.length ?? 'none'));
+            }
+
+            window.ClassificationEngine.start(activityData);
+
+            const answers = content.items.map(item => ({
+                itemId: item.id,
+                categoryId: item.categoryId
+            }));
+
+            answers.forEach(answer => {
+                window.ClassificationEngine.classifyItem(answer.itemId, answer.categoryId);
+            });
+
+            const state = window.ClassificationEngine.getState();
+            const result = window.ClassificationEngine.getResult();
+
+            const checks = {
+                started: state.started === true,
+                totalItems: state.totalItems === 6,
+                classifiedItems: state.classifiedItems === 6,
+                correctAnswers: state.correctAnswers === 6,
+                wrongAnswers: state.wrongAnswers === 0,
+                moves: state.moves === 6,
+                score: state.score === 60,
+                percentage: result && result.percentage === 100,
+                stars: result && result.stars === 5,
+                completed: result && result.completed === true
+            };
+
+            const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([name]) => name);
+
+            if (failed.length) {
+                throw new Error('Failed checks: ' + failed.join(', '));
+            }
+
+            const report = {
+                status: 'PASS',
+                started: state.started,
+                totalItems: state.totalItems,
+                classifiedItems: state.classifiedItems,
+                correctAnswers: state.correctAnswers,
+                wrongAnswers: state.wrongAnswers,
+                moves: state.moves,
+                score: state.score,
+                percentage: result.percentage,
+                stars: result.stars,
+                completed: result.completed
+            };
+
+            console.log('CLASSIFICATION RUNTIME TEST PASS', report);
+            output.className = 'ok';
+            output.textContent = JSON.stringify(report, null, 2);
+        } catch (error) {
+            console.error('CLASSIFICATION RUNTIME TEST FAIL', error);
+            output.className = 'fail';
+            output.textContent = 'FAIL\n\n' + error.message;
+        }
+    })();
+    </script>
+</body>
+</html>

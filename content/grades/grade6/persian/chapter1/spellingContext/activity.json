@@ -1,0 +1,20 @@
+{
+  "mode": "context",
+  "instruction": "عبارت را با دقت بشنو و آن را کامل بنویس.",
+  "settings": {
+    "keyboardMode": "full",
+    "allowRetry": true,
+    "scorePerCorrect": 10,
+    "questionCount": 7,
+    "randomizeQuestions": false
+  },
+  "questions": [
+    {"id":"phrase-01","mode":"context","answer":"ما باید از راه درست نهراسیم و با محبت باشیم.","lesson":"lesson1"},
+    {"id":"phrase-02","mode":"context","answer":"داشتن شخصیت خوب، به رشد و پیشرفت ما کمک می‌کند.","lesson":"lesson1"},
+    {"id":"phrase-03","mode":"context","answer":"حرکت موزون و منظم، زیبا به نظر می‌رسد.","lesson":"lesson1"},
+    {"id":"phrase-04","mode":"context","answer":"او با آرامش از خانه برخاست.","lesson":"lesson1"},
+    {"id":"phrase-05","mode":"context","answer":"نور خدا در دل مؤمن روشن است.","lesson":"lesson1"},
+    {"id":"phrase-06","mode":"context","answer":"عالم به فضل خدا به کمال می‌رسد.","lesson":"setayesh"},
+    {"id":"phrase-07","mode":"context","answer":"خداوند به انسان توانا، فرصت تعالی می‌دهد.","lesson":"setayesh"}
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "animalClassification",
+  "title": "دسته‌بندی جانوران",
+  "description": "هر جانور را در دسته درست قرار بده",
+  "grade": "grade6",
+  "subject": "science",
+  "chapter": "chapter1",
+  "engine": "classification",
+  "settings": {
+    "scorePerCorrect": 10,
+    "allowRetry": true,
+    "shuffleItems": false
+  },
+  "classification": {
+    "mode": "choice",
+    "instruction": "هر جانور را در دسته مناسب قرار بده",
+    "categories": [
+      { "id": "vertebrate", "title": "مهره‌دار" },
+      { "id": "invertebrate", "title": "بی‌مهره" }
+    ],
+    "items": [
+      { "id": "fish", "content": "ماهی", "type": "text", "categoryId": "vertebrate" },
+      { "id": "cat", "content": "گربه", "type": "text", "categoryId": "vertebrate" },
+      { "id": "bird", "content": "پرنده", "type": "text", "categoryId": "vertebrate" },
+      { "id": "worm", "content": "کرم", "type": "text", "categoryId": "invertebrate" },
+      { "id": "butterfly", "content": "پروانه", "type": "text", "categoryId": "invertebrate" },
+      { "id": "snail", "content": "حلزون", "type": "text", "categoryId": "invertebrate" }
+    ]
+  }
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پنل مدیریت طهوری</title>
+<link rel="stylesheet" href="/admin.css?v=20261030-1">
+</head>
+<body>
+<main>
+<header class="topbar">
+  <div><h1>پنل مدیریت طهوری</h1><p>مدیریت فعال‌سازی، مجوزها و عملیات سرویس</p></div>
+  <div class="status"><span id="healthDot"></span><span id="health">در حال اتصال...</span></div>
+</header>
+
+<section class="card" id="loginCard">
+  <h2>ورود مدیر</h2>
+  <p class="muted">دسترسی این صفحه فقط برای مدیر سرویس است.</p>
+  <div class="form-row"><input id="adminKey" type="password" autocomplete="current-password" placeholder="رمز مدیریت"><button onclick="login()">ورود</button></div>
+  <div id="loginError" class="error" role="alert" aria-live="polite" hidden></div>
+</section>
+
+<section id="panel" hidden>
+  <div class="toolbar">
+    <button onclick="loadAll()">↻ به‌روزرسانی همه</button>
+    <button class="secondary" onclick="logout()">خروج</button>
+  </div>
+
+  <section class="stats" id="stats"></section>
+  <section class="card" id="alertsCard" hidden><h2>هشدارهای عملیاتی</h2><div id="alerts"></div></section>
+
+  <section class="card">
+    <h2>ثبت حساب دانش‌آموز</h2>
+    <p class="muted">برای هر دانش‌آموز یک شناسهٔ ثابت ساخته می‌شود. همین شناسه مبنای صدور کد و ثبت مجوز خواهد بود.</p>
+    <div class="form-grid">
+      <label>نام دانش‌آموز<input id="studentFullName" maxlength="160" autocomplete="off" placeholder="نام و نام خانوادگی"></label>
+      <label>پایه<select id="studentGrade"><option value="grade1">اول</option><option value="grade2">دوم</option><option value="grade3">سوم</option><option value="grade4">چهارم</option><option value="grade5">پنجم</option><option value="grade6" selected>ششم</option></select></label>
+    </div>
+    <button onclick="createStudent()">ثبت حساب</button>
+    <div id="students"></div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>ساخت کد فعال‌سازی</h2>
+      <div class="form-grid">
+        <label>حساب دانش‌آموز<select id="studentId"><option value="">ابتدا حساب را ثبت کنید</option></select></label>
+        <label>پایه<input id="grade" value="grade6"></label>
+        <label>سال تحصیلی<input id="year" value="1405"></label>
+        <label>نوع کد<select id="renewalMode"><option value="promotion" selected>پایه سال بعد</option><option value="repeat">تکرار پایه (مردودی)</option></select></label>
+      </div>
+      <p class="muted">هر کد فقط برای همین شناسه صادر می‌شود. کدهای قدیمیِ بدون اتصال به دانش‌آموز برای فعال‌سازی امن قابل استفاده نخواهند بود.</p>
+      <button onclick="createCodes()">ساخت کد اختصاصی</button>
+      <div id="newCodes" class="code-box" hidden></div>
+    </div>
+
+    <div class="card">
+      <h2>لغو کد فعال‌سازی</h2>
+      <p class="muted">کد کامل را وارد کنید. کدهای استفاده‌شده قابل لغو نیستند.</p>
+      <div class="form-row"><input id="revokeCode" placeholder="THR-GRADE6-1405-..."><button class="danger" onclick="revokeCode()">لغو کد</button></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-head"><h2>جست‌وجو</h2><button class="secondary" onclick="searchAll()">جست‌وجو</button></div>
+    <div class="form-row"><input id="searchQ" placeholder="شناسه مجوز، پروفایل یا پایه" onkeydown="if(event.key==='Enter')searchAll()"></div>
+    <div id="searchResults"></div>
+  </section>
+
+  <section class="card"><div class="section-head"><h2>کدهای فعال‌سازی</h2><button class="secondary" onclick="loadCodes()">به‌روزرسانی</button></div><div id="codes"></div></section>
+
+  <section class="card">
+    <div class="section-head"><h2>مجوزها</h2><button class="secondary" onclick="loadLicenses()">به‌روزرسانی</button></div>
+    <div id="licenses"></div>
+    <div class="action-box">
+      <input id="licenseIdAction" placeholder="License ID">
+      <input id="extendUntil" type="datetime-local">
+      <button disabled title="تا تکمیل و آزمون امضای امن مجوز غیرفعال است">تمدید (فعلاً غیرفعال)</button>
+      <button class="danger" onclick="revokeLicense()">لغو مجوز</button>
+    </div>
+  </section>
+
+  <section class="card"><div class="section-head"><h2>پرداخت‌ها</h2><button class="secondary" onclick="loadPayments()">به‌روزرسانی</button></div><div id="payments"></div></section>
+  <section class="card"><div class="section-head"><h2>گزارش عملیات</h2><button class="secondary" onclick="loadAudit()">به‌روزرسانی</button></div><div id="audit"></div></section>
+</section>
+</main>
+<script src="/admin.js?v=20261031-2"></script>
+</body>
+</html>

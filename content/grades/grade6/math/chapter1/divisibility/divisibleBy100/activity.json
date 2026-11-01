@@ -1,0 +1,21 @@
+{
+    "id": "divisibleBy100",
+    "title": "بخش‌پذیری بر ۱۰۰",
+    "description": "تشخیص بخش‌پذیری اعداد بر ۱۰۰",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "type": "quiz",
+    "engine": "quiz",
+    "version": "1.0",
+    "settings": {
+        "questions": 10,
+        "minNumber": 1,
+        "maxNumber": 10000,
+        "scorePerCorrect": 10,
+        "allowRetry": true,
+        "mode": "divisibility",
+        "divisor": 100,
+        "questionSource": "generated"
+    }
+}

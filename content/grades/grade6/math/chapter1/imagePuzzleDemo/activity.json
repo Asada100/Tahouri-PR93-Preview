@@ -1,0 +1,30 @@
+{
+    "id": "imagePuzzleDemo",
+    "title": "پازل تصویری",
+    "description": "تصاویر را در ترتیب درست قرار بده",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "engine": "puzzle",
+    "path": "content/grades/grade6/math/chapter1/imagePuzzleDemo",
+    "settings": {
+        "scorePerCorrect": 10,
+        "allowRetry": true
+    },
+    "puzzle": {
+        "type": "ordering",
+        "dataType": "image",
+        "source": "file",
+        "instruction": "تصاویر را در ترتیب درست قرار بده",
+        "items": [
+            "assets/images/Classy_Wallpapers-20.jpg",
+            "assets/images/green_frog.jpg",
+            "assets/images/image_1650285990.jpg"
+        ],
+        "correctOrder": [
+            "assets/images/green_frog.jpg",
+            "assets/images/Classy_Wallpapers-20.jpg",
+            "assets/images/image_1650285990.jpg"
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "mathPatternRelation",
+  "title": "🕵️ کارآگاه رابطه‌ها",
+  "description": "با مقایسهٔ دو ردیف عددی، رابطهٔ بین دایره و مربع را کشف کن.",
+  "grade": "grade6",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.0",
+  "puzzle": {
+    "type": "pattern",
+    "source": "generated",
+    "dataType": "text",
+    "mode": "relation",
+    "instruction": "در هر ستون، عدد دایره و مربع با هم رابطه دارند. رابطه را پیدا کن."
+  },
+  "settings": {
+    "questionSource": "generated",
+    "questions": 10,
+    "randomQuestionOrder": true
+  }
+}

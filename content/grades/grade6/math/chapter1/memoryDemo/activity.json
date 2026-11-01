@@ -1,0 +1,14 @@
+{
+    "id": "memoryDemo",
+    "title": "بازی حافظه",
+    "description": "کارت‌های مشابه را پیدا کن",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "engine": "memory",
+    "path": "content/grades/grade6/math/chapter1/memoryDemo",
+    "settings": {
+        "cardSource": "file",
+        "allowRetry": true
+    }
+}

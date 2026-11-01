@@ -1,0 +1,27 @@
+{
+  "name": "tahouri-license-api-test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tahouri development license API. Test environment only.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "smoke-test": "node smoke-test.js",
+    "backup": "node backup-db.js",
+    "generate-key": "node generate-dev-key.js",
+    "integration-test": "node integration-test.js",
+    "verify-backup": "node verify-backup.js",
+    "preflight-production": "node preflight-production.js",
+    "restore-rehearsal": "node restore-rehearsal.js",
+    "security-test": "node security-test.js",
+    "release-check": "node release-check.js && node security-test.js",
+    "release-smoke-test": "node release-smoke-test.js",
+    "migration-test": "node migration-test.js",
+    "backup-recovery-test": "node backup-recovery-test.js",
+    "offsite-backup": "node offsite-backup.js",
+    "backup-scheduler": "node backup-scheduler.js",
+    "test:config": "node assert-test-config.mjs",
+    "test:worker": "npm run test:config && node --test worker.test.mjs",
+    "dev:test": "npm run test:config && wrangler dev --config wrangler.test.jsonc"
+  }
+}

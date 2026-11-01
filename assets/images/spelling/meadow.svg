@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" role="img" aria-labelledby="title desc">
+<title id="title">منظره آموزشی</title>
+<desc id="desc">یک منظره ساده و کم‌حجم از چمنزار و آسمان</desc>
+<rect width="480" height="260" rx="28" fill="#eaf4ff"/>
+<circle cx="390" cy="65" r="34" fill="#ffd76a"/>
+<path d="M0 170 Q90 120 180 170 T360 170 T540 170 V260 H0Z" fill="#9bcf88"/>
+<path d="M0 205 Q110 155 220 205 T440 205 T560 205 V260 H0Z" fill="#6eaf68"/>
+<path d="M80 205 l12-55 10 55 M170 215 l9-45 11 45 M310 210 l11-60 10 60" stroke="#4f8f58" stroke-width="7" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,252 @@
+/* =====================================
+   Tahouri Edu Platform
+   Activity Selection UI
+
+   Shared activity-button language:
+   modern, touch-friendly, soft card UI.
+   No legacy button/pseudo-icon styling.
+   ===================================== */
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) { padding: 18px 16px 34px; }
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) #activityList {
+    width: min(760px, 100%);
+    margin: 24px auto 18px;
+    padding: 0 8px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn,
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn {
+    position: relative;
+    width: 100%;
+    min-height: 78px;
+    padding: 15px 54px 15px 22px;
+    border: 1px solid rgba(125, 145, 170, .18);
+    border-radius: 22px;
+    background: var(--ui-surface, #ffffff);
+    color: var(--ui-text, #243247);
+    font-family: inherit;
+    font-size: clamp(17px, 2.5vw, 21px);
+    font-weight: 750;
+    line-height: 1.45;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    direction: rtl;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(45, 65, 90, .09);
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+}
+
+/* Icons come from the button markup; never inject a generic icon with CSS. */
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    font-size: 28px;
+    line-height: 1;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn[data-id="evenOdd"]::before {
+    content: "🔢";
+    position: static;
+    transform: none;
+    font-size: 27px;
+    line-height: 1;
+    flex: 0 0 auto;
+}
+
+/* Navigation affordance only; it is not a Back button. */
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn::after,
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn::after {
+    content: "‹";
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-52%);
+    color: var(--ui-muted, #7a8798);
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn:hover,
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(90, 120, 155, .28);
+    box-shadow: 0 10px 24px rgba(45, 65, 90, .13);
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn:active,
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn:active {
+    transform: translateY(0) scale(.99);
+    box-shadow: 0 4px 12px rgba(45, 65, 90, .10);
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn:disabled,
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn:disabled {
+    opacity: .68;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    background: #f5f7fa;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn:disabled::before,
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn:disabled::before {
+    content: "🔒";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 22px;
+    line-height: 1;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn:focus-visible,
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn:focus-visible {
+    outline: 3px solid var(--ui-focus, #7aa7d9);
+    outline-offset: 3px;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupHeading {
+    width: min(760px, 100%);
+    margin: 10px auto 22px;
+    padding: 18px 16px 4px;
+    text-align: center;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupHeadingIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 6px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .72);
+    box-shadow: 0 5px 16px rgba(45, 65, 90, .08);
+    font-size: 34px;
+    line-height: 1;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupHeading h1 { margin: 4px 0 5px; }
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupHeading p {
+    margin: 0;
+    color: var(--ui-muted, #718096);
+    font-size: 15px;
+}
+
+#app > .screen.activityScreen:has(> .tahouri-app-header) .activityEmptyMessage {
+    width: min(680px, 100%);
+    margin: 28px auto;
+    padding: 24px 18px;
+    text-align: center;
+    color: var(--ui-muted, #718096);
+    border: 1px dashed #d5dee9;
+    border-radius: 20px;
+    background: #fbfcfe;
+}
+
+/* The global header owns Back navigation. */
+#app > .screen.activityScreen:has(> .tahouri-app-header) #backChaptersBtn,
+#app > .screen.activityScreen:has(> .tahouri-app-header) #backToActivitiesBtn {
+    display: none !important;
+}
+
+@media (max-width: 520px) {
+    #app > .screen.activityScreen:has(> .tahouri-app-header) { padding: 12px 10px 26px; }
+    #app > .screen.activityScreen:has(> .tahouri-app-header) #activityList {
+        margin-top: 18px;
+        padding: 0 2px;
+        gap: 11px;
+    }
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn,
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn {
+        min-height: 72px;
+        padding: 13px 46px 13px 18px;
+        border-radius: 19px;
+        gap: 7px;
+        box-shadow: 0 5px 15px rgba(45, 65, 90, .08);
+    }
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupIcon {
+        width: 38px;
+        height: 38px;
+        font-size: 25px;
+    }
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn[data-id="evenOdd"]::before { font-size: 24px; }
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn::after,
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn::after {
+        left: 14px;
+        font-size: 27px;
+    }
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activitySelectBtn:disabled::before,
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupBtn:disabled::before {
+        right: 11px;
+        font-size: 20px;
+    }
+    #app > .screen.activityScreen:has(> .tahouri-app-header) .activityGroupHeading {
+        margin-top: 4px;
+        padding-top: 10px;
+    }
+}
+
+
+/* Temporary lock message — replaces blocking browser alert. */
+.activityLockMessageOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    box-sizing: border-box;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity .22s ease;
+}
+
+.activityLockMessageOverlay.is-hiding { opacity: 0; }
+
+.activityLockMessage {
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+    padding: 8px 14px;
+    border-radius: 16px;
+    background: rgba(30, 30, 30, .68);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, .18);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.activityLockIcon {
+    margin-bottom: 5px;
+    font-size: 25px;
+    line-height: 1;
+}
+
+.activityLockText {
+    white-space: pre-line;
+    font-size: clamp(15px, 2.4vw, 17px);
+    font-weight: 700;
+    line-height: 1.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .activityLockMessageOverlay { transition: none; }
+}

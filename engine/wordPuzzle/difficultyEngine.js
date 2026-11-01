@@ -1,0 +1,1 @@
+window.WordPuzzleDifficulty={settings(level=1){level=Math.max(1,Math.min(5,Number(level)||1));return{level,grid:level<=2?8:level<=4?9:11,words:level<=2?3:level<=4?5:7,hints:Math.max(0,4-level)}}};

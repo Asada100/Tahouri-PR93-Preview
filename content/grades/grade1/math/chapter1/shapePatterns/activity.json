@@ -1,0 +1,22 @@
+{
+  "id": "mathShapePatternGrade1",
+  "title": "🎨 الگوهای رنگی و شکلی",
+  "description": "شکل‌ها و رنگ‌ها را دنبال کن و الگوهای سادهٔ تکراری را کامل کن.",
+  "grade": "grade1",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.0",
+  "puzzle": {
+    "type": "pattern",
+    "source": "generated",
+    "dataType": "text",
+    "mode": "shapes",
+    "instruction": "به ترتیب شکل‌ها و رنگ‌ها دقت کن و جای خالی را کامل کن."
+  },
+  "settings": {
+    "questionSource": "generated",
+    "questions": 10,
+    "randomQuestionOrder": true
+  }
+}

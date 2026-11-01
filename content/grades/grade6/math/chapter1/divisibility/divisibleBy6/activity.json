@@ -1,0 +1,23 @@
+{
+    "id": "divisibleBy6",
+    "title": "بخش‌پذیری بر ۶",
+    "description": "تشخیص بخش‌پذیری اعداد بر ۶",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "type": "quiz",
+    "engine": "quiz",
+    "version": "1.0",
+    "settings": {
+        "questions": 10,
+        "minNumber": 1,
+        "maxNumber": 10000,
+        "scorePerCorrect": 10,
+        "allowRetry": true,
+        "mode": "divisibility",
+        "divisor": 6,
+        "questionSource": "generated",
+        "correctMin": 6,
+        "correctMax": 8
+    }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tahouri Edu Platform</title>
+<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="engine/ui/dictationScreen.css?v=2.0">
+<link rel="stylesheet" href="engine/ui/cssLayers.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/platformShell.css?v=1.3">
+<link rel="stylesheet" href="engine/ui/header.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/bottomNavigation.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/home.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/notification.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/grades.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/subjects.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/chapters.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/activitySelection.css?v=1.1">
+<link rel="stylesheet" href="engine/ui/activityRuntime.css?v=1.3">
+<link rel="stylesheet" href="engine/ui/difficultyModal.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/divisibility.css?v=1.1">
+<link rel="stylesheet" href="engine/ui/profilePolish.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/quizEngine.css?v=1.2">
+<link rel="stylesheet" href="engine/ui/parityWorkshop.css?v=1.2">
+<link rel="stylesheet" href="engine/ui/memoryEngine.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/puzzleEngine.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/spatialSymmetry.css?v=2.0">
+<link rel="stylesheet" href="engine/ui/puzzleUX.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/jigsawPuzzle.css?v=4.4">
+<!-- Puzzle Test Launcher temporarily hidden -->
+<!-- Pages deployment refresh: 2026-10-06 -->
+<link rel="stylesheet" href="engine/ui/matchingEngine.css?v=1.6">
+<link rel="stylesheet" href="engine/ui/classificationEngine.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/parityTrain.css?v=1.1">
+<link rel="stylesheet" href="engine/ui/compositeActivity.css?v=1.2">
+<link rel="stylesheet" href="engine/ui/dictationEngine.css?v=3.0">
+<link rel="stylesheet" href="engine/ui/sharedComponents.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/dashboard.css?v=1.0">
+<link rel="stylesheet" href="engine/ui/wordPuzzle.css?v=4.27">
+</head>
+<body>
+<div id="app">در حال بارگذاری پلتفرم طهوری...</div>
+<script src="engine/core/state.js"></script>
+<script src="engine/activity/profileManager.js"></script>
+<script src="engine/core/eventManager.js?v=1.1"></script>
+<script src="engine/core/profileContext.js?v=1.1" onerror="(function(){if(window.ProfileContext)return;console.error('ProfileContext script failed; activating inline fallback');window.ProfileContext={VERSION:'1.1',getProfile:function(){try{if(window.ProfileManager&&typeof ProfileManager.get==='function'){var p=ProfileManager.get();if(p&&p.studentId)return p;}}catch(e){console.error('ProfileContext fallback read failed',e);}return null;},getStudentId:function(){var p=this.getProfile();return p?p.studentId:null;},hasProfile:function(){return !!this.getStudentId();},getGrade:function(){var p=this.getProfile();return p?(p.grade||null):null;},key:function(baseKey){var id=this.getStudentId();return baseKey&&id?String(baseKey)+':'+String(id):null;},get:function(){var p=this.getProfile();return p?{studentId:p.studentId,name:p.name||'',grade:p.grade||null}:{studentId:null,name:'',grade:null};}};console.warn('ProfileContext inline fallback ready');})();"></script>
+<script src="engine/core/dailyLearningStreak.js"></script>
+<script src="engine/core/router.js"></script>
+<script src="engine/core/dataManager.js"></script>
+<script src="engine/core/activityHistory.js"></script>
+<script src="engine/core/navigationHistory.js"></script>
+<script src="engine/core/saveManager.js"></script>
+<script src="engine/core/sessionManager.js"></script>
+<script src="engine/core/statisticsManager.js?v=3.9"></script>
+<script src="engine/core/progressManager.js"></script>
+<script src="engine/core/contentLockManager.js?v=1.11"></script>
+<script src="engine/ui/reportsScreen.js"></script>
+<script src="engine/ui/reportTitleResolver.js"></script>
+<script src="engine/core/reportsController.js"></script>
+<script src="engine/ui/navigation.js"></script>
+<script src="engine/activity/activityResult.js"></script>
+<script src="engine/score/scoreManager.js"></script>
+<script src="engine/result/resultManager.js"></script>
+<script src="engine/question/quizProvider.js"></script>
+<script src="engine/question/parityWorkshopProvider.js?v=1.0"></script>
+<script src="engine/question/memoryProvider.js"></script>
+<script src="engine/question/puzzleProvider.js?v=2.8"></script>
+<script src="engine/question/matchingProvider.js"></script>
+<script src="engine/question/classificationProvider.js?v=1.1"></script>
+<script src="engine/question/compositeActivityProvider.js?v=1.2"></script>
+<script src="engine/question/spellingRules.js?v=1.1"></script>
+<script src="engine/question/spellingPerformanceAnalyzer.js?v=2.0"></script>
+<script src="engine/question/spellingPerformanceStore.js?v=1.1"></script>
+<script src="engine/question/spellingSmartQuestionSelector.js?v=1.1"></script>
+<script src="engine/question/spellingQuestionGenerator.js?v=1.4"></script>
+<script src="engine/question/spellingMediaProvider.js?v=1.0"></script>
+<script src="engine/question/dictationProvider.js?v=2.9"></script>
+<script src="engine/question/dictationAudioProvider.js?v=1.0"></script>
+<script src="engine/question/questionProvider.js"></script>
+<script src="engine/question/questionPerformanceManager.js?v=2.2"></script>
+<script src="engine/question/adaptiveQuestionGenerator.js"></script>
+<script src="engine/question/smartQuestionSelector.js"></script>
+<script src="engine/activity/puzzleTypes/puzzleTypeRegistry.js"></script>
+<script src="engine/puzzle/jigsawImagePuzzle.js?v=1.0"></script>
+<script src="engine/puzzle/jigsawWordPuzzle.js?v=1.0"></script>
+<script src="engine/puzzle/jigsawPuzzle.js?v=3.0"></script>
+<script src="engine/puzzle/puzzleInteraction.js"></script>
+<script src="engine/activity/puzzleTypes/jigsawPuzzle.js?v=2.7"></script>
+<script src="engine/activity/puzzleTypes/sequencePuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/orderingPuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/visualMathPuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/inputOutputPuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/sentencePuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/gridPuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/wordGridPuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/crossGridPuzzle.js"></script>
+<script src="engine/activity/puzzleTypes/patternPuzzle.js?v=1.3"></script>
+<script src="engine/activity/puzzleTypes/spatialPuzzle.js?v=2.2"></script>
+<script src="engine/activity/puzzleEngine.js?v=3.6"></script>
+<script src="engine/ui/puzzleUX.js"></script>
+<script src="engine/activity/quizEngine.js"></script>
+<script src="engine/activity/memoryEngine.js"></script>
+<script src="engine/activity/matchingTypes/matchingTypeRegistry.js"></script>
+<script src="engine/activity/matchingTypes/basicMatching.js"></script>
+<script src="engine/activity/matchingEngine.js?v=1.4"></script>
+<script src="engine/activity/classificationTypes/classificationTypeRegistry.js"></script>
+<script src="engine/activity/classificationTypes/choiceClassification.js"></script>
+<script src="engine/activity/classificationTypes/basicClassification.js"></script>
+<script src="engine/activity/classificationTypes/multiStageClassification.js?v=1.0"></script>
+<script src="engine/activity/classificationEngine.js?v=1.6"></script>
+<script src="engine/activity/compositeActivityEngine.js?v=1.3"></script>
+<script src="engine/activity/dictationEngine.js?v=3.16"></script>
+<script src="engine/wordPuzzle/wordRepository.js?v=1.4"></script>
+<script src="engine/wordPuzzle/pathEngine.js?v=1.1"></script>
+<script src="engine/wordPuzzle/difficultyEngine.js?v=1.0"></script>
+<script src="engine/wordPuzzle/hintEngine.js?v=1.0"></script>
+<script src="engine/wordPuzzle/scoreEngine.js?v=1.0"></script>
+<script src="engine/wordPuzzle/wordPuzzleValidator.js?v=1.0"></script>
+<script src="engine/wordPuzzle/wordPuzzleEngine.js?v=2.1"></script>
+<script src="engine/core/engineManager.js"></script>
+<script src="engine/core/appController.js?v=5.4.3"></script>
+<script src="engine/activity/activityState.js"></script>
+<script src="engine/activity/activityManager.js?v=6.13"></script>
+<script src="engine/activity/activitySessionManager.js?v=1.9"></script>
+<script src="engine/activity/activityLifecycle.js?v=4.4"></script>
+<script src="engine/ui/difficultyModal.js?v=1.2.1"></script>
+<script src="engine/ui/puzzleScreen.js?v=4.69"></script>
+<script src="engine/ui/jigsawScreen.js?v=2.2"></script>
+<script src="engine/ui/wordJigsawStage2.js?v=4.0"></script>
+<script src="engine/ui/wordJigsawDifficulty.js?v=1.2"></script>
+<script src="engine/ui/setayeshJigsawLayout.js?v=3.1"></script>
+<script>
+(function () {
+if (typeof PuzzleScreen === "undefined" || typeof JigsawScreen === "undefined") return;
+const originalShow = PuzzleScreen.show.bind(PuzzleScreen);
+const originalHandleActivityReady = PuzzleScreen.handleActivityReady.bind(PuzzleScreen);
+PuzzleScreen.show = function (state) { if (state && state.type === "jigsaw") return JigsawScreen.show(state); return originalShow(state); };
+PuzzleScreen.handleActivityReady = function (payload) { if (payload && payload.result && payload.result.type === "jigsaw") return; return originalHandleActivityReady(payload); };
+})();
+</script>
+<script src="engine/ui/quizScreen.js?v=1.2"></script>
+<script src="engine/ui/parityWorkshopScreen.js?v=1.0"></script>
+<script src="engine/ui/divisibilityScreen.js?v=2.8"></script>
+<script src="engine/ui/profileScreen.js"></script>
+<script src="engine/ui/activityScreen.js?v=3.14"></script>
+<script src="engine/ui/components.js"></script>
+<script src="engine/ui/memoryScreen.js"></script>
+<script src="engine/ui/matchingScreen.js?v=2.0"></script>
+<script src="engine/ui/classificationScreen.js?v=2.3"></script>
+<script src="engine/ui/compositeActivityScreen.js?v=1.4"></script>
+<script src="engine/ui/dictationScreen.js?v=5.4"></script>
+<script src="engine/ui/wordPuzzleScreen.js?v=1.44"></script>
+<script src="engine/ui/screen.js?v=5.5"></script>
+<script src="engine/ui/learningCards.js?v=1.0"></script>
+<script src="engine/ui/welcomeManager.js?v=3.0"></script>
+<script src="engine/ui/resultModal.js"></script>
+<script src="engine/ui/dashboardScreen.js"></script>
+<script src="engine/ui/dailyMessageScreen.js"></script>
+<script src="engine/core/dashboardController.js"></script>
+<script src="engine/progress/progressTracker.js?v=2.4"></script>
+<script src="engine/core/licenseHistoryManager.js"></script>
+<script src="engine/core/tahouriServiceConfig.js?v=1.0"></script>
+<script src="engine/core/tahouriEntitlementStore.js?v=1.0"></script>
+<script src="engine/core/tahouriEntitlementVerifier.js?v=1.0"></script>
+<script src="engine/core/tahouriLicenseClient.js?v=1.0"></script>
+<script src="engine/core/tahouriUpdateManager.js?v=1.0"></script>
+<script src="engine/core/licenseManager.js"></script>
+<script src="engine/ui/licenseScreen.js"></script>
+<script src="engine/core/activationGate.js?v=8.2"></script>
+<script src="engine/core/notificationStore.js"></script>
+<script src="engine/core/toastManager.js"></script>
+<script src="engine/core/homeBannerManager.js"></script>
+<script src="engine/core/pushManager.js"></script>
+<script src="engine/core/pushSubscriptionManager.js"></script>
+<script src="engine/ui/notificationScreen.js"></script>
+<script src="engine/ui/headerManager.js?v=2.9"></script>
+<script src="engine/ui/bottomNavigation.js"></script>
+<script src="engine/core/reminderManager.js"></script>
+<script src="engine/core/notificationManager.js"></script>
+<script src="engine/core/dailyMessageManager.js"></script>
+<script src="engine/ui/dashboardPolish.js"></script>
+<!-- Puzzle Test Launcher temporarily hidden -->
+<script src="app.js"></script>
+</body>
+</html>

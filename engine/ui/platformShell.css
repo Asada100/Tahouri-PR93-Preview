@@ -1,0 +1,18 @@
+/* =====================================
+   Tahouri Edu Platform
+   Shared Platform Shell
+
+   IMPORTANT:
+   - This file contains only shell-level rules shared by platform screens.
+   - Header styles live in header.css.
+   - Learning page styles live in grades.css / subjects.css / chapters.css / activitySelection.css.
+   - Engine styles must live with their respective engines.
+   ===================================== */
+
+/* Header owns its visual system. These rules only suppress legacy screen-level back buttons. */
+#app > .screen:has(> .tahouri-app-header) #backHomeBtn,
+#app > .screen:has(> .tahouri-app-header) #backGradesBtn,
+#app > .screen:has(> .tahouri-app-header) #backSubjectsBtn,
+#app > .screen:has(> .tahouri-app-header) #backChaptersBtn {
+    display: none;
+}

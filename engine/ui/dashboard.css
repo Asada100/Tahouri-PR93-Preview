@@ -1,0 +1,192 @@
+/* =====================================
+   Tahouri Edu Platform
+   Dashboard UI Polish v2.2
+   Visual rules extracted from dashboardPolish.js
+   ===================================== */
+
+.dashboard-screen {
+    text-align: center !important;
+}
+
+.dashboard-screen .dashboard-welcome,
+.dashboard-screen .dashboard-card,
+.dashboard-screen .learning-calendar-heading,
+.dashboard-screen .dashboard-next-learning,
+.dashboard-screen .dashboard-message {
+    text-align: center !important;
+}
+
+.dashboard-screen .learning-calendar-heading {
+    justify-content: center !important;
+}
+
+.dashboard-screen .dashboard-small-action {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 9px !important;
+    width: auto !important;
+    min-width: 190px !important;
+    max-width: calc(100% - 32px) !important;
+    min-height: 44px !important;
+    margin: 14px auto 6px !important;
+    padding: 9px 18px !important;
+    border: 1px solid rgba(72, 98, 145, .16) !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    color: #344b72 !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    text-align: center !important;
+    box-shadow: 0 3px 12px rgba(38, 54, 77, .08) !important;
+    cursor: pointer !important;
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease !important;
+    box-sizing: border-box !important;
+}
+
+.dashboard-screen .dashboard-small-action:hover {
+    transform: translateY(-1px) !important;
+    background: #f8faff !important;
+    border-color: rgba(72, 98, 145, .26) !important;
+    box-shadow: 0 5px 16px rgba(38, 54, 77, .11) !important;
+}
+
+.dashboard-screen .dashboard-small-action:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 8px rgba(38, 54, 77, .08) !important;
+}
+
+.dashboard-screen .dashboard-actions {
+    display: none !important;
+}
+
+.dashboard-screen .dashboard-message {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: row !important;
+    gap: 10px !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.dashboard-screen .dashboard-message p {
+    display: inline-block !important;
+    width: auto !important;
+    max-width: 620px !important;
+    margin: 0 !important;
+    text-align: center !important;
+    line-height: 1.9 !important;
+}
+
+.dashboard-screen .dashboard-message span {
+    flex: 0 0 auto !important;
+}
+
+.dashboard-screen .dashboard-next-learning {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    text-align: center !important;
+}
+
+.dashboard-screen .dashboard-next-learning > div {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.dashboard-screen .dashboard-card > h2,
+.dashboard-screen .dashboard-card > p {
+    text-align: center !important;
+}
+
+.dashboard-screen .tahouri-daily-history {
+    width: min(100%, 720px);
+    margin: 10px auto 18px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--ui-border-soft);
+    border-radius: 14px;
+    background: #fbfcfe;
+    box-sizing: border-box;
+}
+
+.dashboard-screen .tahouri-daily-history-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 12px 4px;
+    color: var(--ui-muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dashboard-screen .tahouri-daily-history-window {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 4px 0 10px;
+    direction: rtl;
+    white-space: nowrap;
+}
+
+.dashboard-screen .tahouri-daily-history-track {
+    display: inline-flex;
+    min-width: max-content;
+    gap: 70px;
+    padding-right: 100%;
+    animation: tahouriDailyTicker 18s linear infinite;
+    will-change: transform;
+}
+
+.dashboard-screen .tahouri-daily-history-item {
+    display: inline-block;
+    color: #26364d;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.dashboard-screen .tahouri-daily-history-item strong {
+    color: #365fae;
+}
+
+@keyframes tahouriDailyTicker {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-screen .tahouri-daily-history-track {
+        animation: none;
+        padding-right: 12px;
+        white-space: normal;
+        display: block;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-screen .dashboard-small-action {
+        min-width: 176px !important;
+        min-height: 44px !important;
+        max-width: calc(100% - 20px) !important;
+        padding: 9px 16px !important;
+    }
+
+    .dashboard-screen .dashboard-message {
+        gap: 7px !important;
+    }
+
+    .dashboard-screen .dashboard-message p {
+        max-width: calc(100% - 34px) !important;
+    }
+
+    .dashboard-screen .tahouri-daily-history-item {
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,106 @@
+/* Spatial Symmetry v2 */
+.spatialSymmetryScreen {
+    box-sizing: border-box !important;
+    min-height: 0 !important;
+    padding: 6px 12px 10px !important;
+    overflow: hidden !important;
+}
+.spatialSymmetryHeader h1 {
+    margin: 0 0 2px !important;
+    font-size: clamp(20px, 3vw, 28px) !important;
+}
+.spatialSymmetryHeader .puzzleInstruction {
+    margin: 0 !important;
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+}
+.spatialSymmetryScreen .spatialAxisLabel {
+    margin: 4px auto 7px !important;
+    font-size: 13px !important;
+}
+.spatialSymmetryScreen .spatialPlacementLayout {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 7px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+.spatialSymmetryScreen .spatialBoardWrap {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+.spatialSymmetryScreen .spatialBoard {
+    --cell-size: min(70px, calc((100vw - 28px) / var(--spatial-cols))) !important;
+    display: grid !important;
+    grid-template-columns: repeat(var(--spatial-cols), var(--cell-size)) !important;
+    grid-template-rows: repeat(var(--spatial-rows), var(--cell-size)) !important;
+    gap: 3px !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    touch-action: none !important;
+}
+.spatialSymmetryScreen .spatialDropCell {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    width: var(--cell-size) !important;
+    height: var(--cell-size) !important;
+    box-sizing: border-box !important;
+    border-radius: 6px !important;
+}
+.spatialSymmetryScreen .spatialSourcePiece,
+.spatialSymmetryScreen .spatialPlacedPiece {
+    width: 72% !important;
+    height: 72% !important;
+    font-size: clamp(22px, 5vw, 38px) !important;
+    line-height: 1 !important;
+}
+.spatialSymmetryScreen .spatialTargetGhost {
+    display: none !important;
+}
+.spatialSymmetryScreen .spatialTray {
+    width: min(100%, 620px) !important;
+    padding: 5px 8px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+.spatialSymmetryScreen .spatialTrayTitle {
+    margin-bottom: 4px !important;
+    font-size: 13px !important;
+}
+.spatialSymmetryScreen .spatialTrayPieces {
+    gap: 6px !important;
+}
+.spatialSymmetryScreen .spatialDragPiece {
+    width: clamp(42px, 12vw, 58px) !important;
+    height: clamp(42px, 12vw, 58px) !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    font-size: clamp(24px, 6vw, 34px) !important;
+    touch-action: none !important;
+}
+.spatialSymmetryScreen .spatialCheckButton {
+    min-width: 150px !important;
+    margin: 4px auto 0 !important;
+    padding: 9px 18px !important;
+}
+.spatialSymmetryScreen .puzzleMessage {
+    min-height: 20px !important;
+    margin: 2px 0 0 !important;
+    font-size: 14px !important;
+}
+@media (max-width:700px) {
+    .spatialSymmetryScreen {
+        padding: 4px 6px 8px !important;
+    }
+    .spatialSymmetryScreen .spatialBoard {
+        --cell-size: min(62px, calc((100vw - 14px) / var(--spatial-cols))) !important;
+        gap: 2px !important;
+    }
+    .spatialSymmetryScreen .spatialTray {
+        padding: 4px 6px !important;
+    }
+}

@@ -1,0 +1,85 @@
+{
+  "mode": "dictation",
+  "instruction": "واژه را با دقت بشنو و آن را کامل بنویس.",
+  "settings": {
+    "keyboardMode": "full",
+    "allowRetry": true,
+    "scorePerCorrect": 10,
+    "questionCount": 10,
+    "randomizeQuestions": true
+  },
+  "questions": [
+    {
+      "id": "dictation-01",
+      "mode": "dictation",
+      "answer": "فکرت",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-02",
+      "mode": "dictation",
+      "answer": "چراغ",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-03",
+      "mode": "dictation",
+      "answer": "عالم",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-04",
+      "mode": "dictation",
+      "answer": "فضل",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-05",
+      "mode": "dictation",
+      "answer": "فیض",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-06",
+      "mode": "dictation",
+      "answer": "فروغ",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-07",
+      "mode": "dictation",
+      "answer": "دیده",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-08",
+      "mode": "dictation",
+      "answer": "خویش",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-09",
+      "mode": "dictation",
+      "answer": "تجلی",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-10",
+      "mode": "dictation",
+      "answer": "تعالی",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-11",
+      "mode": "dictation",
+      "answer": "حق",
+      "lesson": "setayesh"
+    },
+    {
+      "id": "dictation-12",
+      "mode": "dictation",
+      "answer": "بهر",
+      "lesson": "setayesh"
+    }
+  ]
+}

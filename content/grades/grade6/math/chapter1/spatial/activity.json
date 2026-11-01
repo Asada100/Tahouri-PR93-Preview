@@ -1,0 +1,38 @@
+{
+  "id": "mathSpatial",
+  "title": "جای درست شکل‌ها",
+  "description": "شکل‌ها را بردار و در جای درست قرار بده.",
+  "grade": "grade6",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.1",
+  "puzzle": {
+    "type": "spatial",
+    "mode": "place",
+    "source": "file",
+    "dataType": "text",
+    "instruction": "هر شکل را با ماوس یا لمس بردار و در خانه مناسب قرار بده.",
+    "grid": {
+      "rows": 3,
+      "cols": 3
+    },
+    "pieces": [
+      {
+        "id": "star",
+        "label": "★",
+        "target": { "row": 0, "col": 0 }
+      },
+      {
+        "id": "circle",
+        "label": "●",
+        "target": { "row": 1, "col": 1 }
+      },
+      {
+        "id": "triangle",
+        "label": "▲",
+        "target": { "row": 2, "col": 2 }
+      }
+    ]
+  }
+}

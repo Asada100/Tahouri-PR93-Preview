@@ -1,0 +1,746 @@
+TAHOURI EDU PLATFORM
+TARGET ARCHITECTURE — OFFLINE-FIRST LICENSE / PAYMENT / GIFT / UPDATE / DISTRIBUTION
+Version: 1.0
+Date: 2026-09-24
+Status: APPROVED ARCHITECTURE BASELINE
+
+This document is the architectural source of truth for the new service layer.
+It complements:
+TAHOURI_MASTER_ROADMAP_OFFLINE_LICENSE_UPDATE.txt
+
+========================================
+A. ARCHITECTURAL PRINCIPLE
+========================================
+
+Do NOT redesign the existing educational engine architecture.
+
+The new architecture is an external service/control layer around the existing Tahouri application.
+
+Existing application remains responsible for:
+- content
+- activities/games
+- profiles
+- progress
+- navigation
+- local UI
+- local educational experience
+
+New service layer is responsible for:
+- license issuance/verification
+- activation
+- payment verification
+- gifts
+- administration
+- update metadata
+- optional future online services
+
+The application must remain useful offline.
+
+========================================
+B. HIGH-LEVEL ARCHITECTURE
+========================================
+
+                         INTERNET
+                            |
+            +---------------+----------------+
+            |                                |
+            v                                v
+     CONTROL PLANE                    DISTRIBUTION PLANE
+     ----------------                 -----------------
+     License API                      Release Storage/CDN
+     Payment API                      APK / EXE
+     Gift API                         Update Manifest
+     Admin API                        Release Metadata
+     Future Interaction API
+            |
+            v
+       Database
+            |
+            v
+       Audit Log
+
+                    ^
+                    |
+             Tahouri Application
+             ------------------
+             Existing UI/Engine
+                    |
+          +---------+---------+
+          |                   |
+     Local License       Local Data
+     Verifier/Cache      / Progress
+          |
+          +---- optional online check
+                    |
+                    v
+               License API
+
+IMPORTANT:
+Control Plane and Distribution Plane are independent.
+Changing the download host must not require changing License architecture.
+
+========================================
+C. CLIENT APPLICATION LAYERS
+========================================
+
+Existing layers remain authoritative.
+
+Add only service adapters/bridges where required:
+
+1. Existing UI
+2. Existing App / Navigation / Screen
+3. Existing educational Engine/Activity architecture
+4. Existing Profile system
+5. Existing local persistence
+6. NEW Service Integration Layer
+7. NEW Local License Store / Verifier
+8. NEW Update Client
+
+The service integration layer must isolate network/API details from:
+- Activity engines
+- Puzzle engines
+- Quiz
+- Memory
+- Jigsaw
+- Content data
+
+No game should directly call the License API.
+
+========================================
+D. CLIENT SERVICE COMPONENTS
+========================================
+
+Proposed logical components:
+
+TahouriServiceClient
+- common HTTP/API transport
+- timeout handling
+- network availability
+- response normalization
+- no business secrets
+
+LicenseClient
+- activate code
+- retrieve entitlement
+- refresh/check when appropriate
+- revoke/status response handling
+
+LicenseStore
+- encrypted/obfuscated local storage as appropriate
+- stores signed entitlement
+- stores installation identifier
+- stores local metadata
+- never stores server private keys
+
+LicenseVerifier
+- verifies server signature locally
+- validates product
+- validates academic year
+- validates expiry
+- validates optional device binding
+- must work without network
+
+UpdateClient
+- checks update manifest
+- compares installed version
+- exposes update availability
+- downloads update only when requested
+- never blocks normal offline execution
+
+HomeUpdateNotice
+- Home moving-message presentation
+- Update button
+- Later button
+- success message
+- restores normal Home state
+
+These are logical responsibilities, not instructions to create arbitrary new folders.
+Actual file placement must follow current project conventions after implementation audit.
+
+========================================
+E. SERVER COMPONENTS
+========================================
+
+Recommended backend boundaries:
+
+1. API Gateway / Application API
+2. Authentication/Authorization
+3. License Service
+4. Gift Service
+5. Payment Service
+6. Admin Service
+7. Update/Release Metadata Service
+8. Audit Service
+9. Database
+10. Monitoring/Backup
+
+These can initially run as one backend application with clear modules.
+Do NOT create microservices merely for appearance.
+
+Recommended initial deployment:
+ONE backend application
++ ONE database
++ separate release storage/CDN
+
+Modules inside backend:
+- auth
+- licenses
+- gifts
+- payments
+- releases
+- audit
+- admin
+
+Split into separate services only if scale or operational requirements justify it.
+
+========================================
+F. LICENSE DATA MODEL
+========================================
+
+License entity should conceptually contain:
+
+licenseId
+productId
+academicYear
+gradeScope (if applicable)
+status
+issuedAt
+validUntil
+source (purchase/gift/manual)
+installationBinding (optional)
+entitlementVersion
+createdAt
+updatedAt
+
+Do not store student personal identity as a required license identity.
+
+License state examples:
+- pending
+- active
+- expired
+- revoked
+- suspended
+
+A license is the authoritative entitlement.
+A code is merely one way to claim/activate that entitlement.
+
+========================================
+G. ACTIVATION CODE MODEL
+========================================
+
+Activation code:
+- high entropy
+- randomly generated server-side
+- unique
+- never hardcoded in client
+- rate limited
+- usage tracked
+- stored securely (preferably hashed where possible)
+
+Activation request:
+App
+ -> LicenseClient
+ -> API
+ -> validate code
+ -> validate product/year/rules
+ -> consume/associate code
+ -> create/return signed entitlement
+ -> App verifies signature
+ -> App stores entitlement locally
+
+Never:
+App
+ -> server says "success"
+ -> trust unsigned license JSON
+
+========================================
+H. SIGNED OFFLINE ENTITLEMENT
+========================================
+
+Server owns:
+PRIVATE SIGNING KEY
+
+Application contains:
+PUBLIC VERIFICATION KEY
+
+Server creates signed entitlement containing claims such as:
+
+{
+  licenseId,
+  productId,
+  academicYear,
+  validUntil,
+  gradeScope,
+  installationBinding,
+  entitlementVersion
+}
+
+The exact serialization/cryptographic format is to be selected during implementation.
+
+The client:
+- verifies signature
+- verifies claims
+- stores verified entitlement
+- uses it offline
+
+Private key never enters:
+- Git repository
+- APK
+- EXE
+- browser
+- admin frontend
+
+Key rotation must be supported architecturally.
+
+========================================
+I. DEVICE / INSTALLATION IDENTITY
+========================================
+
+Because personal identity is not required, use an anonymous installation identifier if device binding is selected.
+
+installationId:
+- generated locally
+- random
+- not based on name/phone/email
+- not a secret
+- can be regenerated according to transfer/reinstall policy
+
+Device binding policy is configurable and not yet final.
+
+Architecture must support:
+- no binding
+- single installation
+- limited installations
+- controlled transfer
+
+without changing the license data model.
+
+========================================
+J. PAYMENT FLOW
+========================================
+
+Preferred flow:
+
+User
+ -> purchase page/app
+ -> payment gateway
+ -> gateway transaction
+ -> backend verifies transaction
+ -> backend creates License
+ -> backend optionally issues activation token/code
+ -> client receives entitlement / code
+ -> offline operation
+
+Critical:
+Client redirect/result is NOT payment proof.
+
+Backend verifies with gateway using server-side credentials.
+
+Payment abstraction:
+PaymentService
+  -> ProviderAdapter
+
+This permits changing the Iranian gateway/provider later.
+
+========================================
+K. GIFT FLOW
+========================================
+
+Admin
+ -> Create Gift Campaign
+ -> backend generates random codes
+ -> code records stored securely
+ -> admin distributes code
+
+User:
+App
+ -> enter gift/activation code
+ -> API validates
+ -> License issued
+ -> signed entitlement returned
+ -> local offline use
+
+Gift configuration:
+- academic year
+- product
+- grade scope if needed
+- usage limit
+- expiry
+- status
+- campaign
+- notes
+- audit trail
+
+No permanent universal gift code.
+
+========================================
+L. ADMIN PANEL
+========================================
+
+Admin panel talks only to backend APIs.
+
+Admin:
+- authenticated
+- authorized
+- preferably MFA
+
+Admin modules:
+Dashboard
+Licenses
+Gifts
+Payments
+Releases
+Audit
+Settings
+
+Sensitive operations:
+- revoke
+- extend
+- create gift
+- change usage
+- modify entitlement
+- manage administrators
+
+must generate audit events.
+
+Admin frontend must never contain:
+- payment gateway secret
+- signing private key
+- database credential
+
+========================================
+M. UPDATE ARCHITECTURE
+========================================
+
+Update system is separate from License.
+
+Release manifest concept:
+
+{
+  productId,
+  platform,
+  version,
+  build,
+  minimumSupportedVersion,
+  releaseDate,
+  packageUrl,
+  packageHash,
+  packageSize,
+  notes
+}
+
+Manifest is hosted on Distribution Plane or a controlled metadata endpoint.
+
+Flow:
+
+App starts
+ -> network available?
+    NO -> continue offline
+    YES -> UpdateClient checks manifest
+          |
+          +-- no update -> normal Home
+          |
+          +-- update -> HomeUpdateNotice
+                         |
+                    +----+----+
+                    |         |
+                 Later     Update
+                    |         |
+                 dismiss    download
+                              |
+                         verify hash/signature
+                              |
+                         install/update
+                              |
+                         success message
+                              |
+                         normal Home
+
+The update package must be integrity-verified.
+
+Update failure must never corrupt the existing working installation.
+
+========================================
+N. HOME UPDATE UX
+========================================
+
+The Home screen is the presentation point.
+
+When update exists:
+- moving text/message
+- same visual language as existing Dashboard messaging
+- culturally/educationally appropriate
+- not a generic advertising banner
+
+Actions:
+[به‌روزرسانی]
+[بعداً]
+
+Later:
+- dismiss
+- continue normally
+- reminder policy handled separately
+
+Success:
+- show short thank-you/success message
+- then restore original Home state
+
+No Internet:
+- no error popup
+- no blocking
+- no update requirement
+
+========================================
+O. DISTRIBUTION ARCHITECTURE
+========================================
+
+GitHub:
+Source / development / version control.
+
+Release pipeline:
+Git
+ -> Build
+ -> Sign package
+ -> Generate release metadata
+ -> Upload to distribution storage
+ -> Publish release
+
+Possible channels:
+- direct Iranian/local download
+- Bazaar
+- Myket
+- Google Play
+- future stores
+
+The package identity/signing must be managed centrally.
+
+Store-specific code should be minimized.
+
+========================================
+P. FUTURE INTERACTION
+========================================
+
+Future Interaction is an online module.
+
+It must not be required by:
+- Home
+- Grades
+- Subjects
+- Chapters
+- Activities
+- Games
+- Progress
+
+If enabled:
+App
+ -> Interaction API
+ -> server-side authorization/moderation
+ -> safe response
+
+Before implementation:
+- child privacy
+- moderation
+- reporting
+- abuse prevention
+- store policies
+must be reviewed.
+
+========================================
+Q. SECURITY BOUNDARIES
+========================================
+
+TRUSTED SERVER:
+- database
+- private signing key
+- payment credentials
+- admin authorization
+- license decisions
+- gift generation
+
+UNTRUSTED CLIENT:
+- APK
+- EXE
+- local storage
+- browser/devtools
+- client clock
+- client-submitted payment success
+- client-submitted license claims
+
+Therefore:
+Any security decision that must resist client tampering must be server-backed.
+
+Offline operation relies on:
+cryptographically signed entitlement + expiry + defined local validation policy.
+
+========================================
+R. CLOCK / OFFLINE EXPIRY POLICY
+========================================
+
+Important unresolved security issue:
+A fully offline client cannot perfectly prove real-world time.
+
+Architecture must therefore define one of:
+1. signed expiry + local clock
+2. signed expiry + monotonic/anti-rollback safeguards
+3. periodic online refresh with a grace window
+4. hybrid policy
+
+Recommended direction for evaluation:
+Signed expiry + local protections + optional periodic online refresh,
+while preserving offline learning during the allowed grace period.
+
+Do not silently invent a policy during implementation.
+
+========================================
+S. ACADEMIC YEAR SERVICE
+========================================
+
+Academic-year calculation should be server-controlled.
+
+Server defines:
+- academic year identifier
+- start date
+- end date
+- timezone
+
+Example:
+1405-1406
+validUntil = 1406/06/31 23:59:59 Iran time
+
+Client displays server-provided values.
+Client must not independently reinterpret the academic-year boundary.
+
+========================================
+T. FAILURE / FALLBACK RULES
+========================================
+
+Network unavailable:
+- educational app continues if local entitlement valid
+
+License API unavailable:
+- use local valid entitlement according to offline policy
+
+Update server unavailable:
+- no user-facing failure unless user explicitly requested update
+
+Payment gateway unavailable:
+- no license issuance until server verification succeeds
+
+Update download corrupted:
+- reject package
+- retain current version
+
+Server error:
+- return safe generic message
+- log technical detail server-side
+- do not expose secrets
+
+========================================
+U. INTEGRATION WITH CURRENT TAHOURI
+========================================
+
+Current project evidence confirms the existing application already has:
+- LicenseScreen
+- LicenseManager API usage
+- ActivationGate integration
+- ProfileManager integration
+- Screen/Home/navigation
+- existing educational activity architecture
+
+Current LicenseScreen already calls APIs such as:
+LicenseManager.isGradeActivated()
+LicenseManager.getGrades()
+LicenseManager.activate()
+
+Therefore the correct strategy is:
+KEEP THESE PUBLIC APPLICATION CONTRACTS WHERE POSSIBLE.
+
+The new backend-backed implementation should sit behind LicenseManager rather than forcing Screen/Activity code to know about HTTP/API details.
+
+ActivationGate should continue to ask the licensing layer for authorization.
+
+Screen should continue to display educational navigation.
+
+ProfileManager remains separate.
+
+This minimizes regression risk.
+
+========================================
+V. FIRST IMPLEMENTATION BOUNDARY
+========================================
+
+First implementation must NOT touch:
+- puzzle engine
+- quiz engine
+- memory engine
+- jigsaw engine
+- content lock logic
+- activity engine architecture
+
+First implementation focuses on:
+1. service abstraction
+2. license domain model
+3. test backend contract
+4. signed entitlement verification
+5. safe local storage
+6. compatibility adapter for existing LicenseManager
+
+Then:
+payment
+gift
+admin
+update
+
+========================================
+W. IMPLEMENTATION ORDER
+========================================
+
+Phase 1
+Architecture + contract audit
+STATUS: architecture baseline created
+
+Phase 2
+License domain + signed entitlement + test service
+NEXT
+
+Phase 3
+Integrate existing LicenseManager through adapter
+
+Phase 4
+Activation UI compatibility test
+
+Phase 5
+Admin + Gift
+
+Phase 6
+Payment
+
+Phase 7
+Update client + Home notice
+
+Phase 8
+Distribution pipeline
+
+Phase 9
+Store readiness
+
+Phase 10
+Security hardening + complete regression test
+
+========================================
+X. ARCHITECTURE CHANGE CONTROL
+========================================
+
+Any proposed change to this architecture must answer:
+1. Why is it required?
+2. What existing component does it affect?
+3. Can it be isolated behind an adapter?
+4. Does it break offline operation?
+5. Does it expose a secret?
+6. Does it affect child privacy/safety?
+7. Does it create store-specific coupling?
+8. Does it require changes to working educational engines?
+
+If an adapter can solve the problem, prefer the adapter.
+
+END OF ARCHITECTURE BASELINE

@@ -1,0 +1,78 @@
+name: Composite Matching Safety Checks
+
+on:
+  pull_request:
+    branches: ["master"]
+    paths:
+      - "engine/question/compositeActivityProvider.js"
+      - "engine/activity/matchingEngine.js"
+      - "engine/activity/compositeActivityEngine.js"
+      - "engine/progress/progressTracker.js"
+      - "engine/core/statisticsManager.js"
+      - "engine/ui/compositeActivityScreen.js"
+      - "content/grades/grade6/science/chapter1/compositeAnimalMediaDemo/activity.json"
+      - "data/activities.json"
+      - "assets/images/animals/**"
+      - "tests/composite-matching-lifecycle.test.js"
+      - "tests/animal-composite-integration.test.js"
+      - "tests/progress-tracker-best-results.test.js"
+      - "tests/composite-report-best-score.test.js"
+      - "tests/composite-audio-prompt.test.js"
+      - ".github/workflows/composite-matching-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-and-wiring:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        run: |
+          node --check engine/question/compositeActivityProvider.js
+          node --check engine/activity/matchingEngine.js
+          node --check engine/activity/compositeActivityEngine.js
+          node --check engine/core/statisticsManager.js
+          node --check engine/ui/compositeActivityScreen.js
+          node --check tests/composite-matching-lifecycle.test.js
+          node --check tests/animal-composite-integration.test.js
+          node --check tests/progress-tracker-best-results.test.js
+          node --check tests/composite-report-best-score.test.js
+          node --check tests/composite-audio-prompt.test.js
+      - name: Test composite versus standalone completion events
+        run: node tests/composite-matching-lifecycle.test.js
+      - name: Test full animal composite activity integration
+        run: node tests/animal-composite-integration.test.js
+      - name: Test best progress versus latest attempt
+        run: node tests/progress-tracker-best-results.test.js
+      - name: Test composite report best-score migration
+        run: node tests/composite-report-best-score.test.js
+      - name: Test composite audio prompt and fallback
+        run: node tests/composite-audio-prompt.test.js
+      - name: Validate composite demo JSON
+        run: |
+          node -e "const fs=require('fs'); const p='content/grades/grade6/science/chapter1/compositeAnimalMediaDemo/activity.json'; const a=JSON.parse(fs.readFileSync(p,'utf8')); const stages = a.composite && a.composite.stages; if (a.title !== 'ماجراجویی جانوران') throw new Error('Learner-facing activity title missing'); if (!Array.isArray(stages) || stages.length !== 3) throw new Error('Expected exactly three composite stages'); if (stages[0].prompt.src !== 'assets/images/animals/composite-cat.svg' || stages[1].prompt.src !== 'assets/images/animals/composite-frog.svg') throw new Error('Animal illustration references missing'); for (const stage of stages.filter(s => s.interaction === 'matching')) { if (!stage.matching || !Array.isArray(stage.matching.pairs) || stage.matching.pairs.length < 3) throw new Error('Matching stage is incomplete'); } for (const stage of stages) { if (stage.prompt && stage.prompt.type === 'image' && !fs.existsSync(stage.prompt.src)) throw new Error('Missing image asset: ' + stage.prompt.src); } const index=JSON.parse(fs.readFileSync('data/activities.json','utf8')); if (!index.some(item => item.id === a.id && item.title === a.title && item.path === 'content/grades/grade6/science/chapter1/compositeAnimalMediaDemo')) throw new Error('Activity index entry missing or inconsistent'); console.log('Animal composite activity content and assets OK');"
+      - name: Verify matching stage wiring
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const checks = [
+            ['engine/question/compositeActivityProvider.js', /interaction\s*===?\s*['"]matching['"]|interaction\s*:\s*['"]matching['"]/],
+            ['engine/activity/matchingEngine.js', /compositeMatchingFinished/],
+            ['engine/activity/compositeActivityEngine.js', /completeMatchingStage/],
+            ['engine/ui/compositeActivityScreen.js', /MatchingEngine/],
+            ['engine/ui/compositeActivityScreen.js', /MatchingScreen/],
+          ];
+          for (const [file, pattern] of checks) {
+            const source = fs.readFileSync(file, 'utf8');
+            if (!pattern.test(source)) throw new Error('Missing expected integration in ' + file);
+          }
+          console.log('Matching-stage wiring checks passed');
+          NODE

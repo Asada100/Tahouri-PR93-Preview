@@ -1,0 +1,887 @@
+.wp-shell{max-width:920px;margin:0 auto;padding:24px 16px 40px;text-align:center;color:#172033}.wp-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.wp-progress,.wp-score{background:#f4f6fa;border:1px solid #e4e8ef;border-radius:999px;padding:8px 14px;font-weight:700}.wp-shell h1{margin:8px 0;font-size:clamp(24px,4vw,34px)}.wp-instruction{margin:0 auto 18px;max-width:680px;line-height:1.9;color:#586174}.wp-status{min-height:28px;font-weight:700;margin:4px 0 10px}.wp-status.good{color:#147a4a}.wp-status.bad{color:#b42318}.wp-card,.wp-finish-card{padding:22px;border-radius:24px;border:1px solid #e1e6ee;background:#fff;box-shadow:0 10px 30px rgba(20,32,55,.07)}.wp-clue,.wp-family-help,.wp-lpath-word{font-size:17px;line-height:1.8;margin-bottom:16px}.wp-answer{min-height:58px;display:flex;align-items:center;justify-content:center;border:2px dashed #cbd3df;border-radius:16px;margin:8px auto 20px;max-width:520px;font-size:25px;font-weight:800;letter-spacing:.08em;color:#98a1af}.wp-answer.has-value{border-style:solid;color:#172033}.wp-hint{display:none;min-height:28px;margin:8px auto 12px;padding:8px 12px;border-radius:12px;background:#f4f7ff;font-weight:800}.wp-hint.show{display:block}.wp-letters,.wp-options{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:20px auto}.wp-letter,.wp-option,.wp-cell,.wp-btn{font:inherit;border:1px solid #d5dce7;background:#f8f9fb;border-radius:14px;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}.wp-letter,.wp-option{min-width:56px;padding:13px 18px;font-size:22px;font-weight:800}.wp-letter:hover,.wp-option:hover,.wp-cell:hover,.wp-btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(20,32,55,.1)}.wp-letter.sel,.wp-option.sel,.wp-cell.sel{background:#dfe9ff;border-color:#8eaaf0}.wp-cell.hint-cell{outline:3px solid #f0b429;box-shadow:0 0 0 4px rgba(240,180,41,.18)}.wp-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.wp-btn{padding:11px 20px;font-size:16px;font-weight:800;background:#172033;color:#fff}.wp-btn.wp-secondary{background:#eef1f5;color:#172033}.wp-target-list{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px}.wp-target-list span{padding:7px 12px;border-radius:999px;background:#f3f5f8;font-weight:700}.wp-selection{margin:12px 0;font-size:18px;min-height:30px}.wp-grid{display:grid;touch-action:none;user-select:none;-webkit-user-select:none;grid-template-columns:repeat(9,minmax(0,1fr));gap:5px;max-width:620px;margin:18px auto}.wp-l-grid{grid-template-columns:repeat(7,minmax(0,1fr));max-width:500px}.wp-cell{aspect-ratio:1;touch-action:none;user-select:none;-webkit-user-select:none;padding:0;font-size:clamp(15px,3vw,23px);font-weight:800;color:#172033}.wp-family-base{font-size:21px;margin-bottom:8px}.wp-family-base strong{font-size:26px}.wp-option{min-width:100px}.wp-finish{min-height:60vh;display:flex;align-items:center;justify-content:center}.wp-finish-card{max-width:620px;width:100%}.wp-finish-icon{font-size:54px}.wp-finish-message{font-size:18px;line-height:1.9;color:#586174}.wp-stars{font-size:38px;letter-spacing:4px;margin:16px 0 24px}.wp-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 auto 24px}.wp-summary div{padding:14px;border:1px solid #e1e6ee;border-radius:16px;background:#f8f9fb}.wp-summary span,.wp-summary strong{display:block}.wp-summary span{font-size:14px;color:#687286;margin-bottom:6px}.wp-summary strong{font-size:20px}@media(max-width:600px){.wp-shell{padding:14px 9px 28px}.wp-card,.wp-finish-card{padding:16px;border-radius:20px}.wp-header{font-size:14px}.wp-progress,.wp-score{padding:7px 10px}.wp-grid{gap:3px}.wp-letter,.wp-option{min-width:50px;padding:11px 14px;font-size:20px}.wp-btn{width:auto}.wp-target-list{gap:5px}.wp-target-list span{padding:6px 9px;font-size:14px}.wp-summary{grid-template-columns:1fr}.wp-stars{font-size:32px}}
+/* Natural letter tracing for touch and mouse */
+.wp-builder-grid{max-width:430px;grid-template-columns:repeat(4,minmax(0,1fr));}
+.wp-grid .wp-cell{cursor:crosshair;}
+.wp-grid .wp-cell.sel{background:#dce8ff;border-color:#6588d9;box-shadow:inset 0 0 0 2px rgba(65,105,190,.12);}
+.wp-grid .wp-cell.hint-cell{position:relative;z-index:1;}
+
+/* Independent mode selection and persistent word-search progress */
+.wp-mode-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:760px;margin:24px auto}
+.wp-mode-card{display:flex;flex-direction:column;align-items:center;gap:10px;min-height:150px;padding:20px 14px;border:1px solid #dbe2ec;border-radius:20px;background:#fff;color:#172033;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(20,32,55,.06);transition:transform .15s ease,box-shadow .15s ease}
+.wp-mode-card:hover,.wp-mode-card:focus-visible{transform:translateY(-2px);box-shadow:0 10px 24px rgba(20,32,55,.12);outline:2px solid #8eaaf0}
+.wp-mode-icon{font-size:32px}.wp-mode-card strong{font-size:19px}.wp-mode-card>span:last-child{font-size:14px;line-height:1.7;color:#586174}
+.wp-target-list .wp-found{background:#dff5e8;color:#17633d;text-decoration:line-through}
+@media(max-width:480px){.wp-mode-list{grid-template-columns:1fr;gap:10px}.wp-mode-card{min-height:120px}}
+
+/* Word search: compact responsive board, straight transparent tracing, and live feedback */
+.wp-header{flex-wrap:wrap;min-width:0}
+.wp-progress{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.wp-search-card{padding:14px}
+.wp-search-grid{max-width:min(100%,500px);width:100%;gap:4px;position:relative;margin:12px auto}
+.wp-search-grid .wp-cell{min-width:0;border-radius:9px;font-size:clamp(13px,2.2vw,20px);position:relative;z-index:1}
+.wp-path-overlay{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2}
+.wp-path-line{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.wp-path-active{stroke:rgba(56,105,190,.38);stroke-width:7}
+.wp-path-found{stroke:rgba(26,150,85,.30);stroke-width:7}
+.wp-search-grid .wp-cell.wp-found-cell{background:#dff5e8;border-color:#72c99a;color:#17633d}
+.wp-search-grid .wp-cell.wp-error-cell{background:#fee4e2;border-color:#e97068;color:#a61b1b}
+.wp-search-grid .wp-cell.hint-cell{background:#fff1c2;border-color:#e0a51a;box-shadow:inset 0 0 0 2px rgba(224,165,26,.25)}
+.wp-live-word{max-width:500px;min-height:48px;margin:8px auto 12px;padding:9px 14px;border:2px solid #d5dce7;border-radius:13px;background:#f8f9fb;font-size:18px;color:#586174}
+.wp-live-word strong{color:#172033}
+.wp-live-word.good{border-color:#70c695;background:#e8f8ee;color:#17633d}
+.wp-live-word.good strong{color:#17633d}
+.wp-live-word.bad{border-color:#e97068;background:#fff0ef;color:#a61b1b}
+.wp-live-word.bad strong{color:#a61b1b}
+.wp-target-list .wp-hint-target{outline:2px solid #e0a51a;background:#fff1c2}
+.wp-search-hint{display:block;margin:12px auto 0}
+@media(max-width:600px){
+.wp-search-card{padding:10px}
+.wp-search-grid{gap:3px;max-width:100%}
+.wp-search-grid .wp-cell{border-radius:6px;font-size:clamp(12px,3.4vw,18px)}
+.wp-progress{flex:1 1 auto}
+.wp-score{flex:0 0 auto}
+.wp-live-word{font-size:16px}
+}
+
+
+/* Word Search: floating feedback stays out of document flow and never blocks tracing */
+.wp-shell:has(.wp-search-card)>.wp-status{display:none}
+.wp-search-card .wp-live-word{
+position:fixed;
+left:50%;
+bottom:16px;
+z-index:10000;
+width:min(500px,calc(100vw - 28px));
+min-height:0;
+margin:0;
+padding:10px 16px;
+transform:translateX(-50%) translateY(8px);
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+box-shadow:0 8px 28px rgba(20,32,55,.18);
+transition:opacity .16s ease,transform .16s ease,visibility .16s ease;
+}
+.wp-search-card .wp-live-word.visible{
+opacity:1;
+visibility:visible;
+transform:translateX(-50%) translateY(0);
+}
+@media(prefers-reduced-motion:reduce){
+.wp-search-card .wp-live-word{transition:none}
+}
+
+
+/* Word Search: keep the target list visible and use a conventional, always-visible hint button */
+.wp-search-hint{display:block;margin:8px auto 12px;min-height:42px;padding:9px 20px;border-radius:12px}
+.wp-search-grid{max-width:min(100%,500px);width:100%;margin:10px auto;gap:3px}
+.wp-search-grid .wp-cell{touch-action:none;min-width:0;padding:0}
+@media(max-width:600px){
+.wp-search-card{padding:8px}
+.wp-search-grid{max-width:100%;width:100%;gap:2px;margin:8px auto}
+.wp-search-grid .wp-cell{font-size:clamp(14px,4vw,19px);border-radius:5px}
+.wp-target-list{margin-bottom:8px}
+.wp-target-list span{padding:6px 8px}
+.wp-search-hint{margin:6px auto 8px}
+}
+
+
+/* Mobile word-search fit: keep every column inside the viewport. */
+.wp-shell:has(.wp-search-card){width:100%;max-width:920px;min-width:0;box-sizing:border-box;overflow-x:clip}
+.wp-search-card{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+.wp-search-grid{width:min(100%,500px);max-width:100%;min-width:0;box-sizing:border-box}
+.wp-search-grid .wp-cell{width:100%;min-width:0;max-width:100%;box-sizing:border-box;line-height:1.1}
+@media(max-width:600px){
+  .wp-shell:has(.wp-search-card){padding-left:6px;padding-right:6px}
+  .wp-search-card{padding:6px}
+  .wp-search-grid{width:100%;max-width:100%;gap:2px;margin:8px auto}
+  .wp-search-grid .wp-cell{font-size:clamp(12px,3.8vw,17px);border-radius:4px}
+}
+/* Make the exact hinted cells unmistakable, even on a small phone screen. */
+.wp-search-grid .wp-cell.hint-cell{
+  position:relative;z-index:4;
+  background:#ffcf4a!important;color:#382600!important;
+  border:2px solid #a86700!important;
+  box-shadow:inset 0 0 0 2px #fff4bf,0 0 0 2px rgba(255,190,30,.45)!important;
+  animation:wp-hint-pulse .8s ease-in-out 3;
+}
+@keyframes wp-hint-pulse{
+  0%,100%{filter:brightness(1);transform:scale(1)}
+  50%{filter:brightness(1.15);transform:scale(1.06)}
+}
+.wp-hint.show{
+  display:block;background:#fff1c2;color:#5b3b00;
+  border:2px solid #d99a00;box-shadow:0 3px 12px rgba(90,60,0,.12);
+  line-height:1.7;
+}
+
+
+/* Word Search: keep the hint beside the instruction, outside the board card. */
+.wp-instruction-with-hint{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;text-align:center;}
+.wp-instruction-with-hint>span{min-width:0;}
+.wp-instruction-with-hint .wp-search-hint{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;margin:0;padding:7px 13px;min-height:38px;font-size:14px;border-radius:10px;}
+@media(max-width:600px){.wp-instruction-with-hint{gap:7px;line-height:1.8}.wp-instruction-with-hint .wp-search-hint{padding:6px 10px;min-height:34px;font-size:13px}}
+
+/* Stable Word Search hint toast; never shift or animate grid cells. */
+.wp-search-card .wp-hint.show{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom, 0px));z-index:10001;display:block;width:min(560px,calc(100vw - 28px));max-height:35vh;overflow:auto;box-sizing:border-box;margin:0;padding:11px 16px;transform:translateX(-50%);pointer-events:none;box-shadow:0 8px 28px rgba(20,32,55,.22);}
+.wp-search-grid .wp-cell,.wp-search-grid .wp-cell:hover,.wp-search-grid .wp-cell:focus{transform:none!important;transition:none!important;}
+.wp-search-grid .wp-cell.hint-cell{animation:none!important;transform:none!important;}
+
+
+/* Word Search hint: opaque, high-contrast message placed below the board. */
+.wp-search-card .wp-hint{
+  position:static;
+  left:auto;
+  bottom:auto;
+  z-index:auto;
+  display:none;
+  width:min(560px,100%);
+  max-height:none;
+  overflow:visible;
+  box-sizing:border-box;
+  margin:12px auto 0;
+  padding:12px 16px;
+  transform:none;
+  background:#fff!important;
+  color:#172033!important;
+  border:2px solid #b77900!important;
+  border-radius:12px;
+  box-shadow:0 4px 14px rgba(23,32,51,.16);
+  line-height:1.8;
+  font-weight:800;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.wp-search-card .wp-hint.show{
+  position:static;
+  display:block;
+  transform:none;
+  background:#fff!important;
+  color:#172033!important;
+  border:2px solid #b77900!important;
+}
+
+ 
+/* Word Search hint overlay: translucent, centered on the board, and drag-through. */
+.wp-search-card .wp-search-grid{position:relative;}
+.wp-search-card .wp-search-grid .wp-hint{
+  position:absolute!important;
+  inset:50% auto auto 50%!important;
+  z-index:10!important;
+  display:none;
+  width:min(92%,420px)!important;
+  max-width:92%!important;
+  max-height:60%!important;
+  overflow:auto!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:10px 14px!important;
+  transform:translate(-50%,-50%)!important;
+  background:rgba(255,255,255,.82)!important;
+  color:#172033!important;
+  border:1px solid rgba(183,121,0,.72)!important;
+  border-radius:12px!important;
+  box-shadow:0 4px 16px rgba(23,32,51,.14)!important;
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  line-height:1.7;
+  font-weight:800;
+  text-align:center;
+  opacity:1!important;
+  visibility:visible;
+  pointer-events:none!important;
+}
+.wp-search-card .wp-search-grid .wp-hint.show{display:block!important;}
+
+/* L-path mode: same drag interaction and centered translucent hint as Word Search. */
+.wp-lpath-card .wp-l-grid{position:relative;}
+.wp-lpath-card .wp-l-grid .wp-hint{
+  position:absolute!important;
+  inset:50% auto auto 50%!important;
+  z-index:10!important;
+  display:none;
+  width:min(92%,420px)!important;
+  max-width:92%!important;
+  max-height:60%!important;
+  overflow:auto!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:10px 14px!important;
+  transform:translate(-50%,-50%)!important;
+  background:rgba(255,255,255,.84)!important;
+  color:#172033!important;
+  border:1px solid rgba(183,121,0,.72)!important;
+  border-radius:12px!important;
+  box-shadow:0 4px 16px rgba(23,32,51,.14)!important;
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  line-height:1.7;
+  font-weight:800;
+  text-align:center;
+  opacity:1!important;
+  visibility:visible;
+  pointer-events:none!important;
+}
+.wp-lpath-card .wp-l-grid .wp-hint.show{display:block!important;}
+.wp-lpath-card .wp-l-grid .wp-cell{touch-action:none;min-width:0;}
+
+
+/* Word search: keep the instruction and hint on one compact line on phones. */
+.wp-shell:has(.wp-search-card)>h1{margin:4px 0;font-size:clamp(21px,5vw,30px);}
+.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:5px;width:100%;max-width:100%;margin:0 auto 8px;line-height:1.2;white-space:nowrap;text-align:right;}
+.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint>span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:clamp(10px,2.8vw,13px);}
+.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint .wp-search-hint{flex:0 0 auto;margin:0;padding:5px 8px;min-height:30px;font-size:11px;line-height:1.1;}
+@media(max-width:380px){.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint{gap:3px}.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint>span{font-size:10px}.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint .wp-search-hint{padding:5px 6px;font-size:10px}}
+
+
+/* Compact one-line word-search instruction for mobile: keep the board near the top. */
+.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:5px;width:100%;max-width:100%;margin:0 auto 6px;line-height:1.15;white-space:nowrap;text-align:right;}
+.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint>span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:clamp(8px,2.25vw,12px);letter-spacing:-.2px;}
+.wp-shell:has(.wp-search-card)>.wp-instruction-with-hint .wp-search-hint{flex:0 0 28px;width:28px;height:28px;min-height:28px;margin:0;padding:0;font-size:15px;line-height:1;border-radius:9px;}
+@media(min-width:601px){
+ .wp-shell:has(.wp-search-card)>.wp-instruction-with-hint>span{font-size:13px;overflow:visible;text-overflow:clip;}
+ .wp-shell:has(.wp-search-card)>.wp-instruction-with-hint .wp-search-hint{flex-basis:34px;width:34px;height:34px;min-height:34px;}
+}
+
+
+/* Word Puzzle feedback and hints: fully opaque, readable, and never cover the word grid. */
+.wp-hint.show{
+  background:#fff!important;
+  color:#172033!important;
+  border:2px solid #b77900!important;
+  box-shadow:0 4px 14px rgba(23,32,51,.16)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+.wp-search-card .wp-hint,
+.wp-lpath-card .wp-hint{
+  position:static!important;
+  display:none;
+  width:100%!important;
+  max-width:560px!important;
+  max-height:none!important;
+  margin:12px auto 0!important;
+  padding:12px 16px!important;
+  transform:none!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  color:#172033!important;
+  border:2px solid #b77900!important;
+  border-radius:12px!important;
+  box-shadow:0 4px 14px rgba(23,32,51,.16)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  pointer-events:auto!important;
+}
+.wp-search-card .wp-hint.show,
+.wp-lpath-card .wp-hint.show{display:block!important;}
+.wp-status{background:#fff;opacity:1;text-shadow:none;}
+
+
+/* Final override: all Word Puzzle feedback must be opaque and readable. */
+.wp-shell .wp-card .wp-hint.show,
+.wp-shell .wp-card .wp-selection.visible,
+.wp-shell .wp-card .wp-live-word.visible,
+.wp-shell .wp-status.good,
+.wp-shell .wp-status.bad {
+  opacity: 1 !important; visibility: visible !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+.wp-shell .wp-card .wp-hint.show {
+  position: static !important; inset: auto !important; display: block !important;
+  width: 100% !important; max-width: 560px !important; max-height: none !important;
+  margin: 12px auto !important; padding: 12px 16px !important; transform: none !important;
+  background: #fff !important; color: #172033 !important; border: 2px solid #b77900 !important;
+  border-radius: 12px !important; box-shadow: 0 4px 14px rgba(23,32,51,.16) !important;
+  pointer-events: auto !important; text-align: center;
+}
+.wp-shell .wp-card .wp-live-word.visible { background: #fff !important; color: #172033 !important; border-color: #cbd3df !important; }
+.wp-shell .wp-card .wp-live-word.good { background: #e8f8ee !important; color: #17633d !important; border-color: #70c695 !important; }
+.wp-shell .wp-card .wp-live-word.bad { background: #fff0ef !important; color: #a61b1b !important; border-color: #e97068 !important; }
+.wp-shell .wp-status.good { background: #e8f8ee !important; }
+.wp-shell .wp-status.bad { background: #fff0ef !important; }
+
+
+/* Independent top-down feedback toast: overlays the game without changing its layout. */
+#wp-feedback-toast.wp-feedback-toast{
+  position:fixed!important;
+  top:calc(12px + env(safe-area-inset-top, 0px))!important;
+  left:50%!important;
+  z-index:2147483647!important;
+  display:block!important;
+  width:max-content!important;
+  max-width:min(560px,calc(100vw - 24px))!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:12px 18px!important;
+  border:1px solid #b8c5d8!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  color:#172033!important;
+  box-shadow:0 8px 28px rgba(20,32,55,.24)!important;
+  font:inherit!important;
+  font-size:15px!important;
+  font-weight:800!important;
+  line-height:1.75!important;
+  text-align:center!important;
+  overflow-wrap:anywhere!important;
+  pointer-events:none!important;
+  opacity:0;
+  transform:translate(-50%,-150%);
+  animation:wp-feedback-slide 2s ease-in-out both!important;
+}
+#wp-feedback-toast.wp-feedback-toast.good{
+  background:#e8f8ee!important;color:#17633d!important;border-color:#70c695!important;
+}
+#wp-feedback-toast.wp-feedback-toast.bad{
+  background:#fff!important;color:#172033!important;border-color:#b8c5d8!important;
+}
+@keyframes wp-feedback-slide{
+  0%{opacity:0;transform:translate(-50%,-150%)}
+  12%{opacity:1;transform:translate(-50%,0)}
+  88%{opacity:1;transform:translate(-50%,0)}
+  100%{opacity:0;transform:translate(-50%,-150%)}
+}
+@media(prefers-reduced-motion:reduce){
+  #wp-feedback-toast.wp-feedback-toast{animation:wp-feedback-slide 2s linear both!important}
+}
+
+
+/* Live word: true shrink-to-fit sizing, with width growing only as text grows. */
+.wp-shell .wp-search-card .wp-live-word.visible{
+  position:fixed!important;
+  top:calc(72px + env(safe-area-inset-top, 0px))!important;
+  right:auto!important;
+  bottom:auto!important;
+  left:50%!important;
+  display:table!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:calc(100vw - 24px)!important;
+  min-height:0!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:8px 14px!important;
+  border:2px solid #5b21b6!important;
+  border-radius:12px!important;
+  background:#5b21b6!important;
+  color:#fff!important;
+  box-shadow:0 7px 22px rgba(55,20,110,.32)!important;
+  font-size:clamp(15px,3.8vw,19px)!important;
+  line-height:1.5!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  transform:translateX(-50%) translateY(0)!important;
+  pointer-events:none!important;
+}
+.wp-shell .wp-search-card .wp-live-word.visible strong,
+.wp-shell .wp-search-card .wp-live-word.visible.good strong,
+.wp-shell .wp-search-card .wp-live-word.visible.bad strong{color:#fff!important;}
+.wp-shell .wp-search-card .wp-live-word.visible.good{background:#087f5b!important;border-color:#065f46!important;}
+.wp-shell .wp-search-card .wp-live-word.visible.bad{background:#9f1239!important;border-color:#881337!important;}
+
+
+/* Word Builder: uncluttered, large touch targets and explicit staged progress. */
+.wp-builder-card{max-width:620px;margin-inline:auto}
+.wp-builder-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 auto 14px}
+.wp-builder-stage{display:inline-flex;align-items:center;padding:8px 13px;border-radius:12px;background:#edf3ff;color:#233f78;font-size:16px}
+.wp-builder-step{font-size:14px;font-weight:800;color:#586174}
+.wp-builder-card .wp-clue{font-size:clamp(17px,4vw,21px);line-height:1.9;font-weight:750;max-width:540px;margin:0 auto 14px}
+.wp-builder-grid{width:min(100%,390px);max-width:390px;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px auto}
+.wp-builder-grid .wp-cell{width:100%;min-width:0;box-sizing:border-box;aspect-ratio:1;font-size:clamp(22px,6vw,30px);line-height:1;border-radius:13px;border:2px solid #dce3ed;background:#fff;box-shadow:0 2px 5px rgba(20,32,55,.05)}
+.wp-builder-grid .wp-cell.sel{background:#dce8ff;border-color:#6588d9;box-shadow:inset 0 0 0 2px rgba(65,105,190,.12)}
+.wp-builder-card .wp-answer{max-width:390px;margin:10px auto;padding:10px 12px;border-radius:12px;background:#f6f8fb;font-size:clamp(18px,4.5vw,23px);font-weight:800;min-height:48px;box-sizing:border-box}
+.wp-builder-card .wp-answer.has-value{background:#edf3ff;color:#233f78}
+@media(max-width:600px){
+ .wp-builder-card{padding:13px 10px}
+ .wp-builder-meta{margin-bottom:9px}
+ .wp-builder-stage{font-size:14px;padding:7px 10px}
+ .wp-builder-step{font-size:12px}
+ .wp-builder-grid{width:min(100%,350px);max-width:350px;gap:6px;margin:12px auto}
+ .wp-builder-grid .wp-cell{font-size:clamp(21px,7vw,28px);border-radius:10px}
+ .wp-builder-card .wp-clue{font-size:17px;line-height:1.8}
+}
+
+
+/* Circular free-drag builder: letters float around a ring, not inside button tiles. */
+.wp-builder-grid{position:relative!important;display:block!important;width:min(88vw,360px)!important;max-width:360px!important;aspect-ratio:1/1;height:auto!important;margin:12px auto 18px!important;padding:0!important;overflow:visible;touch-action:none;user-select:none;-webkit-user-select:none}
+.wp-builder-grid .wp-cell{position:absolute;display:flex;align-items:center;justify-content:center;width:clamp(34px,10vw,46px);height:clamp(34px,10vw,46px);padding:0;margin:0;transform:translate(-50%,-50%);border:0!important;border-radius:50%;background:transparent!important;box-shadow:none!important;color:var(--wp-text,#26354a);font-size:clamp(25px,7vw,34px)!important;font-weight:800;line-height:1;cursor:grab;touch-action:none;z-index:2}
+.wp-builder-grid .wp-cell.sel{color:#2458b5!important;background:rgba(95,145,240,.18)!important;box-shadow:0 0 0 2px rgba(95,145,240,.38)!important}
+.wp-builder-grid .wp-cell.wp-error-cell{color:#b42318!important;background:rgba(220,70,70,.14)!important}
+.wp-builder-grid .wp-cell.hint-cell{color:#176b48!important;background:rgba(45,180,120,.15)!important}
+.wp-builder-grid .wp-path-overlay{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
+.wp-builder-card .wp-builder-clues{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:650px;margin:14px auto}
+.wp-builder-card .wp-builder-clue{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0;padding:10px;border:1px solid #dfe5ef;border-radius:12px;background:#f8faff;text-align:right}
+.wp-builder-card .wp-builder-clue-number{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#e4ebf8;color:#304b80;font-weight:800;font-size:13px}
+.wp-builder-card .wp-builder-clue-meaning{font-size:14px;line-height:1.65;overflow-wrap:anywhere}
+.wp-builder-card .wp-builder-clue-answer{font-size:13px;color:#53627a}
+.wp-builder-card .wp-builder-clue.is-solved{background:#eaf7ef;border-color:#a9d8ba}
+.wp-builder-card .wp-builder-clue.is-solved .wp-builder-clue-answer{color:#176b48}
+@media(max-width:600px){
+ .wp-builder-card .wp-builder-clues{gap:5px;margin:10px auto}
+ .wp-builder-card .wp-builder-clue{padding:7px 6px;gap:5px;border-radius:9px}
+ .wp-builder-card .wp-builder-clue-meaning{font-size:12px;line-height:1.55}
+ .wp-builder-card .wp-builder-clue-answer{font-size:11px}
+ .wp-builder-grid{width:min(88vw,340px)!important;max-width:340px!important;margin:8px auto 14px!important}
+ .wp-builder-grid .wp-cell{font-size:clamp(24px,7.5vw,32px)!important}
+}
+
+
+/* Word Builder polish: compact clues, vivid tracing, and less wasted space. */
+.wp-builder-card{max-width:560px;padding:14px 16px 16px;border-radius:22px;background:linear-gradient(155deg,#ffffff 0%,#f5f9ff 100%);}
+.wp-builder-card .wp-builder-clues{gap:7px;margin:8px auto 4px;}
+.wp-builder-card .wp-builder-clue{align-items:center;gap:4px;padding:7px 5px;border:1px solid #d9e6f8;border-radius:12px;background:#f0f7ff;text-align:center;box-shadow:0 2px 0 rgba(45,91,160,.04);}
+.wp-builder-card .wp-builder-clue-number{width:21px;height:21px;background:#dbeafe;color:#1d4ed8;font-size:12px;}
+.wp-builder-card .wp-builder-clue-meaning{font-size:clamp(11px,2.8vw,14px);line-height:1.45;font-weight:700;color:#334155;}
+.wp-builder-card .wp-builder-clue-answer{font-size:12px;color:#64748b;}
+.wp-builder-card .wp-builder-clue.is-solved{background:#dcfce7;border-color:#86efac;}
+.wp-builder-card .wp-answer{min-height:34px;height:auto;margin:4px auto 0;padding:4px 10px;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;font-size:clamp(17px,4vw,21px);line-height:1.4;color:#1d4ed8;}
+
+.wp-builder-grid{width:min(86vw,330px)!important;max-width:330px!important;margin:5px auto 8px!important;aspect-ratio:1/1;}
+.wp-builder-grid .wp-cell{width:clamp(38px,10vw,48px);height:clamp(38px,10vw,48px);font-size:clamp(27px,7vw,36px)!important;color:#243b70;transition:color .12s ease,background .12s ease,scale .12s ease;}
+.wp-builder-grid .wp-cell.sel{color:#fff!important;background:linear-gradient(135deg,#2563eb,#7c3aed)!important;box-shadow:0 0 0 3px rgba(99,102,241,.20),0 5px 14px rgba(79,70,229,.25)!important;scale:1.04;}
+.wp-builder-grid .wp-path-overlay{z-index:1;}
+.wp-builder-grid .wp-path-active{stroke:#7c3aed;stroke-width:9;filter:drop-shadow(0 1px 3px rgba(79,70,229,.38));}
+.wp-builder-grid .wp-cell{z-index:2;}
+.wp-builder-grid .wp-path-found{stroke:#10b981;stroke-width:8;opacity:.7;}
+.wp-builder-actions{gap:8px;margin-top:4px;}
+.wp-builder-actions .wp-btn{min-height:38px;padding:8px 13px;border:0;border-radius:12px;font-size:14px;background:linear-gradient(135deg,#2563eb,#4f46e5);box-shadow:0 3px 8px rgba(79,70,229,.18);}
+.wp-builder-actions .wp-btn.wp-secondary{background:#e8f1ff;color:#24458c;box-shadow:none;border:1px solid #c8dcff;}
+.wp-builder-actions [data-shuffle]{background:linear-gradient(135deg,#0d9488,#059669);color:#fff;}
+.wp-builder-meta{margin-bottom:5px;}
+.wp-builder-stage{padding:6px 10px;background:#e0f2fe;color:#075985;border-radius:10px;}
+.wp-builder-step{font-size:12px;color:#64748b;}
+@media(max-width:600px){
+ .wp-builder-card{padding:10px 8px 12px;}
+ .wp-builder-card .wp-builder-clues{gap:4px;margin:6px auto 2px;}
+ .wp-builder-card .wp-builder-clue{padding:6px 3px;gap:3px;}
+ .wp-builder-card .wp-builder-clue-meaning{font-size:11px;line-height:1.4;}
+ .wp-builder-card .wp-builder-clue-answer{font-size:10px;}
+ .wp-builder-grid{width:min(84vw,300px)!important;max-width:300px!important;margin:3px auto 5px!important;}
+ .wp-builder-grid .wp-cell{font-size:clamp(26px,8vw,34px)!important;}
+ .wp-builder-actions .wp-btn{font-size:13px;padding:7px 10px;}
+}
+
+
+/* Word Builder: remove the unnecessary white container while preserving game layout. */
+.wp-builder-card{background:linear-gradient(155deg,#ffffff 0%,#f5f9ff 100%)!important;border:1px solid #d9e6f8!important;box-shadow:0 4px 16px rgba(20,32,55,.06)!important;border-radius:22px!important;}
+
+/* Word Builder: hide the empty status strip directly below the instruction. */
+.wp-shell:has(.wp-builder-card)>.wp-status{display:none!important;}
+
+/* Word-builder drag feedback: a live connector follows the finger between letters. */
+.wp-builder-grid .wp-path-follow{stroke:#7c3aed;stroke-width:8;stroke-opacity:.42;stroke-dasharray:5 5;}
+.wp-builder-grid .wp-path-active{stroke-width:9;stroke-linecap:round;stroke-linejoin:round;}
+.wp-builder-grid .wp-cell.sel{transition:color .08s ease,background .08s ease,scale .08s ease;}
+
+
+/* Word builder: neutral pointer and subtle letter-only feedback while tracing. */
+.wp-builder-grid,
+.wp-builder-grid .wp-cell,
+.wp-builder-grid .wp-cell:hover,
+.wp-builder-grid .wp-cell:focus,
+.wp-builder-grid .wp-cell[role="button"]{cursor:default!important;}
+.wp-builder-grid .wp-cell{border-color:transparent!important;background:transparent!important;box-shadow:none!important;transition:transform .14s ease!important;}
+.wp-builder-grid .wp-cell:hover,
+.wp-builder-grid .wp-cell:focus{transform:none!important;box-shadow:none!important;outline:none!important;}
+.wp-builder-grid.wp-tracing .wp-cell.sel,
+.wp-builder-grid.wp-tracing .wp-cell.sel:hover{transform:scale(1.12)!important;border-color:transparent!important;background:transparent!important;box-shadow:none!important;}
+
+
+/* Final Word Builder fix: stable letter positions and readable selection. */
+.wp-builder-grid .wp-cell,
+.wp-builder-grid .wp-cell:hover,
+.wp-builder-grid .wp-cell:focus {
+  transform: none !important;
+  scale: none !important;
+  transition: color .1s ease, font-size .1s ease !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: #243b70 !important;
+  outline: none !important;
+}
+.wp-builder-grid.wp-tracing .wp-cell.sel,
+.wp-builder-grid.wp-tracing .wp-cell.sel:hover,
+.wp-builder-grid .wp-cell.sel {
+  transform: none !important;
+  scale: none !important;
+  font-size: clamp(29px, 7.6vw, 38px) !important;
+  color: #1d4ed8 !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+}
+
+
+/* Word Builder: answer length is visible inside each clue card. */
+.wp-builder-card .wp-builder-answer-slots{display:flex;flex-wrap:nowrap;justify-content:center;gap:2px;max-width:100%;margin:2px auto 0;direction:rtl;}
+.wp-builder-card .wp-builder-answer-slot{display:flex;align-items:center;justify-content:center;width:clamp(15px,4.2vw,22px);height:clamp(22px,5.8vw,29px);flex:0 1 22px;min-width:0;border:1px solid #cbd8ed;border-radius:4px;background:#fff;color:#176b48;font-size:clamp(12px,3.3vw,17px);font-weight:800;line-height:1;box-sizing:border-box;}
+.wp-builder-card .wp-builder-clue.is-solved .wp-builder-answer-slot{background:#dcfce7;border-color:#86efac;}
+@media(max-width:600px){.wp-builder-card .wp-builder-answer-slots{gap:1px}.wp-builder-card .wp-builder-answer-slot{width:clamp(13px,3.8vw,19px);height:23px;font-size:13px;border-radius:3px}}
+
+/* Builder answer grows with the word instead of keeping a fixed-width box. */
+.wp-builder-card .wp-answer{display:flex;width:fit-content;min-width:58px;max-width:100%;padding:6px 12px;box-sizing:border-box;white-space:nowrap;}
+
+/* Keep each circular letter centered on its calculated percentage coordinate. */
+.wp-builder-grid .wp-cell,
+.wp-builder-grid .wp-cell:hover,
+.wp-builder-grid .wp-cell:focus,
+.wp-builder-grid .wp-cell.sel,
+.wp-builder-grid.wp-tracing .wp-cell.sel,
+.wp-builder-grid.wp-tracing .wp-cell.sel:hover{
+  transform:translate(-50%,-50%) !important;
+}
+
+
+/* Original Tahouri Word Builder theme: lively lagoon gradients, soft light, and clear contrast. */
+.wp-shell:has(.wp-builder-card){
+  box-sizing:border-box;
+  width:100%;
+  max-width:980px;
+  padding:clamp(12px,3vw,28px) clamp(8px,2.5vw,20px) 28px;
+  border-radius:28px;
+  background:
+    radial-gradient(ellipse at 8% 8%,rgba(45,212,191,.25),transparent 34%),
+    radial-gradient(ellipse at 92% 16%,rgba(167,139,250,.28),transparent 32%),
+    radial-gradient(ellipse at 78% 88%,rgba(251,191,36,.16),transparent 30%),
+    linear-gradient(145deg,#f0fdfa 0%,#f4f3ff 52%,#eff6ff 100%);
+  color:#18284a;
+}
+.wp-shell:has(.wp-builder-card) .wp-header{gap:10px;margin-bottom:14px;}
+.wp-shell:has(.wp-builder-card) .wp-progress,
+.wp-shell:has(.wp-builder-card) .wp-score{
+  border:1px solid rgba(129,140,248,.22);
+  background:rgba(255,255,255,.82);
+  color:#3730a3;
+  box-shadow:0 4px 14px rgba(79,70,229,.07);
+  backdrop-filter:blur(8px);
+}
+.wp-shell:has(.wp-builder-card) h1{
+  color:#243b75;
+  letter-spacing:-.025em;
+  text-shadow:0 2px 0 rgba(255,255,255,.75);
+}
+.wp-shell:has(.wp-builder-card) .wp-instruction{color:#53627f;}
+.wp-shell:has(.wp-builder-card) .wp-builder-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(248,250,255,.88))!important;
+  border:1px solid rgba(129,140,248,.22)!important;
+  box-shadow:0 16px 38px rgba(62,76,150,.11),inset 0 1px 0 rgba(255,255,255,.95)!important;
+  backdrop-filter:blur(10px);
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-stage{
+  background:linear-gradient(120deg,#ccfbf1,#dbeafe);
+  color:#115e59;
+  border:1px solid rgba(13,148,136,.12);
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-clue{
+  background:linear-gradient(145deg,#ffffff,#f1f5ff);
+  border-color:#d9defb;
+  box-shadow:0 3px 10px rgba(79,70,229,.055);
+  transition:background .18s ease,border-color .18s ease;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-clue-number{
+  background:linear-gradient(145deg,#ccfbf1,#ddd6fe);
+  color:#4338ca;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-clue.is-solved{
+  background:linear-gradient(145deg,#ecfdf5,#d1fae5);
+  border-color:#6ee7b7;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid::before{
+  content:"";
+  position:absolute;
+  inset:5%;
+  border-radius:50%;
+  background-color:rgba(240,253,250,.22);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300' fill='none' stroke='%230d9488' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='150' cy='150' r='104'/%3E%3Ccircle cx='150' cy='150' r='78' stroke-width='1.4'/%3E%3Cpath d='M150 35 C171 65 171 85 150 105 C129 85 129 65 150 35Z M150 195 C171 215 171 235 150 265 C129 235 129 215 150 195Z M35 150 C65 129 85 129 105 150 C85 171 65 171 35 150Z M195 150 C215 129 235 129 265 150 C235 171 215 171 195 150Z'/%3E%3Cpath d='M75 75 C106 78 124 96 125 125 C96 124 78 106 75 75Z M225 75 C222 106 204 124 175 125 C176 96 194 78 225 75Z M75 225 C78 194 96 176 125 175 C124 204 106 222 75 225Z M225 225 C194 222 176 204 175 175 C204 176 222 194 225 225Z'/%3E%3Cpath d='M150 72 C165 92 165 108 150 120 C135 108 135 92 150 72Z M150 180 C165 192 165 208 150 228 C135 208 135 192 150 180Z M72 150 C92 135 108 135 120 150 C108 165 92 165 72 150Z M180 150 C192 135 208 135 228 150 C208 165 192 165 180 150Z'/%3E%3Ccircle cx='150' cy='150' r='15'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:94% 94%;
+  border:0;
+  box-shadow:none;
+  opacity:.27;
+  pointer-events:none;
+  z-index:0;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell{
+  color:#3346a8!important;
+  text-shadow:0 1px 0 #fff,0 2px 8px rgba(79,70,229,.08);
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.sel{
+  color:#6d28d9!important;
+  text-shadow:0 0 16px rgba(139,92,246,.18);
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-path-active{
+  stroke:#7c3aed;
+  stroke-width:8;
+  filter:drop-shadow(0 2px 4px rgba(124,58,237,.28));
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-path-found{
+  stroke:#0d9488;
+  stroke-width:8;
+  filter:drop-shadow(0 2px 4px rgba(13,148,136,.2));
+}
+.wp-shell:has(.wp-builder-card) .wp-answer{
+  background:linear-gradient(110deg,#ecfeff,#eef2ff);
+  border-color:#c7d2fe;
+  color:#3730a3;
+  box-shadow:inset 0 1px 3px rgba(79,70,229,.05);
+}
+.wp-shell:has(.wp-builder-card) .wp-answer.has-value{
+  background:linear-gradient(110deg,#d1fae5,#ccfbf1);
+  border-color:#6ee7b7;
+  color:#065f46;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-actions .wp-btn{
+  background:linear-gradient(125deg,#6366f1,#7c3aed);
+  box-shadow:0 5px 13px rgba(99,102,241,.22);
+  transition:filter .15s ease,box-shadow .15s ease;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-actions .wp-btn:hover{filter:brightness(1.06);box-shadow:0 7px 17px rgba(99,102,241,.26);}
+.wp-shell:has(.wp-builder-card) .wp-builder-actions [data-shuffle]{
+  background:linear-gradient(125deg,#0faaa0,#0d9488);
+  box-shadow:0 5px 13px rgba(13,148,136,.2);
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-actions .wp-btn.wp-secondary{
+  background:rgba(255,255,255,.9);
+  color:#4338ca;
+  border:1px solid #d9defb;
+  box-shadow:none;
+}
+@media(max-width:600px){
+  .wp-shell:has(.wp-builder-card){border-radius:20px;padding-top:10px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .wp-shell:has(.wp-builder-card) .wp-builder-clue,
+  .wp-shell:has(.wp-builder-card) .wp-builder-actions .wp-btn{transition:none;}
+}
+
+
+/* Word Builder visual polish: fixed orange letters, calm center motif, clear connector. */
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell:hover,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell:focus,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.sel,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid.wp-tracing .wp-cell.sel,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.wp-error-cell,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.hint-cell{
+  color:#f07818!important;
+  -webkit-text-fill-color:#f07818!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.9),0 1px 3px rgba(180,83,9,.12)!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.sel,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid.wp-tracing .wp-cell.sel{
+  background:rgba(251,146,60,.12)!important;
+  box-shadow:0 0 0 2px rgba(249,115,22,.28)!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-path-active{
+  stroke:#7c3aed!important;
+  stroke-width:7!important;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 1px 3px rgba(124,58,237,.32));
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-path-found{
+  stroke:#0d9488!important;
+  stroke-width:7!important;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 1px 3px rgba(13,148,136,.22));
+}
+
+
+/* Word Builder: richer lagoon card and a more intricate Persian-inspired arabesque. */
+.wp-shell:has(.wp-builder-card) .wp-builder-card{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  background-color:#e6fbf8!important;
+  background-image:
+    radial-gradient(ellipse at 0% 0%,rgba(45,212,191,.42),transparent 42%),
+    radial-gradient(ellipse at 100% 0%,rgba(167,139,250,.34),transparent 40%),
+    radial-gradient(ellipse at 100% 100%,rgba(96,165,250,.27),transparent 43%),
+    radial-gradient(ellipse at 0% 100%,rgba(251,191,36,.18),transparent 35%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240' fill='none' stroke='%230f766e' stroke-width='1.15'%3E%3Cdefs%3E%3Cpattern id='p' width='120' height='120' patternUnits='userSpaceOnUse'%3E%3Cpath d='M60 2 C70 22 86 28 108 24 C104 46 110 52 118 60 C110 68 104 74 108 96 C86 92 70 98 60 118 C50 98 34 92 12 96 C16 74 10 68 2 60 C10 52 16 46 12 24 C34 28 50 22 60 2Z'/%3E%3Cpath d='M60 18 C68 36 82 42 98 38 C94 54 100 60 102 60 C100 60 94 66 98 82 C82 78 68 84 60 102 C52 84 38 78 22 82 C26 66 20 60 18 60 C20 60 26 54 22 38 C38 42 52 36 60 18Z'/%3E%3Cpath d='M60 0V120M0 60H120M18 18L102 102M102 18L18 102' stroke-width='.65'/%3E%3Ccircle cx='60' cy='60' r='11'/%3E%3Cpath d='M60 45 C66 53 66 57 60 60 C54 57 54 53 60 45Z M75 60 C67 66 63 66 60 60 C63 54 67 54 75 60Z M60 75 C54 67 54 63 60 60 C66 63 66 67 60 75Z M45 60 C53 54 57 54 60 60 C57 66 53 66 45 60Z'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='240' height='240' fill='url(%23p)'/%3E%3C/svg%3E"),
+    linear-gradient(135deg,#d8fbf5 0%,#e9e7ff 48%,#dceeff 100%)!important;
+  background-size:auto,auto,auto,auto,120px 120px,auto!important;
+  background-position:center!important;
+  background-blend-mode:normal,normal,normal,normal,multiply,normal!important;
+  border:1px solid rgba(45,130,139,.3)!important;
+  box-shadow:0 14px 34px rgba(41,91,130,.16),inset 0 1px 0 rgba(255,255,255,.8)!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-card .wp-builder-clue{
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(231,248,255,.94))!important;
+  border-color:rgba(91,132,190,.32)!important;
+  box-shadow:0 3px 9px rgba(50,84,140,.08)!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-card .wp-builder-clue.is-solved{
+  background:linear-gradient(145deg,#eafff2,#bdf4d7)!important;
+  border-color:#5ac99a!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-card .wp-answer{
+  background:linear-gradient(110deg,rgba(255,255,255,.95),rgba(220,252,250,.96))!important;
+  border-color:#7dd3c7!important;
+  box-shadow:0 2px 8px rgba(13,148,136,.09)!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-card .wp-builder-stage{
+  background:linear-gradient(120deg,#bff7ec,#d7dcff)!important;
+  border-color:rgba(13,148,136,.28)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75);
+}
+@media(max-width:600px){
+  .wp-shell:has(.wp-builder-card) .wp-builder-card{border-radius:18px!important;}
+}
+
+
+/* Word Builder cleanup: keep the arabesque inside the central letter circle only. */
+.wp-shell:has(.wp-builder-card) .wp-builder-card{
+  background-color:#e6fbf8!important;
+  background-image:
+    radial-gradient(ellipse at 0% 0%,rgba(45,212,191,.42),transparent 42%),
+    radial-gradient(ellipse at 100% 0%,rgba(167,139,250,.34),transparent 40%),
+    radial-gradient(ellipse at 100% 100%,rgba(96,165,250,.27),transparent 43%),
+    radial-gradient(ellipse at 0% 100%,rgba(251,191,36,.18),transparent 35%),
+    linear-gradient(180deg,#d8fbf5 0%,#e9e7ff 52%,#dceeff 100%)!important;
+  background-size:auto,auto,auto,auto,auto!important;
+  background-position:center!important;
+  background-blend-mode:normal,normal,normal,normal,normal!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid::before{
+  opacity:.42!important;
+}
+
+
+/* Word Builder: horizontal length grows with letters; vertical width stays fixed so the board never shifts. */
+.wp-shell:has(.wp-builder-card) .wp-builder-card .wp-answer{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  direction:rtl!important;
+  width:max-content!important;
+  min-width:48px!important;
+  max-width:100%!important;
+  height:48px!important;
+  min-height:48px!important;
+  max-height:48px!important;
+  flex:0 0 auto!important;
+  box-sizing:border-box!important;
+  margin:4px auto 0!important;
+  padding:6px 12px!important;
+  white-space:nowrap!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  line-height:1.5!important;
+  scrollbar-width:none!important;
+}
+.wp-shell:has(.wp-builder-card) .wp-builder-card .wp-answer::-webkit-scrollbar{display:none!important}
+.wp-shell:has(.wp-builder-card) .wp-builder-grid{
+  flex:0 0 auto!important;
+  width:min(84vw,300px)!important;
+  max-width:300px!important;
+  aspect-ratio:1/1!important;
+  margin-top:3px!important;
+}
+
+/* Word Builder: selected letters stay clear without a circular halo. */
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.sel,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid.wp-tracing .wp-cell.sel,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.sel:hover,
+.wp-shell:has(.wp-builder-card) .wp-builder-grid .wp-cell.sel:focus{
+  background:transparent!important;
+  box-shadow:none!important;
+  outline:none!important;
+  border-color:transparent!important;
+  border-radius:0!important;
+  scale:1!important;
+  transform:none!important;
+  text-shadow:0 0 10px rgba(249,115,22,.24)!important;
+}
+
+
+/* Mobile Word Search: larger readable letters and reclaim card padding without overflow. */
+@media(max-width:600px){
+  .wp-shell:has(.wp-search-card){
+    padding-left:2px;
+    padding-right:2px;
+  }
+  .wp-search-card{
+    padding:2px;
+  }
+  .wp-search-grid{
+    width:100%;
+    max-width:100%;
+    gap:2px;
+  }
+  .wp-search-grid .wp-cell{
+    font-size:clamp(16px,4.7vw,21px);
+    line-height:1;
+    border-radius:5px;
+  }
+}
+
+/* Interactive word-family tree: green leaves stay, yellow leaves fall into the box. */
+.wp-tree-card{max-width:860px;margin:0 auto;padding:clamp(12px,3vw,24px);background:linear-gradient(180deg,#f4fff5,#fffdf1)!important;border-color:#b8dfb7!important}
+.wp-tree-stage{position:relative}.wp-tree-stage-label{display:inline-block;background:#e5f5df;color:#28643b;border-radius:999px;padding:6px 13px;font-weight:800}
+.wp-tree-root-word{position:absolute;z-index:4;left:50%;bottom:1%;transform:translateX(-50%);width:max-content;max-width:90%;padding:5px 13px;border:2px solid #8a5a32;border-radius:12px;background:#f7e7c5;color:#684323;font-size:16px;font-weight:800;box-shadow:0 3px 8px #41260d35;white-space:normal}.wp-tree-root-word strong{color:#236d3b;font-size:23px}
+.wp-tree-illustration{height:390px;max-width:780px;margin:0 auto;position:relative;isolation:isolate;overflow:visible}
+.wp-tree-canopy{position:absolute;inset:5% 9% 22%;border-radius:48% 52% 42% 45%;background:radial-gradient(ellipse at 35% 25%,#c9f3a7,#79c96a 52%,#4b9a4c);box-shadow:0 10px 20px #357a3220}
+.wp-tree-trunk{position:absolute;z-index:0;left:42%;top:38%;width:16%;height:48%;border-radius:42% 35% 18% 18%;background:linear-gradient(90deg,#71401f 0%,#986035 20%,#bd8951 43%,#8b542e 65%,#62391f 100%);clip-path:polygon(38% 0,65% 0,70% 15%,88% 34%,76% 48%,67% 68%,83% 100%,57% 100%,43% 76%,27% 100%,8% 100%,30% 64%,24% 46%,12% 32%,31% 18%);box-shadow:inset 3px 0 4px #e5b77b55}
+.wp-tree-trunk:before,.wp-tree-trunk:after{content:"";position:absolute;bottom:45%;height:43%;width:48%;background:linear-gradient(90deg,#704020,#b77a43,#8b542e);border-radius:60% 20% 10% 10%;transform-origin:bottom center;z-index:-1}
+.wp-tree-trunk:before{left:-24%;transform:rotate(-43deg) skewY(-8deg);clip-path:polygon(35% 0,58% 0,100% 100%,0 100%)}
+.wp-tree-trunk:after{right:-24%;transform:rotate(42deg) skewY(8deg);clip-path:polygon(42% 0,65% 0,100% 100%,0 100%)}
+.wp-tree-roots{position:absolute;z-index:1;left:19%;right:19%;bottom:0;height:20%;background:linear-gradient(180deg,#b9824b,#8a542e 55%,#633b22);clip-path:polygon(43% 0,56% 0,63% 23%,100% 72%,91% 88%,60% 48%,55% 100%,45% 100%,43% 53%,18% 91%,0 76%,32% 36%);filter:drop-shadow(0 3px 2px #52301855)}
+.wp-tree-leaves{position:absolute;z-index:2;inset:6% 9% 25%}
+.wp-tree-leaf{position:absolute;z-index:2;transform:translate(-50%,-50%) rotate(-5deg);border:2px solid #4f974e;border-radius:65% 8% 65% 8%;min-width:64px;max-width:104px;min-height:40px;padding:7px 9px;background:#f8fff1;color:#27452b;font-size:clamp(13px,2.6vw,17px);font-weight:800;box-shadow:0 3px 7px #245c2524;transition:background .2s,transform .2s,opacity .5s;overflow-wrap:anywhere}
+.wp-tree-leaf:nth-child(even){transform:translate(-50%,-50%) rotate(8deg)}.wp-tree-leaf.is-green{background:#2e9b52;color:white;border-color:#18733a;box-shadow:0 0 0 3px #d7f5d9,0 4px 9px #245c2530}.wp-tree-leaf.is-yellow{background:#ffdf67;color:#604700;border-color:#d4a620;box-shadow:0 0 0 3px #fff3bd,0 4px 9px #795f1825}
+.wp-tree-leaf.is-falling{pointer-events:none;animation:wp-leaf-fall .7s ease-in forwards}
+@keyframes wp-leaf-fall{0%{opacity:1;transform:translate(-50%,-50%) rotate(0) scale(1)}45%{transform:translate(15%,-5%) rotate(120deg) scale(.9)}100%{opacity:0;transform:translate(65%,220px) rotate(300deg) scale(.5)}}
+.wp-tree-legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-weight:800;color:#435447}.wp-tree-legend span{display:flex;align-items:center;gap:6px}.wp-tree-legend i{display:inline-block;width:15px;height:15px;border-radius:50%}.wp-legend-green{background:#2e9b52}.wp-legend-yellow{background:#ffdf67;border:1px solid #d4a620}
+.wp-tree-box-wrap{max-width:500px;margin:8px auto 0}.wp-tree-box-title{font-weight:800;color:#75502c;margin-bottom:7px}.wp-tree-box{min-height:68px;display:flex;align-items:center;justify-content:center;align-content:center;gap:7px;flex-wrap:wrap;padding:12px;border:3px solid #b98750;border-top-width:6px;border-radius:8px 8px 17px 17px;background:repeating-linear-gradient(0deg,#f5d7a8,#f5d7a8 12px,#edc58e 13px,#edc58e 15px);box-shadow:inset 0 4px 10px #9d6c3420}.wp-tree-box-empty{color:#785b3b;font-size:14px}.wp-tree-fallen-leaf{padding:5px 9px;background:#ffdf67;border:1px solid #d4a620;color:#604700;border-radius:60% 8% 60% 8%;font-weight:800;animation:wp-box-pop .3s ease-out both}
+@keyframes wp-box-pop{from{opacity:0;transform:translateY(-12px) rotate(-30deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
+.wp-tree-instruction{line-height:1.8;color:#536452;margin:14px auto 8px}.wp-tree-feedback{min-height:28px;font-weight:800;margin-top:8px}.wp-tree-feedback.good{color:#18733a}.wp-tree-feedback.bad{color:#b42318}.wp-tree-card [data-tree-check]:disabled{opacity:.65;cursor:wait}
+@media(max-width:520px){.wp-tree-illustration{height:300px}.wp-tree-leaf{min-width:55px;padding:6px 7px;font-size:12px}.wp-tree-canopy{inset:8% 3% 15%}.wp-tree-leaves{inset:9% 2% 17%}}
+@media(prefers-reduced-motion:reduce){.wp-tree-leaf.is-falling,.wp-tree-fallen-leaf{animation:none!important;transition:none!important}}
+
+
+/* Tree-family compact heading: keep title and stage on one line and instructions above the game. */
+.wp-tree-heading{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 4px}
+.wp-tree-heading h1{margin:0!important}
+.wp-tree-heading-stage{display:inline-flex;align-items:center;white-space:nowrap;background:#e5f5df;color:#28643b;border-radius:999px;padding:5px 10px;font-size:14px;font-weight:800}
+.wp-tree-top-instruction{margin:4px auto 8px!important;line-height:1.55}
+.wp-tree-stage-label{display:none!important}
+@media(max-width:520px){.wp-tree-heading{gap:6px}.wp-tree-heading h1{font-size:clamp(19px,5vw,25px)}.wp-tree-heading-stage{font-size:12px;padding:4px 8px}}
+
+
+/* Tree Family: keep the instruction/check row centered and aligned to the game card, like Word Search. */
+.wp-tree-top-instruction-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;width:min(100%,680px);box-sizing:border-box;margin:8px auto 14px;padding:0 4px;}
+.wp-tree-top-instruction-row .wp-tree-top-instruction{flex:0 1 auto;width:auto;max-width:100%;margin:0!important;text-align:right;}
+.wp-tree-top-instruction-row [data-tree-check]{flex:0 0 auto;white-space:nowrap;}
+@media(max-width:600px){.wp-tree-top-instruction-row{gap:7px;margin:6px auto 10px}.wp-tree-top-instruction-row .wp-tree-top-instruction{font-size:clamp(12px,3.3vw,15px);line-height:1.6}.wp-tree-top-instruction-row [data-tree-check]{padding:8px 13px;font-size:14px}}
+
+
+/* Tree Family trial: use the committed tree2 image while keeping all game leaves interactive. */
+.wp-tree-illustration{overflow:hidden!important;border-radius:12px;}
+.wp-tree-art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;z-index:0;pointer-events:none;user-select:none;}
+.wp-tree-leaves{z-index:2;}
+.wp-tree-root-word{z-index:4;}
+@media(max-width:520px){
+  .wp-tree-illustration{height:300px;}
+  .wp-tree-art{object-fit:contain;}
+}
+
+/* Mobile: reduce card side padding so the tree image uses the available phone width */
+@media(max-width:520px){
+  .wp-tree-card{padding-left:4px!important;padding-right:4px!important;}
+  .wp-tree-illustration{
+    display:block;
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "mathShapePattern",
+  "title": "🧩 معمار الگوها",
+  "description": "با کشف الگوهای شکلی، رنگی، چرخشی و رو به رشد، مرحله‌های کارگاه را کامل کن.",
+  "grade": "grade6",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.0",
+  "puzzle": {
+    "type": "pattern",
+    "source": "generated",
+    "dataType": "text",
+    "mode": "shapes",
+    "instruction": "به شکل‌ها و ترتیب تغییرشان دقت کن؛ گزینه‌ای را انتخاب کن که الگو را کامل می‌کند."
+  },
+  "settings": {
+    "questionSource": "generated",
+    "questions": 10,
+    "randomQuestionOrder": true
+  }
+}

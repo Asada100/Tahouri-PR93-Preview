@@ -1,0 +1,50 @@
+/* =====================================
+   Tahouri Edu Platform
+   Shared UI Components v1.0
+
+   Common visual primitives only.
+   Page-specific layout and behavior remain
+   in their owning stylesheets.
+   ===================================== */
+
+.ui-card {
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-card);
+    background: linear-gradient(135deg, var(--ui-surface) 0%, var(--ui-surface-soft) 100%);
+    color: var(--ui-text);
+    box-shadow: var(--ui-shadow-card);
+}
+
+.ui-card-interactive {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.ui-card-interactive:hover {
+    transform: translateY(-2px);
+    border-color: #c7d5e5;
+    box-shadow: var(--ui-shadow-card-hover);
+}
+
+.ui-card-interactive:active { transform: translateY(0); }
+
+.ui-card-interactive:focus-visible {
+    outline: 3px solid var(--ui-focus);
+    outline-offset: 3px;
+}
+
+.ui-action-button {
+    font-family: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ui-action-button:focus-visible {
+    outline: 3px solid var(--ui-focus);
+    outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+    .ui-card-interactive:hover { transform: none; }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tahouri-license-api-isolated-test",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-29",
+  "workers_dev": false,
+  "preview_urls": false,
+  "vars": {
+    "SERVICE_ENVIRONMENT": "test",
+    "ADMIN_ORIGIN": "http://localhost:5500",
+    "APP_ORIGIN": "http://localhost:5500"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tahouri-license-ownership-test-20261030",
+      "database_id": "0600a724-949c-4ca8-828c-be18b797ad54",
+      "migrations_dir": "migrations",
+      "remote": true
+    }
+  ],
+  "assets": {
+    "directory": "./admin",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  }
+}

@@ -1,0 +1,247 @@
+/* =====================================
+   Activity Runtime UI
+   Shared by all activity engines
+   ===================================== */
+
+/* While an engine is running, the platform shell is completely hidden. */
+body.activity-playing .tahouri-app-header,
+body.activity-playing #tahouri-bottom-navigation,
+body.activity-result-open #tahouri-bottom-navigation {
+    display: none !important;
+}
+
+body.activity-playing { padding-bottom: 0; }
+
+#activitySessionControl {
+    position: fixed;
+    top: 18px;
+    right: max(20px, calc((100vw - 680px) / 2));
+    z-index: 10020;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 5px 18px rgba(0,0,0,.18);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+#activitySessionControl:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 20px rgba(0,0,0,.20);
+}
+
+#activitySessionControl:focus-visible,
+.activityRuntimeActions button:focus-visible,
+.unfinishedActivityGuardActions button:focus-visible,
+.resultModalActions button:focus-visible,
+#activitySessionResumeBtn:focus-visible,
+#activitySessionExitBtn:focus-visible {
+    outline: 3px solid rgba(37,99,235,.25);
+    outline-offset: 2px;
+}
+
+#activitySessionOverlay,
+#unfinishedActivityGuardOverlay,
+#resultModal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(15, 23, 42, .58);
+}
+
+.activityRuntimeModal,
+.unfinishedActivityGuardModal,
+.resultModalWindow {
+    width: min(420px, 100%);
+    box-sizing: border-box;
+    padding: 28px 24px;
+    border-radius: 22px;
+    background: #ffffff;
+    color: #172033;
+    text-align: center;
+    box-shadow: 0 24px 70px rgba(0,0,0,.25);
+}
+
+.activityRuntimeModal h2,
+.unfinishedActivityGuardModal h2,
+.resultModalWindow h1,
+.resultModalWindow h2 { margin: 0 0 12px; }
+
+.activityRuntimeModal p,
+.unfinishedActivityGuardModal p,
+.resultModalWindow p { margin: 8px 0; line-height: 1.8; }
+
+.activityRuntimeActions,
+.unfinishedActivityGuardActions,
+.resultModalActions {
+    display: grid;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.activityRuntimeActions button,
+.unfinishedActivityGuardActions button,
+.resultModalActions button {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 18px;
+    border: 1px solid #dbe4ef;
+    border-radius: 14px;
+    background: #f8fafc;
+    color: #172033;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.activityRuntimeActions button:hover,
+.unfinishedActivityGuardActions button:hover,
+.resultModalActions button:hover {
+    transform: translateY(-1px);
+    border-color: #c4d3e6;
+    box-shadow: 0 5px 14px rgba(15,23,42,.10);
+    background: #ffffff;
+}
+
+.activityRuntimeActions button:first-child,
+.unfinishedActivityGuardActions button:first-child {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(37,99,235,.20);
+}
+
+.activityRuntimeActions button:first-child:hover,
+.unfinishedActivityGuardActions button:first-child:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    box-shadow: 0 8px 20px rgba(37,99,235,.26);
+}
+
+.activityRuntimeActions button:last-child,
+.unfinishedActivityGuardActions button:last-child {
+    background: #ffffff;
+    border-color: #d5deea;
+    color: #344054;
+}
+
+.activityRuntimeActions button:last-child:hover,
+.unfinishedActivityGuardActions button:last-child:hover {
+    background: #f8fafc;
+    border-color: #b8c6d8;
+}
+
+/* Pause/exit modal buttons are rendered with IDs by ActivitySessionManager. */
+#activitySessionResumeBtn,
+#activitySessionExitBtn {
+    display: block;
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 18px;
+    box-sizing: border-box;
+    border: 1px solid #dbe4ef;
+    border-radius: 14px;
+    font: inherit;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+}
+
+#activitySessionResumeBtn {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(37,99,235,.20);
+}
+
+#activitySessionResumeBtn:hover {
+    transform: translateY(-1px);
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    box-shadow: 0 8px 20px rgba(37,99,235,.26);
+}
+
+#activitySessionExitBtn {
+    background: #ffffff;
+    border-color: #d5deea;
+    color: #344054;
+}
+
+#activitySessionExitBtn:hover {
+    transform: translateY(-1px);
+    background: #f8fafc;
+    border-color: #b8c6d8;
+    box-shadow: 0 5px 14px rgba(15,23,42,.10);
+}
+
+.resultModalActions #retryActivityBtn { background: #e8f5e9; border-color: #c8e6c9; }
+.resultModalActions #backActivitiesBtn { background: #e3f2fd; border-color: #bbdefb; }
+.resultModalActions #dashboardBtn { background: #fff3e0; border-color: #ffe0b2; }
+.resultModalActions #homeBtn { background: #f3e5f5; border-color: #e1bee7; }
+
+.resultModalStars {
+    margin: 12px 0 18px;
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+@media (min-width: 481px) {
+    .activityRuntimeActions,
+    .unfinishedActivityGuardActions {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    #activitySessionControl {
+        top: 10px;
+        right: 10px;
+        width: 42px;
+        height: 42px;
+    }
+    .activityRuntimeModal,
+    .unfinishedActivityGuardModal,
+    .resultModalWindow {
+        padding: 24px 18px;
+        border-radius: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #activitySessionControl,
+    .activityRuntimeActions button,
+    .unfinishedActivityGuardActions button,
+    .resultModalActions button,
+    #activitySessionResumeBtn,
+    #activitySessionExitBtn { transition: none; }
+}
+
+
+/* Word Puzzle mode chooser is still inside an activity session, but uses the platform shell. */
+body.activity-playing.word-puzzle-mode-select .tahouri-app-header {
+    display: flex !important;
+}
+body.activity-playing.word-puzzle-mode-select #tahouri-bottom-navigation {
+    display: grid !important;
+}
+body.activity-playing.word-puzzle-mode-select #activitySessionControl {
+    display: none !important;
+}
+body.activity-playing.word-puzzle-mode-select {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+}

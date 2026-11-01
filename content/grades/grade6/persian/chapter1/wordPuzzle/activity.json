@@ -1,0 +1,257 @@
+{
+  "id": "persianWordPuzzle",
+  "title": "واژه‌خانه 🧩",
+  "grade": "grade6",
+  "subject": "persian",
+  "chapter": "chapter1",
+  "type": "wordPuzzle",
+  "engine": "wordPuzzle",
+  "group": "wordPuzzle",
+  "locked": false,
+  "requires": null,
+  "lesson": "chapter1",
+  "settings": {
+    "rounds": 4,
+    "modes": [
+      "wordBuilder",
+      "wordSearch",
+      "wordFamily"
+    ],
+    "difficulty": 2,
+    "builderMaxWordLength": 8,
+    "builderStagesPerSession": 3,
+    "builderWordsPerStage": 3
+  },
+  "puzzle": {
+    "words": [
+      {
+        "word": "برافروخت"
+      },
+      {
+        "word": "داده‌اند"
+      },
+      {
+        "word": "پیدایی"
+      },
+      {
+        "word": "بگفتند"
+      },
+      {
+        "word": "نشانی"
+      },
+      {
+        "word": "تعالی"
+      },
+      {
+        "word": "آموخت"
+      },
+      {
+        "word": "فکرت"
+      },
+      {
+        "word": "گلشن"
+      },
+      {
+        "word": "فروغ"
+      }
+    ],
+    "families": [
+      {
+        "id": "family-alam",
+        "base": "عالم",
+        "members": [
+          "علم",
+          "علوم",
+          "معلوم",
+          "تعلیم",
+          "معلم"
+        ]
+      },
+      {
+        "id": "family-fekrat",
+        "base": "فکرت",
+        "members": [
+          "فکر",
+          "افکار",
+          "تفکر",
+          "متفکر"
+        ]
+      },
+      {
+        "id": "family-fazl",
+        "base": "فضل",
+        "members": [
+          "فاضل",
+          "فضیلت",
+          "افضل",
+          "تفضیل"
+        ]
+      },
+      {
+        "id": "family-haq",
+        "base": "حق",
+        "members": [
+          "حقوق",
+          "حقیقت",
+          "محقق",
+          "تحقیق"
+        ]
+      },
+      {
+        "id": "family-noor",
+        "base": "نور",
+        "members": [
+          "انوار",
+          "نورانی",
+          "منیر",
+          "تنویر"
+        ]
+      }
+    ],
+    "builderStages": [
+      {
+        "id": "kh-l-gh",
+        "title": "از حروف خ، ل، ق",
+        "letters": [
+          "خ",
+          "ل",
+          "ق"
+        ],
+        "lesson": "واژه‌های مرتبط با ریشهٔ «خلق»",
+        "targetCount": 3,
+        "words": [
+          {
+            "word": "خلق",
+            "meaning": "آفرینش؛ همچنین به معنی مردم",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "خالق",
+            "meaning": "آفریننده",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "خلقت",
+            "meaning": "آفرینش و پدید آمدن",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "مخلوق",
+            "meaning": "آفریده‌شده",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "اخلاق",
+            "meaning": "خصلت‌ها و رفتارهای انسان",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "خلاقیت",
+            "meaning": "توانایی آفریدن فکرها و راه‌حل‌های تازه",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "مخلوقات",
+            "meaning": "آفریده‌ها",
+            "partOfSpeech": "اسم"
+          }
+        ]
+      },
+      {
+        "id": "a-m-l",
+        "title": "دستهٔ «عمل»",
+        "letters": [
+          "ع",
+          "م",
+          "ل"
+        ],
+        "lesson": "واژه‌های درس‌محور از خانوادهٔ عمل",
+        "targetCount": 3,
+        "words": [
+          {
+            "word": "عمل",
+            "meaning": "کار یا انجام دادن کاری",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "عامل",
+            "meaning": "کسی یا چیزی که کاری را انجام می‌دهد",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "معمول",
+            "meaning": "رایج؛ آنچه معمول است",
+            "partOfSpeech": "صفت"
+          },
+          {
+            "word": "عملکرد",
+            "meaning": "چگونگی انجام کار",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "معمولی",
+            "meaning": "عادی و رایج",
+            "partOfSpeech": "صفت"
+          },
+          {
+            "word": "عملیات",
+            "meaning": "مجموعه‌ای از کارها یا اقدام‌ها",
+            "partOfSpeech": "اسم"
+          }
+        ]
+      },
+      {
+        "id": "a-l-m",
+        "title": "دستهٔ «علم»",
+        "letters": [
+          "ع",
+          "ل",
+          "م"
+        ],
+        "lesson": "واژه‌های درس‌محور از خانوادهٔ علم",
+        "targetCount": 3,
+        "words": [
+          {
+            "word": "عالم",
+            "meaning": "دانشمند؛ دانا",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "معلوم",
+            "meaning": "روشن و شناخته‌شده",
+            "partOfSpeech": "صفت"
+          },
+          {
+            "word": "علوم",
+            "meaning": "جمع علم؛ دانش‌ها",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "تعلیم",
+            "meaning": "آموزش دادن",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "معلم",
+            "meaning": "آموزگار",
+            "partOfSpeech": "اسم"
+          },
+          {
+            "word": "معلومات",
+            "meaning": "اطلاعات و دانسته‌ها",
+            "partOfSpeech": "اسم"
+          }
+        ]
+      }
+    ],
+    "wordSafety": {
+      "policy": "curated-allowlist",
+      "allowOnlyListedBuilderWords": true,
+      "blockUnapprovedWords": true,
+      "blockedWords": [],
+      "maxWordLength": 8,
+      "requireMeaning": true,
+      "requireLessonReview": true
+    }
+  }
+}

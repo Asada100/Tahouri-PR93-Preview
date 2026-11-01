@@ -1,0 +1,91 @@
+{
+    "id": "parityTrain",
+    "title": "🚂 قطار زوج و فرد",
+    "description": "هر عدد را به واگن زوج یا واگن فرد بفرست.",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "engine": "classification",
+    "version": "1.0",
+    "settings": {
+        "scorePerCorrect": 10,
+        "allowRetry": true,
+        "shuffleItems": true
+    },
+    "classification": {
+        "mode": "dragDrop",
+        "instruction": "هر کارت عدد را بگیر و در واگن درست رها کن. اگر اشتباه بود، دوباره تلاش کن.",
+        "categories": [
+            {
+                "id": "even",
+                "title": "واگن عددهای زوج 🚃"
+            },
+            {
+                "id": "odd",
+                "title": "واگن عددهای فرد 🚃"
+            }
+        ],
+        "items": [
+            {
+                "id": "n12",
+                "content": "۱۲",
+                "type": "text",
+                "categoryId": "even"
+            },
+            {
+                "id": "n7",
+                "content": "۷",
+                "type": "text",
+                "categoryId": "odd"
+            },
+            {
+                "id": "n18",
+                "content": "۱۸",
+                "type": "text",
+                "categoryId": "even"
+            },
+            {
+                "id": "n3",
+                "content": "۳",
+                "type": "text",
+                "categoryId": "odd"
+            },
+            {
+                "id": "n24",
+                "content": "۲۴",
+                "type": "text",
+                "categoryId": "even"
+            },
+            {
+                "id": "n15",
+                "content": "۱۵",
+                "type": "text",
+                "categoryId": "odd"
+            },
+            {
+                "id": "n10",
+                "content": "۱۰",
+                "type": "text",
+                "categoryId": "even"
+            },
+            {
+                "id": "n21",
+                "content": "۲۱",
+                "type": "text",
+                "categoryId": "odd"
+            },
+            {
+                "id": "n6",
+                "content": "۶",
+                "type": "text",
+                "categoryId": "even"
+            },
+            {
+                "id": "n11",
+                "content": "۱۱",
+                "type": "text",
+                "categoryId": "odd"
+            }
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "mathPattern",
+  "title": "🔢 الگوی عددی",
+  "description": "الگوهای عددی را ادامه بده و رابطهٔ بین عددها را کشف کن.",
+  "grade": "grade6",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.2",
+  "puzzle": {
+    "type": "pattern",
+    "source": "generated",
+    "dataType": "number",
+    "instruction": "به رابطهٔ بین عددها توجه کن و عدد گمشده را پیدا کن.",
+    "mode": "numeric",
+    "length": 5
+  },
+  "settings": {
+    "questionSource": "generated",
+    "questions": 10,
+    "randomQuestionOrder": true
+  }
+}

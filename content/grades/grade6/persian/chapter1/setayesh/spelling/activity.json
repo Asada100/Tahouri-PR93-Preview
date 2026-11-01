@@ -1,0 +1,23 @@
+{
+  "mode": "missing-letter",
+  "instruction": "پسر دلبندم، املای واژه‌های درس ستایش را با دقت کامل کن.",
+  "settings": {
+    "keyboardMode": "guided",
+    "allowRetry": true,
+    "scorePerCorrect": 10,
+    "questionCount": 10,
+    "randomizeQuestions": true
+  },
+  "questions": [
+    {"id":"setayesh-01","mode":"missing-letter","answer":"چراغ","masked":"چراـغ","missing":[{"start":3,"length":1}],"spellingRule":"غ/ق","lesson":"setayesh","allowedLetters":["غ","ق"]},
+    {"id":"setayesh-02","mode":"missing-letter","answer":"فضل","masked":"فـل","missing":[{"start":1,"length":1}],"spellingRule":"ض/ظ","lesson":"setayesh","allowedLetters":["ض","ظ"]},
+    {"id":"setayesh-03","mode":"missing-letter","answer":"فیض","masked":"فیـ","missing":[{"start":2,"length":1}],"spellingRule":"ض/ظ","lesson":"setayesh","allowedLetters":["ض","ظ"]},
+    {"id":"setayesh-04","mode":"missing-letter","answer":"فروغ","masked":"فروـ","missing":[{"start":3,"length":1}],"spellingRule":"غ/ق","lesson":"setayesh","allowedLetters":["غ","ق"]},
+    {"id":"setayesh-05","mode":"missing-letter","answer":"جهان","masked":"جـان","missing":[{"start":1,"length":1}],"spellingRule":"ه/ح","lesson":"setayesh","allowedLetters":["ه","ح"]},
+    {"id":"setayesh-06","mode":"missing-letter","answer":"حق","masked":"ـق","missing":[{"start":0,"length":1}],"spellingRule":"ح/ه","lesson":"setayesh","allowedLetters":["ح","ه"]},
+    {"id":"setayesh-07","mode":"missing-letter","answer":"فکرت","masked":"فکرـ","missing":[{"start":3,"length":1}],"spellingRule":"ت/ط","lesson":"setayesh","allowedLetters":["ت","ط"]},
+    {"id":"setayesh-09","mode":"missing-letter","answer":"بهر","masked":"بـر","missing":[{"start":1,"length":1}],"spellingRule":"ه/ح","lesson":"setayesh","allowedLetters":["ه","ح"]},
+    {"id":"setayesh-10","mode":"missing-letter","answer":"تجلی","masked":"ـجلی","missing":[{"start":0,"length":1}],"spellingRule":"ت/ط","lesson":"setayesh","allowedLetters":["ت","ط"]},
+    {"id":"setayesh-13","mode":"missing-letter","answer":"نزد","masked":"نـ...ـد","missing":[{"start":1,"length":1}],"spellingRule":"ز/ذ","lesson":"setayesh","allowedLetters":["ز","ذ"]}
+  ]
+}

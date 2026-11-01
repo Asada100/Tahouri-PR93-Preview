@@ -1,0 +1,336 @@
+/* =====================================
+   Quiz Engine — visual system
+   ===================================== */
+
+.quizScreen {
+    --quiz-ui-surface: #ffffff;
+    --quiz-ui-text: #172033;
+    --quiz-ui-muted: #667085;
+    --quiz-ui-accent: #2563eb;
+    width: min(680px, calc(100% - 40px));
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 24px 0 32px;
+    color: var(--quiz-ui-text);
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quizScreen h1,
+.quizScreen h2,
+.quizScreen .scoreBox,
+.quizScreen .questionBox,
+.quizScreen .quizQuestion,
+.quizScreen .quizOptions,
+.quizScreen .quizMessage {
+    flex: 0 0 auto;
+}
+
+.quizScreen h1 { margin: 0 0 12px; }
+.quizScreen h2 { margin: 12px 0; }
+
+.quizScreen .scoreBox,
+.quizScreen .questionBox {
+    width: min(520px, 100%);
+    margin: 12px auto;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    background: #f4f7fb;
+    color: var(--quiz-ui-text);
+    font-weight: 700;
+}
+
+.quizScreen .questionBox { color: var(--quiz-ui-muted); }
+
+.quizQuestion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(520px, 100%);
+    min-height: 110px;
+    margin: 20px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 18px;
+    background: var(--quiz-ui-surface);
+    box-shadow: 0 8px 26px rgba(15,23,42,.08);
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* دو گزینهٔ پاسخ در یک ردیف */
+.quizOptions {
+    width: min(520px, 100%);
+    margin: 18px auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.quizOptionBtn {
+    width: 100%;
+    min-height: 54px;
+    padding: 13px 18px;
+    border: 2px solid #dbe4ef;
+    border-radius: 15px;
+    background: #fff;
+    color: var(--quiz-ui-text);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.quizOptionBtn:hover:not(:disabled) { transform: translateY(-1px); border-color: #93b4e8; background: #f7faff; }
+.quizOptionBtn:disabled { cursor: default; opacity: .82; }
+
+.quizMessage { min-height: 32px; margin: 12px auto; font-weight: 800; }
+.quizMessage.correct { color: #18794e; }
+.quizMessage.wrong { color: #b42318; }
+.quizMessage.learning {
+    width: min(520px, 100%);
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    background: #f2f4f7;
+    color: #344054;
+    line-height: 1.8;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .quizScreen {
+        width: min(100% - 20px, 680px);
+        min-height: 100vh;
+        padding-top: 16px;
+    }
+
+    .quizQuestion {
+        width: 100%;
+        min-height: 96px;
+        padding: 16px;
+    }
+
+    .quizOptions {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* Even/odd activity: turn the plain quiz into a playful challenge board. */
+.quizScreen.quizGameBoard {
+    --quiz-ui-accent: #6d4aff;
+    width: min(720px, calc(100% - 28px));
+    padding: 20px 0 36px;
+    gap: 8px;
+    background:
+        radial-gradient(ellipse at 12% 6%, rgba(255, 205, 86, .22), transparent 30%),
+        radial-gradient(ellipse at 90% 28%, rgba(99, 214, 201, .2), transparent 28%);
+    border-radius: 28px;
+}
+.quizScreen .gameMasthead {
+    width: min(560px, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 auto 6px;
+}
+.quizScreen .gameBrand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: right;
+}
+.quizScreen .gameBadge {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #7657ff, #4d32d6);
+    color: white;
+    font-size: 27px;
+    box-shadow: 0 7px 0 #35219b, 0 12px 22px rgba(78, 51, 216, .22);
+}
+.quizScreen .gameBrand h1 {
+    margin: 0;
+    font-size: clamp(17px, 3.5vw, 22px);
+    font-weight: 900;
+}
+.quizScreen .gameBrand p {
+    margin: 3px 0 0;
+    color: #69738a;
+    font-size: 13px;
+}
+.quizScreen .gameScore {
+    padding: 10px 14px;
+    border: 2px solid #ffe08a;
+    border-radius: 16px;
+    background: #fff8d9;
+    color: #815400;
+    font-weight: 900;
+    white-space: nowrap;
+    box-shadow: 0 4px 0 #f2cd68;
+}
+.quizScreen .gameTitle {
+    margin: 10px 0 2px;
+    color: #34256e;
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 900;
+}
+.quizScreen .gameProgress {
+    width: min(560px, 100%);
+    margin: 8px auto 10px;
+    text-align: right;
+}
+.quizScreen .gameProgressLabels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 7px;
+    color: #59627a;
+    font-size: 13px;
+    font-weight: 800;
+}
+.quizScreen .gameProgressTrack {
+    height: 12px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e5e7f3;
+    box-shadow: inset 0 2px 4px rgba(36, 30, 85, .1);
+}
+.quizScreen .gameProgressFill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #31c8ad, #6a50ed);
+    transition: width .35s ease;
+}
+.quizScreen .questionBox {
+    width: auto;
+    max-width: 100%;
+    margin: 4px auto;
+    padding: 8px 14px;
+    border: 1px solid #ded7ff;
+    border-radius: 999px;
+    background: #f1edff;
+    color: #5942bd;
+    font-size: 13px;
+    font-weight: 900;
+}
+.quizScreen .quizQuestion {
+    position: relative;
+    width: min(560px, 100%);
+    min-height: 150px;
+    margin: 12px auto;
+    padding: 28px 24px;
+    border: 3px solid #e9e3ff;
+    border-radius: 26px;
+    background: linear-gradient(145deg, #fff 15%, #f7f4ff);
+    box-shadow: 0 7px 0 #e0d8ff, 0 14px 30px rgba(62, 43, 132, .09);
+    font-size: clamp(19px, 4vw, 25px);
+    font-weight: 900;
+    line-height: 1.9;
+}
+.quizScreen .quizOptions {
+    width: min(560px, 100%);
+    gap: 14px;
+    margin: 14px auto;
+}
+.quizScreen .quizOptionBtn {
+    position: relative;
+    min-height: 68px;
+    padding: 15px 18px;
+    border: 2px solid #d9d6f2;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fff, #f8f7ff);
+    box-shadow: 0 5px 0 #e3e0f5;
+    font-size: 17px;
+    font-weight: 900;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+}
+.quizScreen .quizOptionBtn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    border-color: #8872f5;
+    background: #f0edff;
+    box-shadow: 0 8px 0 #d8d0ff;
+}
+.quizScreen .quizOptionBtn:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d8d0ff;
+}
+.quizScreen #skipOptionalChallenge {
+    width: min(360px, 100%);
+    min-height: 48px;
+    border-color: #d5d9e5;
+    background: #f8fafc;
+    box-shadow: none;
+    color: #596579;
+    font-size: 14px;
+}
+.quizScreen .quizMessage {
+    width: min(560px, 100%);
+    box-sizing: border-box;
+    padding: 10px 14px;
+    border-radius: 16px;
+    line-height: 1.8;
+}
+.quizScreen .quizMessage.correct {
+    background: #e5fbf0;
+    border: 1px solid #a6edc8;
+}
+.quizScreen .quizMessage.learning {
+    background: #fff7df;
+    border: 1px solid #ffe19a;
+    color: #79551a;
+}
+@media (max-width: 480px) {
+    .quizScreen.quizGameBoard { width: calc(100% - 20px); padding-top: 14px; }
+    .quizScreen .gameMasthead, .quizScreen .gameProgress { width: 100%; }
+    .quizScreen .gameBadge { width: 44px; height: 44px; flex-basis: 44px; border-radius: 14px; font-size: 23px; }
+    .quizScreen .gameBrand p { font-size: 11px; }
+    .quizScreen .gameScore { padding: 8px 10px; font-size: 13px; }
+    .quizScreen .quizQuestion { min-height: 126px; padding: 22px 16px; }
+    .quizScreen .quizOptionBtn { min-height: 62px; padding: 12px 10px; font-size: 15px; }
+}
+
+
+/* Shared quiz theme variants: all QuizEngine activities use the same game-board layout. */
+.quizScreen.quizThemeDivisibility {
+    --quiz-ui-accent: #0f9f95;
+    background:
+        radial-gradient(ellipse at 12% 6%, rgba(255, 211, 111, .22), transparent 30%),
+        radial-gradient(ellipse at 90% 28%, rgba(45, 212, 191, .20), transparent 28%);
+}
+.quizScreen.quizThemeDivisibility .gameBadge {
+    background: linear-gradient(145deg, #16b8a6, #087f8c);
+    box-shadow: 0 7px 0 #075e65, 0 12px 22px rgba(8, 127, 140, .22);
+}
+.quizScreen.quizThemeDivisibility .gameTitle { color: #075e65; }
+.quizScreen.quizThemeDivisibility .questionBox {
+    border-color: #b7eee6;
+    background: #e7fbf7;
+    color: #087f8c;
+}
+.quizScreen.quizThemeDivisibility .quizQuestion {
+    border-color: #c7f1ea;
+    background: linear-gradient(145deg, #fff 15%, #effdfa);
+    box-shadow: 0 7px 0 #c5eee7, 0 14px 30px rgba(8, 127, 140, .09);
+}
+.quizScreen.quizThemeDivisibility .quizOptionBtn { border-color: #c4e9e5; box-shadow: 0 5px 0 #d6f1ed; }
+.quizScreen.quizThemeDivisibility .quizOptionBtn:hover:not(:disabled) {
+    border-color: #0f9f95;
+    background: #e7fbf7;
+    box-shadow: 0 8px 0 #b7e8e1;
+}
+@media (prefers-reduced-motion: reduce) {
+    .quizScreen .gameProgressFill,
+    .quizScreen .quizOptionBtn { transition: none !important; }
+}

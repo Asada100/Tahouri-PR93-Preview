@@ -1,0 +1,21 @@
+{
+    "id": "matchingManyToOne",
+    "title": "🔎 کارآگاهان عدد",
+    "description": "سرنخ‌ها را بررسی کن و هر عدد را به دستهٔ درست وصل کن.",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "type": "matching",
+    "engine": "matching",
+    "version": "1.0",
+    "matching": {
+        "type": "basic",
+        "instruction": "با دقت سرنخ‌ها را بررسی کن و هر عدد را به دستهٔ زوج یا فرد وصل کن.",
+        "source": "generated",
+        "generator": "numberClassification",
+        "mode": "evenOdd",
+        "count": 10,
+        "min": 1,
+        "max": 100
+    }
+}

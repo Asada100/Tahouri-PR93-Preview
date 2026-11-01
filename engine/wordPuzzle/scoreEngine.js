@@ -1,0 +1,1 @@
+window.WordPuzzleScore={correct(base=10,hints=0){return Math.max(1,base-hints*2)},wrong(){return 0},stars(p){return p>=90?5:p>=80?4:p>=70?3:p>=60?2:p>0?1:0}};

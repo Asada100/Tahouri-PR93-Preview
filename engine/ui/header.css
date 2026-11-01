@@ -1,0 +1,124 @@
+/* =====================================
+   Tahouri Edu Platform
+   Header UI
+   Header-owned styles only
+   ===================================== */
+
+.tahouri-app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, .97);
+    border-bottom: 1px solid #e5eaf1;
+    box-shadow: 0 2px 12px rgba(31, 41, 55, .05);
+    direction: rtl;
+    backdrop-filter: blur(10px);
+}
+
+.tahouri-app-header,
+.tahouri-app-header * { box-sizing: border-box; }
+
+.tahouri-header-side,
+.tahouri-header-notification {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+}
+
+.tahouri-header-menu,
+.tahouri-header-notification,
+.tahouri-header-back {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: transparent;
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .18s ease, transform .18s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tahouri-header-menu,
+.tahouri-header-notification { font-size: 22px; }
+
+.tahouri-header-menu:hover,
+.tahouri-header-notification:hover,
+.tahouri-header-back:hover { background: #f1f5f9; }
+
+.tahouri-header-menu:active,
+.tahouri-header-notification:active,
+.tahouri-header-back:active { transform: scale(.96); }
+
+.tahouri-header-menu:focus-visible,
+.tahouri-header-notification:focus-visible,
+.tahouri-header-back:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, .22);
+    outline-offset: 2px;
+}
+
+.tahouri-header-back {
+    flex: 0 0 44px;
+    display: grid;
+    place-items: center;
+    color: #25324a;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.tahouri-header-section {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.tahouri-header-brand {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 19px;
+    color: #172033;
+}
+
+.tahouri-header-logo { font-size: 25px; }
+
+.tahouri-notification-badge {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #d32f2f;
+    color: white;
+    font-size: 10px;
+    line-height: 19px;
+    text-align: center;
+    font-weight: 700;
+}
+
+@media (max-width: 520px) {
+    .tahouri-app-header { min-height: 58px; padding: 7px 8px; gap: 6px; }
+    .tahouri-header-side,
+    .tahouri-header-notification,
+    .tahouri-header-menu,
+    .tahouri-header-back { width: 40px; min-width: 40px; height: 40px; }
+    .tahouri-header-brand { font-size: 17px; gap: 5px; }
+    .tahouri-header-logo { font-size: 21px; }
+    .tahouri-header-back { flex-basis: 40px; font-size: 23px; }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "persianLesson3TextJigsaw",
+  "title": "جورچین واژه‌ها",
+  "description": "ابتدا شعر را کامل کن، سپس واژه‌ها را به ترتیب درست بچین.",
+  "grade": "grade6",
+  "subject": "persian",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "3.0",
+  "puzzle": {
+    "type": "jigsaw",
+    "source": "file",
+    "content": {
+      "words": ["توانا", "بود", "هر", "که", "دانا", "بود"],
+      "correctOrder": ["توانا", "بود", "هر", "که", "دانا", "بود"],
+      "twoStageWordOrder": true
+    }
+  }
+}

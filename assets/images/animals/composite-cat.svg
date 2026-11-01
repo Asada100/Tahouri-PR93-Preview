@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="title">
+<title id="title">گربه</title>
+<rect width="320" height="240" rx="24" fill="#f0f7ff"/>
+<ellipse cx="160" cy="205" rx="83" ry="12" fill="#dbe7f5"/>
+<path d="M98 88 87 35 132 66M222 88 233 35 188 66" fill="#f4b6a5" stroke="#654a45" stroke-width="7" stroke-linejoin="round"/>
+<path d="M100 78 Q160 38 220 78 Q247 106 231 153 Q216 190 160 192 Q104 190 89 153 Q73 106 100 78Z" fill="#f5c7a8" stroke="#654a45" stroke-width="7"/>
+<path d="M115 113 Q130 100 143 114M177 114 Q191 100 205 113" fill="none" stroke="#654a45" stroke-width="7" stroke-linecap="round"/>
+<ellipse cx="128" cy="122" rx="6" ry="10" fill="#334155"/><ellipse cx="192" cy="122" rx="6" ry="10" fill="#334155"/>
+<path d="M150 143 Q160 134 170 143 L160 152Z" fill="#c96f78"/>
+<path d="M160 152 Q151 165 140 156M160 152 Q169 165 180 156" fill="none" stroke="#654a45" stroke-width="4" stroke-linecap="round"/>
+<path d="M119 143 73 136M119 154 72 160M201 143 247 136M201 154 248 160" stroke="#654a45" stroke-width="3" stroke-linecap="round"/>
+</svg>

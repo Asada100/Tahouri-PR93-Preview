@@ -1,0 +1,131 @@
+{
+  "id": "compositeAnimalMediaDemo",
+  "title": "ماجراجویی جانوران",
+  "description": "یک بازی سه‌مرحله‌ای برای شناخت گروه‌های جانوران؛ تشخیص تصویری، انتخاب پاسخ و وصل‌کردن جانور به گروه درست.",
+  "grade": "grade6",
+  "subject": "science",
+  "chapter": "chapter1",
+  "engine": "composite",
+  "settings": {
+    "scorePerCorrect": 10
+  },
+  "composite": {
+    "mode": "composite",
+    "instruction": "با دقت به جانورها نگاه کن، گروه درست را بشناس و در مرحلهٔ پایانی موارد مرتبط را به هم وصل کن.",
+    "stages": [
+      {
+        "id": "cat-group",
+        "title": "گربه در کدام گروه است؟",
+        "interaction": "choice",
+        "instruction": "به تصویر نگاه کن. گربه به کدام گروه جانوری تعلق دارد؟",
+        "prompt": {
+          "type": "image",
+          "src": "assets/images/animals/composite-cat.svg",
+          "alt": "تصویر سادهٔ یک گربه"
+        },
+        "options": [
+          {
+            "id": "cat-mammal",
+            "media": {
+              "type": "text",
+              "value": "پستاندار"
+            }
+          },
+          {
+            "id": "cat-bird",
+            "media": {
+              "type": "text",
+              "value": "پرنده"
+            }
+          }
+        ],
+        "answerId": "cat-mammal"
+      },
+      {
+        "id": "frog-group",
+        "title": "قورباغه را بشناس",
+        "interaction": "choice",
+        "instruction": "قورباغه در کدام گروه قرار می‌گیرد؟",
+        "prompt": {
+          "type": "image",
+          "src": "assets/images/animals/composite-frog.svg",
+          "alt": "تصویر سادهٔ یک قورباغه"
+        },
+        "options": [
+          {
+            "id": "frog-reptile",
+            "media": {
+              "type": "text",
+              "value": "خزنده"
+            }
+          },
+          {
+            "id": "frog-amphibian",
+            "media": {
+              "type": "text",
+              "value": "دوزیست"
+            }
+          }
+        ],
+        "answerId": "frog-amphibian"
+      },
+      {
+        "id": "animal-group-matching",
+        "title": "چالش پایانی: جانور را به گروهش وصل کن",
+        "interaction": "matching",
+        "instruction": "هر جانور را به گروه درست وصل کن.",
+        "matching": {
+          "type": "matching",
+          "matchingType": "basic",
+          "instruction": "هر جانور را به گروه درست وصل کن.",
+          "pairs": [
+            {
+              "id": "cat-mammal",
+              "left": {
+                "id": "cat",
+                "value": "گربه"
+              },
+              "right": {
+                "id": "mammal",
+                "value": "پستاندار"
+              }
+            },
+            {
+              "id": "frog-amphibian",
+              "left": {
+                "id": "frog",
+                "value": "قورباغه"
+              },
+              "right": {
+                "id": "amphibian",
+                "value": "دوزیست"
+              }
+            },
+            {
+              "id": "pigeon-bird",
+              "left": {
+                "id": "pigeon",
+                "value": "کبوتر"
+              },
+              "right": {
+                "id": "bird",
+                "value": "پرنده"
+              }
+            },
+            {
+              "id": "trout-fish",
+              "left": {
+                "id": "trout",
+                "value": "قزل‌آلا"
+              },
+              "right": {
+                "id": "fish",
+                "value": "ماهی"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

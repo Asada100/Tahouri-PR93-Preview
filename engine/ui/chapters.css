@@ -1,0 +1,72 @@
+/* =====================================
+   Tahouri Edu Platform
+   Learning: Chapter Roadmap
+   Page-owned styles
+   ===================================== */
+
+#app > .screen:has(> .tahouri-app-header) #chaptersContainer {
+    width: min(760px, 100%);
+    margin: 28px auto 20px;
+    padding: 6px 10px 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    counter-reset: chapter;
+}
+
+#app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn {
+    counter-increment: chapter;
+    position: relative;
+    width: 100%;
+    min-height: 82px;
+    padding: 18px 24px 18px 74px;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-card);
+    background: linear-gradient(135deg, var(--ui-surface) 0%, var(--ui-surface-soft) 100%);
+    color: var(--ui-text);
+    font-family: inherit;
+    font-size: clamp(17px, 2.6vw, 21px);
+    font-weight: 800;
+    line-height: 1.45;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: var(--ui-shadow-card);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    -webkit-tap-highlight-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn.learning-image-card {
+    isolation: isolate;
+}
+
+#app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn::before {
+    content: counter(chapter);
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #eef4fb;
+    color: #31506f;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1;
+    z-index: 2;
+}
+
+#app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn:hover { transform: translateY(-2px); border-color: #c7d5e5; box-shadow: var(--ui-shadow-card-hover); }
+#app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn:active { transform: translateY(0); }
+#app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn:focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
+
+@media (max-width: 520px) {
+    #app > .screen:has(> .tahouri-app-header) #chaptersContainer { margin-top: 22px; padding: 4px 4px 10px; gap: 12px; }
+    #app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn { min-height: 76px; padding: 16px 20px 16px 62px; border-radius: 18px; }
+    #app > .screen:has(> .tahouri-app-header) #chaptersContainer .chapterBtn::before { left: 14px; width: 36px; height: 36px; font-size: 16px; }
+}

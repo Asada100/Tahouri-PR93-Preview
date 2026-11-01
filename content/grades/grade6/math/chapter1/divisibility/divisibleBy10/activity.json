@@ -1,0 +1,21 @@
+{
+    "id": "divisibleBy10",
+    "title": "بخش‌پذیری بر ۱۰",
+    "description": "تشخیص بخش‌پذیری اعداد بر ۱۰",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "type": "quiz",
+    "engine": "quiz",
+    "version": "1.0",
+    "settings": {
+        "questions": 10,
+        "minNumber": 1,
+        "maxNumber": 10000,
+        "scorePerCorrect": 10,
+        "allowRetry": true,
+        "mode": "divisibility",
+        "divisor": 10,
+        "questionSource": "generated"
+    }
+}

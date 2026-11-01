@@ -1,0 +1,37 @@
+/* Dictation Screen UI */
+.dictationScreen{width:min(760px,100%);margin:0 auto;padding:24px 16px 40px;text-align:center}
+.dictationCard{background:#fff;border:1px solid #dbe4ef;border-radius:20px;padding:24px;box-shadow:0 7px 20px rgba(31,41,55,.06)}
+.dictationHeader{display:flex;align-items:center;justify-content:center;gap:10px}.dictationHeader h1{margin:0;font-size:30px}
+.dictationQuestionTitle{margin-top:18px;font-size:18px;font-weight:800;color:#172033}
+.dictationInstruction{margin:8px 0 4px;font-size:20px;font-weight:800;color:#172033;line-height:1.8}
+.dictationRuleGuide{margin:0 auto 18px;color:#667085;font-size:15px;line-height:1.8}
+.dictationAnswer{min-height:92px;display:block;text-align:center;direction:rtl;unicode-bidi:plaintext;margin:18px auto;padding:18px 12px;border:2px solid #dbe4ef;border-radius:16px;background:#f8fbff;font-size:34px;font-weight:800}
+.dictationMissing{display:inline-block;color:#4f7cff;font-size:.62em;font-weight:700;letter-spacing:0;white-space:nowrap;vertical-align:baseline;line-height:1;position:relative;top:.08em}
+.dictationAnswer.is-complete{border-style:solid}.dictationTyped,.dictationGhost{display:inline}.dictationFeedback{min-height:28px;margin:6px 0 10px;font-weight:700}.dictationFeedback.wrong{color:#b42318}
+.dictationAnswer.is-wrong{animation:dictationShake .28s ease-in-out}@keyframes dictationShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}
+.dictationKeyboard{margin-top:12px}.dictationKeyboardRow{display:flex;justify-content:center;gap:6px;margin:7px 0;flex-wrap:wrap}
+.dictationKey{min-width:42px;height:42px;border:1px solid #dbe4ef;border-radius:10px;background:#fff;font:inherit;font-weight:700;cursor:pointer;opacity:1}
+.dictationKey.is-active{background:#fff;color:#172033;cursor:pointer;opacity:1;pointer-events:auto}
+.dictationKey.is-expected{outline:none;box-shadow:none}.dictationKey.is-disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
+.dictationUtilityRow{display:flex;justify-content:center;gap:10px;margin-top:12px}.dictationUtility{min-width:58px;height:40px;border:1px solid #dbe4ef;border-radius:10px;background:#fff;cursor:pointer}
+.dictationProgress{margin-top:18px;color:#667085}
+@media(max-width:600px){.dictationScreen{padding:16px 10px 28px}.dictationCard{padding:18px 12px}.dictationAnswer{font-size:28px}.dictationMissing{font-size:.58em;top:.06em}.dictationKey{min-width:38px}}
+
+.dictationNextButton{display:block;margin:16px auto 0;min-width:150px;height:44px;padding:0 22px;border:0;border-radius:12px;background:#2563eb;color:#fff;font:inherit;font-weight:800;cursor:pointer}.dictationNextButton:active{transform:translateY(1px)}
+
+/* Spelling error hunt */
+.spellingErrorVerse{margin:18px auto;padding:18px 12px;border:1px solid #dbe4ef;border-radius:16px;background:#f8fbff;color:#172033;font-size:23px;font-weight:800;line-height:2.1;white-space:normal}
+.spellingErrorWord{display:inline;margin:0;padding:0 1px;border:0;border-radius:3px;background:transparent;color:inherit;font:inherit;cursor:pointer;touch-action:manipulation;text-decoration:none}
+.spellingErrorWord:hover,.spellingErrorWord:focus-visible{background:#e8eef7;outline:1px solid #94a3b8}
+.spellingErrorWord.is-selected{background:#dcfce7;color:#166534;font-weight:900}
+.spellingErrorWord:disabled{cursor:default;opacity:1}
+.spellingErrorAnswerHint,.spellingErrorPlaceholders{color:#98a2b3;font-size:.65em}
+.spellingErrorExplanation{margin:12px auto;padding:12px;border-radius:12px;background:#ecfdf3;color:#166534;line-height:1.8;font-weight:700}
+@media(max-width:600px){.spellingErrorVerse{font-size:19px;padding:14px 8px}.spellingErrorWord{padding:0 3px}}
+
+.spellingErrorVerse{white-space:pre-line}
+
+/* Multi-error Setayesh spelling hunt */
+.spellingErrorWord.is-corrected{display:inline;margin:0;padding:0 1px;border:0;background:transparent;color:#15803d;font:inherit;font-weight:900}
+.spellingErrorWord.is-hint{background:#fef3c7;color:#92400e;outline:2px solid #f59e0b;outline-offset:1px}
+.spellingErrorHintButton{min-width:104px;padding:0 12px;color:#92400e;font-weight:800;background:#fffbeb;border-color:#fcd34d}

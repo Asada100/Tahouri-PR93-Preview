@@ -1,0 +1,41 @@
+{
+  "mode": "guided-word",
+  "instruction": "کلمه را با دقت و بدون اشتباه بنویس.",
+  "settings": {
+    "keyboardMode": "guided",
+    "allowRetry": true,
+    "scorePerCorrect": 10
+  },
+  "questions": [
+    {
+      "id": "guided-01",
+      "mode": "guided-word",
+      "answer": "مدرسه",
+      "lesson": "spelling"
+    },
+    {
+      "id": "guided-02",
+      "mode": "guided-word",
+      "answer": "دانش آموز",
+      "lesson": "spelling"
+    },
+    {
+      "id": "guided-03",
+      "mode": "guided-word",
+      "answer": "آرام",
+      "lesson": "spelling"
+    },
+    {
+      "id": "guided-04",
+      "mode": "guided-word",
+      "answer": "مؤمن",
+      "lesson": "spelling"
+    },
+    {
+      "id": "guided-05",
+      "mode": "guided-word",
+      "answer": "مسئول",
+      "lesson": "spelling"
+    }
+  ]
+}

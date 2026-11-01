@@ -1,0 +1,57 @@
+{
+  "mode": "missing-letter",
+  "instruction": "املای واژه‌های آموخته‌شده را کامل کن.",
+  "generator": {
+    "difficulty": "level-2",
+    "rules": [
+      "s-sad-se",
+      "z",
+      "gh",
+      "h"
+    ],
+    "limit": 6,
+    "wordBank": [
+      {
+        "id": "gen-01",
+        "answer": "شخصیت",
+        "spellingRule": "s-sad-se",
+        "lesson": "lesson1"
+      },
+      {
+        "id": "gen-02",
+        "answer": "موزون",
+        "spellingRule": "z",
+        "lesson": "lesson1"
+      },
+      {
+        "id": "gen-03",
+        "answer": "خالقی",
+        "spellingRule": "gh",
+        "lesson": "lesson1"
+      },
+      {
+        "id": "gen-04",
+        "answer": "مرغزار",
+        "spellingRule": "gh",
+        "lesson": "lesson1"
+      },
+      {
+        "id": "gen-05",
+        "answer": "نهراسیم",
+        "spellingRule": "h",
+        "lesson": "lesson1"
+      },
+      {
+        "id": "gen-06",
+        "answer": "محبت",
+        "spellingRule": "h",
+        "lesson": "lesson1"
+      }
+    ]
+  },
+  "settings": {
+    "keyboardMode": "guided",
+    "allowRetry": true,
+    "scorePerCorrect": 10
+  }
+}

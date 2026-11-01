@@ -1,0 +1,105 @@
+/* =====================================
+   Puzzle Engine — visual system
+   ===================================== */
+
+.puzzleScreen {
+    --puzzle-ui-surface: #ffffff;
+    --puzzle-ui-text: #172033;
+    --puzzle-ui-muted: #667085;
+    width: min(760px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 24px 0 32px;
+    color: var(--puzzle-ui-text);
+    text-align: center;
+}
+
+.puzzleScreen h1 { margin: 0 0 12px; }
+.puzzleInstruction { margin: 10px auto 20px; color: var(--puzzle-ui-muted); line-height: 1.8; }
+
+.puzzleItems,
+.sequenceItems,
+.visualMathEquation,
+.visualComparisonArea,
+.visualMathCountingGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 18px auto;
+}
+
+.puzzleItem,
+.visualComparisonBtn {
+    min-width: 72px;
+    min-height: 54px;
+    padding: 12px 16px;
+    border: 2px solid #dbe4ef;
+    border-radius: 15px;
+    background: #fff;
+    color: var(--puzzle-ui-text);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 14px rgba(15,23,42,.06);
+}
+
+.puzzleItem:hover,
+.visualComparisonBtn:hover { transform: translateY(-1px); }
+.puzzleImageItem { padding: 6px; overflow: hidden; }
+.puzzleImageItem img { display: block; max-width: 100px; max-height: 100px; object-fit: contain; border-radius: 10px; }
+
+.puzzleControls,
+.sequenceAnswerArea,
+.visualMathAnswerArea,
+.visualComparisonChoices,
+.puzzleStandardControls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px auto;
+}
+
+.puzzleControls button,
+.sequenceAnswerArea button,
+.visualMathAnswerArea button,
+.puzzleScreen input,
+.puzzleResetBtn {
+    min-height: 48px;
+    padding: 10px 16px;
+    border: 1px solid #d5deea;
+    border-radius: 13px;
+    background: #fff;
+    color: var(--puzzle-ui-text);
+    font: inherit;
+}
+
+.puzzleControls button,
+.sequenceAnswerArea button,
+.visualMathAnswerArea button,
+.puzzleResetBtn { cursor: pointer; font-weight: 700; }
+.puzzleScreen input { min-width: 130px; text-align: center; }
+
+.puzzleMessage { min-height: 32px; margin: 12px auto; font-weight: 800; }
+.puzzleMoves { margin-top: 12px; color: var(--puzzle-ui-muted); font-weight: 700; }
+.sequenceItem,
+.sequenceMissing,
+.visualMathQuestion,
+.visualMathOperator,
+.visualComparisonSeparator { padding: 10px 14px; border-radius: 12px; background: #f4f7fb; font-weight: 800; }
+.sequenceMissing,
+.visualMathQuestion { min-width: 42px; }
+.visualMathGroup { padding: 10px; border-radius: 15px; background: #f8fafc; }
+.visualComparisonGroup { min-width: 120px; padding: 14px; border-radius: 15px; background: #f8fafc; }
+.ioRow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; width: min(520px,100%); margin: 10px auto; }
+.ioInputValue,
+.ioOutputValue,
+.ioAnswerInput { padding: 12px; border: 1px solid #dbe4ef; border-radius: 12px; background: #fff; }
+
+@media (max-width: 480px) {
+    .puzzleScreen { width: min(100% - 20px, 760px); padding-top: 16px; }
+    .puzzleItems { gap: 8px; }
+    .puzzleItem { min-width: 60px; }
+    .ioRow { grid-template-columns: 1fr auto 1fr; gap: 6px; }
+}

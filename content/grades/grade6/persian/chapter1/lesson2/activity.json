@@ -1,0 +1,17 @@
+{
+  "id": "persianLesson2Jigsaw",
+  "title": "درس دوم — پازل",
+  "description": "تصویر درس دوم فارسی ششم را کامل کن.",
+  "grade": "grade6",
+  "subject": "persian",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.0",
+  "puzzle": {
+    "type": "jigsaw",
+    "source": "file",
+    "rows": 3,
+    "cols": 3,
+    "image": "assets/images/farsi6pazel1.JPG"
+  }
+}

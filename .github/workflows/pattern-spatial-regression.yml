@@ -1,0 +1,45 @@
+name: Pattern and Spatial Regression Checks
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "engine/activity/puzzleTypes/patternPuzzle.js"
+      - "engine/activity/puzzleTypes/spatialPuzzle.js"
+      - "engine/activity/puzzleEngine.js"
+      - "engine/ui/puzzleScreen.js"
+      - "tests/pattern-spatial-regression.test.js"
+      - ".github/workflows/pattern-spatial-regression.yml"
+  pull_request:
+    branches: ["master"]
+    paths:
+      - "engine/activity/puzzleTypes/patternPuzzle.js"
+      - "engine/activity/puzzleTypes/spatialPuzzle.js"
+      - "engine/activity/puzzleEngine.js"
+      - "engine/ui/puzzleScreen.js"
+      - "tests/pattern-spatial-regression.test.js"
+      - ".github/workflows/pattern-spatial-regression.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pattern-spatial-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        run: |
+          node --check engine/activity/puzzleTypes/patternPuzzle.js
+          node --check engine/activity/puzzleTypes/spatialPuzzle.js
+          node --check engine/activity/puzzleEngine.js
+          node --check engine/ui/puzzleScreen.js
+          node --check tests/pattern-spatial-regression.test.js
+      - name: Run Pattern and Spatial regression tests
+        run: node tests/pattern-spatial-regression.test.js

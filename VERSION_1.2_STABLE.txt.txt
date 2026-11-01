@@ -1,0 +1,30 @@
+Tahouri Edu Platform
+
+Version : 1.2 Stable
+
+Status :
+Stable
+
+Architecture :
+Stage Based Learning
+
+Completed :
+
+✓ Navigation
+
+✓ Quiz Engine
+
+✓ Activity Screen
+
+✓ Result Screen
+
+✓ Back To Grades
+
+✓ JSON Loading
+
+✓ Modular Structure
+
+Last Stable Before Version 2
+
+Date :
+2026

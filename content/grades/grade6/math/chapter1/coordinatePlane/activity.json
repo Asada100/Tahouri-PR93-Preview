@@ -1,0 +1,254 @@
+{
+  "id": "mathCoordinatePlane",
+  "title": "مختصات نقطه‌ها",
+  "description": "نقطه را در ناحیهٔ مثبت صفحهٔ مختصات جابه‌جا کن و مختصات را تمرین کن.",
+  "grade": "grade6",
+  "subject": "math",
+  "chapter": "chapter1",
+  "engine": "puzzle",
+  "version": "1.5",
+  "puzzle": {
+    "type": "spatial",
+    "mode": "coordinatePlane",
+    "source": "file",
+    "instruction": "نقطه را به مختصات خواسته‌شده منتقل کن. روی شبکه لمس کن یا مختصات را وارد کن.",
+    "coordinateSystem": {
+      "xMin": 0,
+      "xMax": 12,
+      "yMin": 0,
+      "yMax": 10,
+      "unitStep": 1,
+      "showAxes": true,
+      "showGrid": true
+    },
+    "task": {
+      "kind": "placePoint",
+      "target": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    "questions": [
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (2، 1) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 2,
+            "y": 1
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (1، 4) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 1,
+            "y": 4
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (5، 2) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 5,
+            "y": 2
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (3، 3) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 3,
+            "y": 3
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (6، 1) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 6,
+            "y": 1
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (0، 5) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 0,
+            "y": 5
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (8، 4) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 8,
+            "y": 4
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (4، 7) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 4,
+            "y": 7
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (10، 2) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 10,
+            "y": 2
+          }
+        }
+      },
+      {
+        "type": "spatial",
+        "mode": "coordinatePlane",
+        "source": "file",
+        "instruction": "نقطه را به مختصات (7، 9) منتقل کن.",
+        "coordinateSystem": {
+          "xMin": 0,
+          "xMax": 12,
+          "yMin": 0,
+          "yMax": 10,
+          "unitStep": 1,
+          "showAxes": true,
+          "showGrid": true
+        },
+        "task": {
+          "kind": "placePoint",
+          "target": {
+            "x": 7,
+            "y": 9
+          }
+        }
+      }
+    ]
+  }
+}

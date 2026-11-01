@@ -1,0 +1,20 @@
+{
+    "id": "puzzleDemo",
+    "title": "پازل مرتب‌سازی عددها",
+    "description": "عددها را از کوچک به بزرگ مرتب کن",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "engine": "puzzle",
+    "path": "content/grades/grade6/math/chapter1/puzzleDemo",
+    "settings": {
+        "scorePerCorrect": 10,
+        "allowRetry": true
+    },
+    "puzzle": {
+        "type": "ordering",
+        "instruction": "عددها را از کوچک به بزرگ مرتب کن",
+        "items": [12, 5, 19, 8],
+        "correctOrder": [5, 8, 12, 19]
+    }
+}

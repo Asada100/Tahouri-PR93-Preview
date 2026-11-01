@@ -1,0 +1,20 @@
+{
+    "id": "parityDiscoveryWorkshop",
+    "title": "💡 کارگاه کشف قانون زوج و فرد",
+    "description": "با انتخاب عددها، پیش‌بینی زوج یا فرد بودن حاصل و آزمایش آن، قانون جمع را کشف کن.",
+    "grade": "grade6",
+    "subject": "math",
+    "chapter": "chapter1",
+    "type": "quiz",
+    "engine": "quiz",
+    "version": "1.0",
+    "settings": {
+        "questionSource": "generated",
+        "questions": 10,
+        "minNumber": 1,
+        "maxNumber": 20,
+        "scorePerCorrect": 10,
+        "allowRetry": true,
+        "mode": "parityWorkshop"
+    }
+}
