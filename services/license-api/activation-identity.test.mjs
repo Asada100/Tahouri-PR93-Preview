@@ -98,3 +98,44 @@ test("legacy activation remains available when identity fields are both absent",
   );
   assert.equal(env.calls.some(x => x.sql.includes("FROM student_profiles")), false);
 });
+
+test("an exact idempotency replay returns the stored response even after code use", async () => {
+  const saved = { valid: true, renewalStored: false, entitlement: { claims: { licenseId: "lic-existing" }, signature: "sig" } };
+  const env = identityEnv({ codeStatus: "used", replay: {
+    requestFingerprint: "fingerprint-will-be-compared",
+    responseJson: JSON.stringify(saved)
+  } });
+  // The fingerprint is deterministic; obtain the expected value from the same canonical fields.
+  const codeHash = [...new Uint8Array(await crypto.subtle.digest(
+    "SHA-256", new TextEncoder().encode(request.code.toUpperCase())
+  ))].map(x => x.toString(16).padStart(2, "0")).join("");
+  const fingerprint = [...new Uint8Array(await crypto.subtle.digest(
+    "SHA-256", new TextEncoder().encode(JSON.stringify([
+      codeHash, request.gradeId, "account-A", request.profileId,
+      request.installationId, "promotion"
+    ]))
+  ))].map(x => x.toString(16).padStart(2, "0")).join("");
+  env.DB.prepare = ((original) => (sql) => {
+    const stmt = original(sql);
+    if (sql.includes("FROM activation_requests")) {
+      const first = stmt.first.bind(stmt);
+      stmt.first = async () => ({ requestFingerprint: fingerprint, responseJson: JSON.stringify(saved) });
+    }
+    return stmt;
+  })(env.DB.prepare.bind(env.DB));
+  const result = await activateStudentBoundCode(env, request);
+  assert.deepEqual(result, saved);
+  assert.equal(env.batches.length, 0);
+});
+
+test("an idempotency key reused for a different request is rejected", async () => {
+  const env = identityEnv({ codeStatus: "used", replay: {
+    requestFingerprint: "different-request",
+    responseJson: JSON.stringify({ valid: true })
+  } });
+  await assert.rejects(
+    () => activateStudentBoundCode(env, request),
+    error => error.status === 409
+  );
+  assert.equal(env.batches.length, 0);
+});
