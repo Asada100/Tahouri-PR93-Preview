@@ -22,6 +22,7 @@
     "backup-scheduler": "node backup-scheduler.js",
     "test:config": "node assert-test-config.mjs",
     "test:worker": "npm run test:config && node --test worker.test.mjs",
-    "dev:test": "npm run test:config && wrangler dev --config wrangler.test.jsonc"
+    "dev:test": "npm run test:config && wrangler dev --config wrangler.test.jsonc",
+    "test:activation-identity": "node --test activation-identity.test.mjs"
   }
 }

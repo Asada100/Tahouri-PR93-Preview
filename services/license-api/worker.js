@@ -1,4 +1,5 @@
 import { activateStudentBoundCode } from "./activation-service.js";
+import { ensurePrimaryStudentProfile } from "./student-profile-service.js";
 /**
  * Tahouri License API — Cloudflare Workers + D1.
  *
@@ -205,6 +206,16 @@ async function adminRoute(request, env, url, headers) {
     if (!results?.[0]?.meta?.changes || !results?.[1]?.meta?.changes)
       return error("ثبت حساب دانش‌آموز انجام نشد.", 500, headers);
     return json({ ok: true, student: { studentId, fullName, gradeId, status: "active", createdAt } }, 201, headers);
+  }
+  if (path === "/api/admin/students/profile" && request.method === "POST") {
+    const body = await bodyJson(request);
+    let profile;
+    try {
+      profile = await ensurePrimaryStudentProfile(env, body.studentId);
+    } catch (cause) {
+      return error(cause.message || "ساخت پروفایل انجام نشد.", cause.status || 500, headers);
+    }
+    return json({ ok: true, profile }, profile.created ? 201 : 200, headers);
   }
   if (path === "/api/admin/students/archive" && request.method === "POST") {
     const body = await bodyJson(request);

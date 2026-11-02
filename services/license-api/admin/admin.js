@@ -19,7 +19,8 @@ async function loadStudents(){
   const previous=select.value;
   select.innerHTML='<option value="">انتخاب دانش‌آموز ثبت‌شده</option>'+active.map(x=>'<option value="'+e(x.studentId)+'" data-grade="'+e(x.gradeId)+'">'+e(x.fullName)+' — '+e(x.gradeId)+' — '+e(x.studentId)+'</option>').join("");
   if(active.some(x=>x.studentId===previous))select.value=previous;
-  document.getElementById("students").innerHTML=table(["نام دانش‌آموز","شناسهٔ حساب","پایه","وضعیت","تاریخ ثبت"],d.students.map(x=>[x.fullName,x.studentId,x.gradeId,x.status==="active"?"فعال":"بایگانی‌شده",x.createdAt])) + d.students.map(x=>"<button data-copy-student='"+e(x.studentId)+"'>کپی شناسهٔ "+e(x.fullName)+"</button>"+(x.status==="active"?" <button class='danger' data-archive-student='"+e(x.studentId)+"'>بایگانی</button>":"")).join("");
+  document.getElementById("students").innerHTML=table(["نام دانش‌آموز","شناسهٔ حساب","پایه","وضعیت","تاریخ ثبت"],d.students.map(x=>[x.fullName,x.studentId,x.gradeId,x.status==="active"?"فعال":"بایگانی‌شده",x.createdAt])) + d.students.map(x=>"<button data-copy-student='"+e(x.studentId)+"'>کپی شناسهٔ "+e(x.fullName)+"</button>"+(x.status==="active"?" <button data-primary-profile='"+e(x.studentId)+"'>ایجاد/بازیابی پروفایل اصلی</button> <button class='danger' data-archive-student='"+e(x.studentId)+"'>بایگانی</button>":"")).join("");
+  document.getElementById("students").querySelectorAll("[data-primary-profile]").forEach(button=>button.addEventListener("click",()=>ensureStudentProfile(button.dataset.primaryProfile,button)));
   document.getElementById("students").querySelectorAll("[data-archive-student]").forEach(button=>button.addEventListener("click",()=>archiveStudent(button.dataset.archiveStudent)));
   document.getElementById("students").querySelectorAll("[data-copy-student]").forEach(button=>button.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(button.dataset.copyStudent);button.textContent="شناسه کپی شد";}catch{button.textContent="کپی خودکار در دسترس نیست؛ شناسه را از جدول انتخاب کنید";}}));
   select.onchange=()=>{const opt=select.selectedOptions[0];if(opt?.dataset.grade)document.getElementById("grade").value=opt.dataset.grade};
@@ -36,6 +37,16 @@ async function createStudent(){
     document.getElementById("grade").value=d.student.gradeId;
     alert("حساب ثبت شد. شناسهٔ دانش‌آموز را در سوابق نگه دارید.");
   }catch(x){alert(x.message)}
+}
+async function ensureStudentProfile(studentId,button){
+  try{
+    button.disabled=true;
+    const d=await api("/api/admin/students/profile",{method:"POST",body:JSON.stringify({studentId})});
+    const profileId=d.profile.profileId;
+    try{await navigator.clipboard.writeText(profileId);alert("شناسهٔ پروفایل اصلی کپی شد:\n"+profileId)}
+    catch{alert("شناسهٔ پروفایل اصلی:\n"+profileId)}
+    button.textContent=d.profile.created?"پروفایل ساخته شد":"پروفایل موجود است";
+  }catch(x){alert(x.message);button.disabled=false}
 }
 async function archiveStudent(studentId){
   if(!confirm("حساب دانش‌آموز بایگانی شود؟ کد جدید برای آن صادر نخواهد شد."))return;

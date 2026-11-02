@@ -1,0 +1,27 @@
+name: Activation identity tests
+
+on:
+  push:
+    branches:
+      - fix/pr93-activation-idempotency
+    paths:
+      - "services/license-api/**"
+      - ".github/workflows/activation-identity-tests.yml"
+  pull_request:
+    paths:
+      - "services/license-api/**"
+      - ".github/workflows/activation-identity-tests.yml"
+
+jobs:
+  activation-identity:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/license-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run activation identity tests
+        run: node --test *.test.mjs
