@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const PRODUCTION_DATABASE_ID = "bc958420-184a-43ff-b728-069654f58058";
+const PREVIEW_DATABASE_ID = "0600a724-949c-4ca8-828c-be18b797ad54";
+const PREVIEW_DATABASE_NAME = "tahouri-license-ownership-test-20261030";
 const TEST_DATABASE_ID = "0600a724-949c-4ca8-828c-be18b797ad54";
 const TEST_DATABASE_NAME = "tahouri-license-ownership-test-20261030";
 
@@ -17,8 +19,14 @@ const testDbs = test.d1_databases || [];
 const testDb = testDbs.find(item => item.binding === "DB");
 
 const errors = [];
-if (productionDb?.database_id !== PRODUCTION_DATABASE_ID) {
-  errors.push("Production config does not point to the expected production D1; investigate manually.");
+if (productionDb?.database_id !== PREVIEW_DATABASE_ID || productionDb?.database_name !== PREVIEW_DATABASE_NAME) {
+  errors.push("Preview Worker config does not point to the isolated Preview D1.");
+}
+if (productionDb?.database_id === PRODUCTION_DATABASE_ID) {
+  errors.push("BLOCKED: Preview Worker config points to Production D1.");
+}
+if (production.name !== "tahouri-license-api-pr93-e2e" || production.vars?.SERVICE_ENVIRONMENT !== "preview") {
+  errors.push("Preview Worker name or environment marker is incorrect.");
 }
 if (test.name !== "tahouri-license-api-isolated-test") errors.push("Unexpected test Worker name.");
 if (test.vars?.SERVICE_ENVIRONMENT !== "test") errors.push("Test environment marker is missing.");
@@ -43,6 +51,7 @@ if (errors.length) {
 }
 
 console.log("Tahouri isolated-test configuration: PASS");
-console.log("Production D1 ID is excluded from the test config.");
+console.log("Production D1 ID is excluded from Preview and isolated-test configs.");
+console.log("Preview Worker points only to the isolated Preview D1.");
 console.log("Test D1 uses a remote binding while Worker execution remains local.");
 console.log("No public Worker route or preview URL is configured.");
