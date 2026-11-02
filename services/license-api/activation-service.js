@@ -154,7 +154,9 @@ export async function activateStudentBoundCode(env, body) {
 
   // D1 batch is transactional. Each later write is conditional on the exact
   // student-bound code having been atomically claimed by the first statement.
-  const results = await env.DB.batch([
+  let results;
+  try {
+    results = await env.DB.batch([
     env.DB.prepare(`UPDATE activation_codes SET status = 'used', used_at = ?, license_id = ?
       WHERE code_hash = ? AND student_id = ? AND product_id = ?
       AND status = 'active' AND used_at IS NULL AND license_id IS NULL
@@ -191,9 +193,34 @@ export async function activateStudentBoundCode(env, body) {
         installationId, licenseId, JSON.stringify({ valid: true, renewalStored: future,
           entitlement }), now, licenseId, studentId)] : [])
   ]);
+    ]);
+  } catch (batchError) {
+    if (!identity) throw batchError;
+    const raced = await env.DB.prepare(`SELECT request_fingerprint AS requestFingerprint,
+      response_json AS responseJson FROM activation_requests WHERE idempotency_key = ?`)
+      .bind(identity.idempotencyKey).first();
+    if (!raced) throw batchError;
+    if (raced.requestFingerprint !== requestFingerprint)
+      throw fail(409, "کلید جلوگیری از ثبت تکراری با درخواست دیگری استفاده شده است.");
+    try { return JSON.parse(raced.responseJson); }
+    catch { throw fail(500, "پاسخ ذخیره‌شده فعال‌سازی معتبر نیست."); }
+  }
+
   if (!results?.[0]?.meta?.changes || !results?.[1]?.meta?.changes || !results?.[2]?.meta?.changes ||
-      (identity && !results?.[3]?.meta?.changes))
+      (identity && !results?.[3]?.meta?.changes)) {
+    if (identity) {
+      const raced = await env.DB.prepare(`SELECT request_fingerprint AS requestFingerprint,
+        response_json AS responseJson FROM activation_requests WHERE idempotency_key = ?`)
+        .bind(identity.idempotencyKey).first();
+      if (raced) {
+        if (raced.requestFingerprint !== requestFingerprint)
+          throw fail(409, "کلید جلوگیری از ثبت تکراری با درخواست دیگری استفاده شده است.");
+        try { return JSON.parse(raced.responseJson); }
+        catch { throw fail(500, "پاسخ ذخیره‌شده فعال‌سازی معتبر نیست."); }
+      }
+    }
     throw fail(409, "کد قبلاً مصرف شده یا امکان ثبت مجوز وجود ندارد.");
+  }
 
   return { valid: true, renewalStored: future, entitlement };
 }
