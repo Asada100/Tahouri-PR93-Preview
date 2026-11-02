@@ -192,7 +192,6 @@ export async function activateStudentBoundCode(env, body) {
       .bind(identity.idempotencyKey, requestFingerprint, studentId, identity.profileId,
         installationId, licenseId, JSON.stringify({ valid: true, renewalStored: future,
           entitlement }), now, licenseId, studentId)] : [])
-  ]);
     ]);
   } catch (batchError) {
     if (!identity) throw batchError;
