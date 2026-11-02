@@ -53,7 +53,7 @@ test("primary profile provisioning creates profile and audit atomically", async 
   assert.match(batches[0][0].sql, /NOT EXISTS/);
   assert.equal(batches[0][0].values[3], "account-A");
   assert.match(batches[0][1].sql, /student\.profile\.created/);
-  assert.equal(batches[0][1].values[3], result.profileId);
+  assert.equal(batches[0][1].values[2], result.profileId);
 });
 
 test("primary profile provisioning returns an existing primary profile without writes", async () => {
