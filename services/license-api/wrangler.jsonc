@@ -1,19 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tahouri-license-api",
+  "name": "tahouri-license-api-pr93-e2e",
   "main": "worker.js",
   "compatibility_date": "2026-10-29",
   "workers_dev": true,
   "vars": {
-    "SERVICE_ENVIRONMENT": "production",
+    "SERVICE_ENVIRONMENT": "preview",
     "ADMIN_ORIGIN": "https://asada100.github.io",
     "APP_ORIGIN": "https://asada100.github.io"
   },
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "tahouri-license-db",
-      "database_id": "bc958420-184a-43ff-b728-069654f58058",
+      "database_name": "tahouri-license-ownership-test-20261030",
+      "database_id": "0600a724-949c-4ca8-828c-be18b797ad54",
       "migrations_dir": "migrations"
     }
   ],
