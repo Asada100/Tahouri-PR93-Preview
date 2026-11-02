@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { generateKeyPairSync } from "node:crypto";
 import { activateStudentBoundCode } from "./activation-service.js";
 
 const year = (() => {
@@ -138,4 +139,43 @@ test("an idempotency key reused for a different request is rejected", async () =
     error => error.status === 409
   );
   assert.equal(env.batches.length, 0);
+});
+
+
+test("successful identity activation atomically writes license, audit, and idempotency record", async () => {
+  const { privateKey } = generateKeyPairSync("rsa", {
+    modulusLength: 2048,
+    privateKeyEncoding: { type: "pkcs8", format: "pem" },
+    publicKeyEncoding: { type: "spki", format: "pem" }
+  });
+  const env = identityEnv({
+    profile: { profileId: "profile-A", accountId: "account-A", status: "active" },
+    account: { studentId: "account-A", status: "active" }
+  });
+  env.LICENSE_SIGNING_PRIVATE_KEY_PEM = privateKey;
+
+  const result = await activateStudentBoundCode(env, request);
+
+  assert.equal(result.valid, true);
+  assert.equal(result.renewalStored, false);
+  assert.equal(result.entitlement.claims.studentId, "account-A");
+  assert.equal(result.entitlement.claims.gradeScope, "grade6");
+  assert.equal(result.entitlement.claims.installationBinding, "install-A");
+  assert.equal(result.entitlement.algorithm, "RSASSA-PKCS1-v1_5-SHA256");
+  assert.match(result.entitlement.signature, /^[A-Za-z0-9+/]+=*$/);
+
+  assert.equal(env.batches.length, 1);
+  const writes = env.batches[0];
+  assert.equal(writes.length, 4, "all four writes must be submitted in one D1 batch");
+  assert.match(writes[0].sql, /UPDATE activation_codes SET status = 'used'/);
+  assert.match(writes[1].sql, /INSERT INTO licenses/);
+  assert.match(writes[1].sql, /profile_id/);
+  assert.equal(writes[1].values[12], "profile-A");
+  assert.match(writes[2].sql, /INSERT INTO audit_log/);
+  assert.match(writes[3].sql, /INSERT INTO activation_requests/);
+  assert.equal(writes[3].values[0], request.idempotencyKey);
+  assert.equal(writes[3].values[2], "account-A");
+  assert.equal(writes[3].values[3], "profile-A");
+  assert.equal(writes[3].values[4], "install-A");
+  assert.equal(writes[3].values[6], JSON.stringify(result));
 });
