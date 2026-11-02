@@ -54,6 +54,19 @@ export async function activateStudentBoundCode(env, body) {
   const renewalMode = String(body.renewalMode || "promotion").trim().toLowerCase();
   if (!["promotion", "repeat"].includes(renewalMode)) throw fail(400, "نوع تمدید معتبر نیست.");
 
+  const hasProfileId = body.profileId !== undefined && body.profileId !== null && String(body.profileId).trim() !== "";
+  const hasIdempotencyKey = body.idempotencyKey !== undefined && body.idempotencyKey !== null && String(body.idempotencyKey).trim() !== "";
+  if (hasProfileId !== hasIdempotencyKey)
+    throw fail(400, "profileId و idempotencyKey باید هم‌زمان ارسال شوند.");
+  const identity = hasProfileId ? {
+    profileId: identifier(body.profileId, "profileId"),
+    idempotencyKey: String(body.idempotencyKey).trim()
+  } : null;
+  if (identity && (identity.idempotencyKey.length < 16 ||
+      identity.idempotencyKey.length > 128 ||
+      !/^[A-Za-z0-9._:-]+$/.test(identity.idempotencyKey)))
+    throw fail(400, "idempotencyKey معتبر نیست.");
+
   const codeHash = await (async value => {
     const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
     return [...new Uint8Array(digest)].map(x => x.toString(16).padStart(2, "0")).join("");
@@ -65,6 +78,35 @@ export async function activateStudentBoundCode(env, body) {
   if (!record || record.productId !== PRODUCT_ID || !record.studentId ||
       record.studentId !== studentId) throw fail(400, "کد فعال‌سازی برای این پروفایل معتبر نیست.");
   if (record.gradeId !== gradeId) throw fail(400, "این کد مربوط به پایه انتخاب‌شده نیست.");
+
+  let requestFingerprint = null;
+  if (identity) {
+    const schema = await env.DB.prepare("SELECT MAX(version) AS version FROM schema_migrations").first();
+    if (Number(schema?.version || 0) < 6)
+      throw fail(503, "ساختار هویت و جلوگیری از فعال‌سازی تکراری هنوز آماده نیست.");
+    requestFingerprint = await (async value => {
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+      return [...new Uint8Array(digest)].map(x => x.toString(16).padStart(2, "0")).join("");
+    })(JSON.stringify([codeHash, gradeId, record.studentId, identity.profileId, installationId, renewalMode]));
+    const prior = await env.DB.prepare(`SELECT request_fingerprint AS requestFingerprint,
+      response_json AS responseJson FROM activation_requests WHERE idempotency_key = ?`)
+      .bind(identity.idempotencyKey).first();
+    if (prior) {
+      if (prior.requestFingerprint !== requestFingerprint)
+        throw fail(409, "کلید جلوگیری از ثبت تکراری با درخواست دیگری استفاده شده است.");
+      try { return JSON.parse(prior.responseJson); }
+      catch { throw fail(500, "پاسخ ذخیره‌شده فعال‌سازی معتبر نیست."); }
+    }
+    const profile = await env.DB.prepare(`SELECT profile_id AS profileId, account_id AS accountId,
+      status FROM student_profiles WHERE profile_id = ?`)
+      .bind(identity.profileId).first();
+    const account = await env.DB.prepare(`SELECT student_id AS studentId, status
+      FROM student_accounts WHERE student_id = ?`).bind(record.studentId).first();
+    if (!profile || profile.profileId !== identity.profileId ||
+        profile.accountId !== record.studentId || profile.status !== "active" ||
+        !account || account.studentId !== record.studentId || account.status !== "active")
+      throw fail(409, "پروفایل فعال به حساب مالک کد تعلق ندارد.");
+  }
   if (record.status !== "active" || record.usedAt) throw fail(409, "این کد قبلاً استفاده شده یا غیرفعال است.");
 
   const targetYear = Number(record.academicYear);
@@ -124,13 +166,14 @@ export async function activateStudentBoundCode(env, body) {
         PRODUCT_ID, studentId, gradeId, period.academicYear),
     env.DB.prepare(`INSERT INTO licenses
       (license_id, code_hash, product_id, student_id, grade_id, academic_year,
-       valid_from, valid_until, installation_binding, status, entitlement_json, created_at)
-      SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+       valid_from, valid_until, installation_binding, status, entitlement_json, created_at${identity ? ", profile_id" : ""})
+      SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?${identity ? ", ?" : ""}
       WHERE EXISTS (SELECT 1 FROM activation_codes WHERE code_hash = ?
         AND student_id = ? AND status = 'used' AND license_id = ?)`)
       .bind(licenseId, codeHash, PRODUCT_ID, studentId, gradeId, period.academicYear,
         period.validFrom, period.validUntil, installationId, status,
-        JSON.stringify(entitlement), now, codeHash, studentId, licenseId),
+        JSON.stringify(entitlement), now, ...(identity ? [identity.profileId] : []),
+        codeHash, studentId, licenseId),
     env.DB.prepare(`INSERT INTO audit_log
       (event_type, actor, license_id, code_hash, created_at, metadata_json)
       SELECT ?, 'client', ?, ?, ?, ?
@@ -138,9 +181,18 @@ export async function activateStudentBoundCode(env, body) {
       .bind(future ? "license.renewal_reserved" : "license.activated",
         licenseId, codeHash, now, JSON.stringify({ gradeId, studentId,
           academicYear: period.academicYear, validFrom: period.validFrom }),
-        licenseId, studentId)
+        licenseId, studentId),
+    ...(identity ? [env.DB.prepare(`INSERT INTO activation_requests
+      (idempotency_key, request_fingerprint, account_id, profile_id, installation_id,
+       license_id, response_json, created_at)
+      SELECT ?, ?, ?, ?, ?, ?, ?, ?
+      WHERE EXISTS (SELECT 1 FROM licenses WHERE license_id = ? AND student_id = ?)`)
+      .bind(identity.idempotencyKey, requestFingerprint, studentId, identity.profileId,
+        installationId, licenseId, JSON.stringify({ valid: true, renewalStored: future,
+          entitlement }), now, licenseId, studentId)] : [])
   ]);
-  if (!results?.[0]?.meta?.changes || !results?.[1]?.meta?.changes || !results?.[2]?.meta?.changes)
+  if (!results?.[0]?.meta?.changes || !results?.[1]?.meta?.changes || !results?.[2]?.meta?.changes ||
+      (identity && !results?.[3]?.meta?.changes))
     throw fail(409, "کد قبلاً مصرف شده یا امکان ثبت مجوز وجود ندارد.");
 
   return { valid: true, renewalStored: future, entitlement };
