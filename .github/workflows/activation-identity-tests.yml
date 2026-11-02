@@ -24,4 +24,4 @@ jobs:
         with:
           node-version: 22
       - name: Run activation identity tests
-        run: node --test activation-identity.test.mjs
+        run: node --test *.test.mjs
