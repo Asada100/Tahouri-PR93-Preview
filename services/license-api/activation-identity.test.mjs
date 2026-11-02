@@ -25,6 +25,7 @@ function identityEnv({ codeStatus = "active", profile = null, account = null, re
         bind(...args) { values = args; return this; },
         async first() {
           calls.push({ sql, values });
+          if (sql.includes("MAX(version) AS version")) return { version: 6 };
           if (sql.includes("FROM activation_codes WHERE code_hash")) return code;
           if (sql.includes("FROM activation_requests")) return replay;
           if (sql.includes("FROM student_profiles")) return profile;
